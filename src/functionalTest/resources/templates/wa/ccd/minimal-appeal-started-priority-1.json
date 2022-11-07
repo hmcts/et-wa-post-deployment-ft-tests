@@ -1,0 +1,12 @@
+{
+  "TextField": "hi world",
+  "appellantGivenNames": "Functional",
+  "appellantFamilyName": "PostDeployment",
+  "caseAccessCategory": "categoryA,categoryC",
+  "appealType": "protection",
+  "caseManagementLocation": {
+    "baseLocation": "765324"
+  },
+  "staffLocation": "Taylor House",
+  "urgent": "No"
+}

@@ -1,12 +1,5 @@
 java:
-  applicationPort: 4550
-  image: 'hmctspublic.azurecr.io/rpe/spring-boot-template:latest'
-  ingressHost: rpe-spring-boot-template-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-  aadIdentityName: rpe
-#  Uncomment once the vault containing the app insights key has been set up
-#  keyVaults:
-#    rpe:
-#      secrets:
-#        - name: AppInsightsInstrumentationKey
-#          alias: azure.application-insights.instrumentation-key
-  environment:
+  applicationPort: 8888
+  image: 'hmctspublic.azurecr.io/et/et-wa-post-deployment-ft-tests:latest'
+  ingressHost: et-wa-post-deployment-ft-tests-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+  aadIdentityName: et

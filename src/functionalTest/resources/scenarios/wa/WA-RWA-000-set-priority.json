@@ -1,0 +1,737 @@
+{
+  "description": "create case and initialize task for the WA jurisdiction and set priority and update case data and trigger reconfiguration",
+  "enabled": true,
+  "jurisdiction": "WA",
+  "caseType": "WaCaseType",
+  "testType": "Reconfiguration",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "CREATE",
+        "state": "TODO",
+        "caseIdKey": "case_id_1",
+        "caseData": {
+          "template": "minimal-appeal-started-priority-1.json"
+        }
+      },
+      {
+        "eventId": "CREATE",
+        "state": "TODO",
+        "caseIdKey": "case_id_2",
+        "caseData": {
+          "template": "minimal-appeal-started-priority-2.json"
+        }
+      },
+      {
+        "eventId": "CREATE",
+        "state": "TODO",
+        "caseIdKey": "case_id_3",
+        "caseData": {
+          "template": "minimal-appeal-started-priority-3.json"
+        }
+      }
+    ]
+  },
+  "before": {
+    "request": {
+      "input": {
+        "eventMessages": [
+          {
+            "template": "minimal-ccd-event-message-1.json",
+            "caseIdKey": "case_id_1",
+            "replacements": {
+              "EventTimeStamp": "{$LOCAL_DATETIME_TODAY-2HOURS}",
+              "AdditionalData": {
+                "Data": {
+                  "appealType": "deprivation"
+                }
+              }
+            }
+          },
+          {
+            "template": "minimal-ccd-event-message-2.json",
+            "caseIdKey": "case_id_2",
+            "replacements": {
+              "EventTimeStamp": "{$LOCAL_DATETIME_TODAY-2HOURS}",
+              "AdditionalData": {
+                "Data": {
+                  "appealType": "deprivation"
+                }
+              }
+            }
+          },
+          {
+            "template": "minimal-ccd-event-message-3.json",
+            "caseIdKey": "case_id_3",
+            "replacements": {
+              "EventTimeStamp": "{$LOCAL_DATETIME_TODAY-2HOURS}",
+              "AdditionalData": {
+                "Data": {
+                  "appealType": "deprivation"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaCaseOfficer",
+        "status": 200,
+        "caseIdKey": "case_id_1,case_id_2,case_id_3",
+        "numberOfTasksAvailable": 3,
+        "taskData": {
+          "template": "minimal-task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$case_id_3}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                },
+                "major_priority": 1000,
+                "minor_priority": 500,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+              },
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$case_id_2}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                },
+                "major_priority": 5000,
+                "minor_priority": 500
+              },
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$case_id_1}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                },
+                "major_priority": 5000,
+                "minor_priority": 500,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+              }
+            ]
+          }
+        },
+        "numberOfRolesAvailable": 10,
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "case-manager",
+              "permissions": [
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "challenged-access-admin",
+              "permissions": [
+                "Execute",
+                "Assign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "challenged-access-judiciary",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "challenged-access-legal-ops",
+              "permissions": [
+                "Manage",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "ftpa-judge",
+              "permissions": [
+                "Execute"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-panel-judge",
+              "permissions": [
+                "Manage"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "lead-judge",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Complete",
+                "Claim",
+                "Unclaim",
+                "UnassignClaim",
+                "Execute",
+                "UnassignAssign",
+                "UnclaimAssign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Manage",
+                "Cancel",
+                "Assign",
+                "Unassign",
+                "Complete"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim",
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "requiredUpdate": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "UPDATE",
+        "state": "TODO",
+        "caseIdKey": "case_id_2",
+        "caseData": {
+          "template": "minimal-appeal-started-priority-2a.json"
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "WaCaseOfficer",
+      "input": {
+        "eventMessages": [
+          {
+            "template": "minimal-ccd-event-message-1.json",
+            "caseIdKey": "case_id_1",
+            "replacements": {
+              "EventId": "UPDATE",
+              "NewStateId": "Reconfigure"
+            }
+          },
+          {
+            "template": "minimal-ccd-event-message-2.json",
+            "caseIdKey": "case_id_2",
+            "replacements": {
+              "EventId": "UPDATE",
+              "NewStateId": "Reconfigure"
+            }
+          },
+          {
+            "template": "minimal-ccd-event-message-3.json",
+            "caseIdKey": "case_id_3",
+            "replacements": {
+              "EventId": "UPDATE",
+              "NewStateId": "Reconfigure"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaCaseOfficer",
+        "status": 200,
+        "caseIdKey": "case_id_1,case_id_2,case_id_3",
+        "numberOfTasksAvailable": 3,
+        "taskData": {
+          "template": "minimal-task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$case_id_2}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                },
+                "major_priority": 1000,
+                "minor_priority": 500
+              },
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$case_id_3}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                },
+                "major_priority": 1000,
+                "minor_priority": 500,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+              },
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$case_id_1}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                },
+                "major_priority": 5000,
+                "minor_priority": 500,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+              }
+            ]
+          }
+        },
+        "numberOfRolesAvailable": 10,
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "case-manager",
+              "permissions": [
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "challenged-access-admin",
+              "permissions": [
+                "Execute",
+                "Assign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "challenged-access-judiciary",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "challenged-access-legal-ops",
+              "permissions": [
+                "Manage",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "ftpa-judge",
+              "permissions": [
+                "Execute"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-panel-judge",
+              "permissions": [
+                "Manage"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "lead-judge",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Complete",
+                "Claim",
+                "Unclaim",
+                "UnassignClaim",
+                "Execute",
+                "UnassignAssign",
+                "UnclaimAssign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Manage",
+                "Cancel",
+                "Assign",
+                "Unassign",
+                "Complete"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim",
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

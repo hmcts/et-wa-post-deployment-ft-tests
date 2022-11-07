@@ -1,5 +1,5 @@
 server:
-  port: 4550
+  port: 8888
 
 management:
   endpoint:
@@ -11,37 +11,41 @@ management:
       exposure:
         include: health, info, prometheus
 
-springdoc:
-  packagesToScan: uk.gov.hmcts.reform.demo.controllers
-
-#If you use a database then uncomment below lines and update db properties accordingly
 spring:
-  config:
-    import: "optional:configtree:/mnt/secrets/rpe/"
   application:
-    name: Spring Boot Template
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}${DB_OPTIONS:}
-#    username: ${DB_USER_NAME}
-#    password: ${DB_PASSWORD}
-#    properties:
-#      charSet: UTF-8
-#    hikari:
-#      minimumIdle: 2
-#      maximumPoolSize: 10
-#      idleTimeout: 10000
-#      poolName: {to-be-defined}HikariCP
-#      maxLifetime: 7200000
-#      connectionTimeout: 30000
-#  jpa:
-#    properties:
-#      hibernate:
-#        jdbc:
-#          lob:
-#            # silence the 'wall-of-text' - unnecessary exception throw about blob types
-#            non_contextual_creation: true
-
+    name: WA post deployment functional test
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc:
+            client-id: ${WA_IDAM_CLIENT_ID:wa}
+            client-secret: ${WA_IDAM_CLIENT_SECRET:something}
 azure:
   application-insights:
-    instrumentation-key: ${rpe.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
+    instrumentation-key: ${wa.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
+
+idam:
+  baseUrl: ${IDAM_STUB_SERVICE_NAME:http://sidam-api}
+  redirectUrl: ${IA_IDAM_REDIRECT_URI:http://xui-webapp/oauth2/callback}
+  scope: "openid profile roles"
+  s2s-auth:
+    url: ${IDAM_S2S_URL:http://service-auth-provider-api}
+    secret: ${S2S_SECRET_TASK_MANAGEMENT_API:AAAAAAAAAAAAAAAA}
+    name: ${S2S_NAME_TASK_MANAGEMENT_API:wa_task_management_api}
+  api:
+    baseUrl: ${IDAM_STUB_SERVICE_NAME:http://sidam-api}
+
+camunda:
+  url: ${CAMUNDA_URL:http://camunda-local-bpm/engine-rest}
+
+role-assignment-service:
+  url: ${ROLE_ASSIGNMENT_URL:http://role-assignment}
+
+logging:
+  level:
+    com.azure.*: OFF
+    com.azure.core.amqp.implementation.*: OFF
+    net.serenitybdd.rest.decorators.request.RequestSpecificationDecorated: OFF

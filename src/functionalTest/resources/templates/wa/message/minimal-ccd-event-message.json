@@ -1,0 +1,10 @@
+{
+  "EventInstanceId": "{$RANDOM_UUID}",
+  "CaseId": "{$GENERATED_CASE_ID}",
+  "EventTimeStamp": "{$LOCAL_DATETIME_TODAY}",
+  "JurisdictionId": "WA",
+  "CaseTypeId": "WaCaseType",
+  "EventId": "CREATE",
+  "NewStateId": "TODO",
+  "UserId": "{$USER_ID}"
+}

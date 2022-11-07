@@ -1,0 +1,34 @@
+{
+  "tasks": [
+    {
+      "id": "fe8f8a80-4c74-11ec-9724-0242ac110008",
+      "name": "Review the appeal",
+      "type": "reviewTheAppeal",
+      "task_state": "unassigned",
+      "task_system": "SELF",
+      "security_classification": "PUBLIC",
+      "task_title": "Review the appeal",
+      "created_date": "2021-11-23T15:49:51+0000",
+      "due_date": "2021-11-25T16:00:00+0000",
+      "waDummyPostcode": "M1 2AB",
+      "location": "765324",
+      "execution_type": "Case Management Task",
+      "jurisdiction": "IA",
+      "region": "1",
+      "case_type_id": "Asylum",
+      "case_id": "1637682585406949",
+      "case_category": "Protection",
+      "case_name": "Functional PostDeployment",
+      "auto_assigned": false,
+      "warnings": false,
+      "warning_list": {
+        "values": []
+      },
+      "case_management_category": "Protection",
+      "work_type_id": "decision_making_work",
+      "permissions": {
+        "values": ["Cancel", "Manage", "Own", "Refer", "Read"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "description": "et created draft case should create a draftCaseCreated task",
+  "enabled": true,
+  "jurisdiction": "EMPLOYMENT",
+  "caseType": "ET_EnglandWales",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "ETCaseWorker",
+    "ccd": [
+      {
+        "eventId": "INITIATE_CASE_DRAFT",
+        "state": "",
+        "caseData": {
+          "template": "draft-case-created.json"
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "ETCaseWorker",
+      "input": {
+        "eventMessages": [
+          {
+            "template": "ccd-event-message.json",
+            "replacements": {
+              "EventId": "INITIATE_CASE_DRAFT",
+              "NewStateId": "AWAITING_SUBMISSION_TO_HMCTS"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "ETCaseWorker",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_name": "Functional PostDeployment",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Protection",
+                "name": "Allocate Hearing Judge",
+                "type": "allocateHearingJudge",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Allocate Hearing Judge",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "region": "1",
+                "location": "765324",
+                "location_name": "Taylor House",
+                "auto_assigned": false,
+                "warnings": false,
+                "role_category": "ADMIN",
+                "warning_list": {
+                  "values": [
+                  ]
+                },
+                "case_management_category": "Protection",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Refer",
+                    "Manage",
+                    "Execute",
+                    "Cancel"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "numberOfRolesAvailable": 2,
+        "roleData": {
+          "roles": [
+            {
+              "role_category":"ADMIN",
+              "role_name":"hearing-centre-admin",
+              "permissions":[
+                "Read",
+                "Refer",
+                "Own",
+                "Manage",
+                "Cancel"
+              ],
+              "authorisations":[
+
+              ]
+            },
+            {
+              "role_name":"task-supervisor",
+              "permissions":[
+                "Read",
+                "Refer",
+                "Manage",
+                "Execute",
+                "Cancel"
+              ],
+              "authorisations":[
+
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

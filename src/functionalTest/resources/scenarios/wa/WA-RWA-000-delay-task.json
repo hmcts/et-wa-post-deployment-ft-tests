@@ -1,0 +1,149 @@
+{
+  "description": "WA removeLegalRepresentative event should create a delayed followUpNoticeOfChange task",
+  "enabled": false,
+  "jurisdiction": "WA",
+  "caseType": "WaCaseType",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "CREATE",
+        "caseData": {
+          "template": "minimal-appeal-started.json"
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "WaSystemUser",
+      "input": {
+        "eventMessages": [
+          {
+            "template": "minimal-ccd-event-message.json",
+            "replacements": {
+              "EventId": "removeLegalRepresentative",
+              "NewStateId": "appealSubmitted",
+              "AdditionalData": {
+                "Data": {
+                  "appealType": "protection"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaSystemUser",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_name": "Functional PostDeployment",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Protection",
+                "name": "Follow-up Notice of Change",
+                "type": "followUpNoticeOfChange",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Follow-up Notice of Change",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-DATETIME_WORKING_DAYS_TODAY+16}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "case_type_id": "WaCaseType",
+                "region": "1",
+                "location": "765324",
+                "location_name": "Taylor House",
+                "auto_assigned": false,
+                "warnings": false,
+                "role_category": "LEGAL_OPERATIONS",
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Refer",
+                    "Own",
+                    "Manage",
+                    "Execute",
+                    "Cancel"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "case-manager",
+              "permissions": [
+                "Read",
+                "Refer",
+                "Own",
+                "Cancel"
+              ],
+              "authorisations": [
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Refer",
+                "Own",
+                "Manage",
+                "Cancel"
+              ],
+              "authorisations": [
+              ]
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Refer",
+                "Execute",
+                "Manage",
+                "Cancel"
+              ],
+              "authorisations": [
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Refer",
+                "Own",
+                "Manage",
+                "Cancel"
+              ],
+              "authorisations": [
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+

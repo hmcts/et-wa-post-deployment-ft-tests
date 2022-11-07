@@ -1,0 +1,25 @@
+{
+  "requestedRoles": [
+    {
+      "actorId": "{ACTOR_ID_PLACEHOLDER}",
+      "actorIdType": "IDAM",
+      "classification": "{CLASSIFICATION}",
+      "grantType": "{GRANT_TYPE}",
+      "readOnly": "{READ_ONLY}",
+      "roleCategory": "{ROLE_CATEGORY}",
+      "roleName": "{ROLE_NAME_PLACEHOLDER}",
+      "roleType": "{ROLE_TYPE}",
+      "beginTime": "{BEGIN_TIME_PLACEHOLDER}",
+      "endTime": "{END_TIME_PLACEHOLDER}",
+      "attributes": "{ATTRIBUTES_PLACEHOLDER}",
+      "authorisations": "{AUTHORISATIONS}",
+      "notes": "{NOTES}"
+    }
+  ],
+  "roleRequest": {
+    "assignerId": "{ASSIGNER_ID_PLACEHOLDER}",
+    "process": "{PROCESS}",
+    "reference": "{REFERENCE}",
+    "replaceExisting": "{REPLACE_EXISTING}"
+  }
+}

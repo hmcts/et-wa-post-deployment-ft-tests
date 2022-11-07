@@ -1,193 +1,89 @@
-# Spring Boot application template
+# wa-post-deployment-ft-tests
 
-[![Build Status](https://travis-ci.org/hmcts/spring-boot-template.svg?branch=master)](https://travis-ci.org/hmcts/spring-boot-template)
+[![Build Status](https://travis-ci.org/hmcts/et-wa-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/et-wa-post-deployment-ft-tests)
 
 ## Purpose
+This repository contains a set of functional tests which are designed to run periodically or after a helm deployment as a post deployment job to ensure regression.
 
-The purpose of this template is to speed up the creation of new Spring applications within HMCTS
-and help keep the same standards across multiple teams. If you need to create a new app, you can
-simply use this one as a starting point and build on top of it.
+## What does this app do?
+It creates a case in CCD and publishes a message for this case on the Demo ASB topic.
+Then your local Case Event Handler can consume this message using your development subscription.
+This way we can test user paths end to end.
 
-## What's inside
+## Requirements
+* Minikube and your local env has to be up and running.
+* Bring up the following services:
+    * case event handler
+    * workflow-api
+    * task-management-api
+    * case-api
+    * documentation-api
+    * notification-api
 
-The template is a working application with a minimal setup. It contains:
- * application skeleton
- * setup script to prepare project
- * common plugins and libraries
- * docker setup
- * swagger configuration for api documentation ([see how to publish your api documentation to shared repository](https://github.com/hmcts/reform-api-docs#publish-swagger-docs))
- * code quality tools already set up
- * integration with Travis CI
- * Hystrix circuit breaker enabled
- * MIT license and contribution information
- * Helm chart using chart-java.
+* Configure the following env vars in the application-functional profile:
+    * AZURE_SERVICE_BUS_CONNECTION_STRING
+    * AZURE_SERVICE_BUS_TOPIC_NAME
+    * AZURE_SERVICE_BUS_MESSAGE_AUTHOR (The author of the message this can be used if you have filters set up in your subscription)
 
-The application exposes health endpoint (http://localhost:4550/health) and metrics endpoint
-(http://localhost:4550/metrics).
+* Source your bash so that the Case Event Handler can use those env vars too.
+* Finally, set the following env vars in the Case Event Handler:
+    * AZURE_SERVICE_BUS_SUBSCRIPTION_NAME to your developer subscription in the demo env.
+    * AZURE_SERVICE_BUS_FEATURE_TOGGLE=true
 
-## Plugins
+## When merging to master:
 
-The template contains the following plugins:
+When performing a merge against master the withNightlyPipeline() will be used to run this tests and verify the build this is because this app is not a service that needs to be deployed but rather just a test framework.
+The withNightlyPipeline() will perform:
 
-  * checkstyle
+- Dependency check
+- Full functional tests run
 
-    https://docs.gradle.org/current/userguide/checkstyle_plugin.html
+## Nightly Builds
+The pipeline has also been configured to run every hour in the nightly builds.
+This is specified on the `Jenkinsfile_nightly` file as a cron job `pipelineTriggers([cron('0 * * * *')])`
 
-    Performs code style checks on Java source files using Checkstyle and generates reports from these checks.
-    The checks are included in gradle's *check* task (you can run them by executing `./gradlew check` command).
+## Publishing as ACR task
+Any commit or merge into master will automatically trigger an Azure ACR task. This task has been manually
+created using `./bin/deploy-acr-task.sh`. The task is defined in `acr-build-task.yaml`.
 
-  * pmd
+Note: the deployment script relies on a GitHub token (https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) defined in `infra-vault-prod`, secret `hmcts-github-apikey`. The token is for setting up a webhook so Azure will be notified when a merge or commit happens. Make sure you are a repo admin and select token scope of: `admin:repo_hook  Full control of repository hooks`
 
-    https://docs.gradle.org/current/userguide/pmd_plugin.html
+More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview
 
-    Performs static code analysis to finds common programming flaws. Included in gradle `check` task.
-
-
-  * jacoco
-
-    https://docs.gradle.org/current/userguide/jacoco_plugin.html
-
-    Provides code coverage metrics for Java code via integration with JaCoCo.
-    You can create the report by running the following command:
-
-    ```bash
-      ./gradlew jacocoTestReport
-    ```
-
-    The report will be created in build/reports subdirectory in your project directory.
-
-  * io.spring.dependency-management
-
-    https://github.com/spring-gradle-plugins/dependency-management-plugin
-
-    Provides Maven-like dependency management. Allows you to declare dependency management
-    using `dependency 'groupId:artifactId:version'`
-    or `dependency group:'group', name:'name', version:version'`.
-
-  * org.springframework.boot
-
-    http://projects.spring.io/spring-boot/
-
-    Reduces the amount of work needed to create a Spring application
-
-  * org.owasp.dependencycheck
-
-    https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/index.html
-
-    Provides monitoring of the project's dependent libraries and creating a report
-    of known vulnerable components that are included in the build. To run it
-    execute `gradle dependencyCheck` command.
-
-  * com.github.ben-manes.versions
-
-    https://github.com/ben-manes/gradle-versions-plugin
-
-    Provides a task to determine which dependencies have updates. Usage:
-
-    ```bash
-      ./gradlew dependencyUpdates -Drevision=release
-    ```
-
-## Setup
-
-Located in `./bin/init.sh`. Simply run and follow the explanation how to execute it.
-
-## Notes
-
-Since Spring Boot 2.1 bean overriding is disabled. If you want to enable it you will need to set `spring.main.allow-bean-definition-overriding` to `true`.
-
-JUnit 5 is now enabled by default in the project. Please refrain from using JUnit4 and use the next generation
-
-## Building and deploying the application
-
-### Building the application
-
-The project uses [Gradle](https://gradle.org) as a build tool. It already contains
-`./gradlew` wrapper script, so there's no need to install gradle.
-
-To build the project execute the following command:
-
+## Running functional tests
 ```bash
-  ./gradlew build
+./gradlew functional
 ```
-
-### Running the application
-
-Create the image of the application by executing the following command:
-
+### You can also target a specific scenario:
 ```bash
-  ./gradlew assemble
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000-requestRespondentEvidence-with-awaitingRespondentEvidence-postEventState-should-create-a-task
 ```
-
-Create docker image:
-
+### or multiple scenarios:
 ```bash
-  docker-compose build
+./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000
 ```
 
-Run the distribution (created in `build/install/spring-boot-template` directory)
-by executing the following command:
+## Tips for onboarding teams
+if you are onboarding into Task Management, you may clone this repository and customize the following items to setup
+your own post deployment tests:
+# src/functionalTest/resources/application-functional.yaml
+- document_management.url: set your local document store api
+- ccd_gateway.url: set your local ccd gateway
+- core_case_data.api.url: set your local ccd case data api
+- azure.servicebus.connection-string: set your service bus connection string
+- azure.servicebus.topic set your service bus topic name
 
-```bash
-  docker-compose up
-```
-
-This will start the API container exposing the application's port
-(set to `4550` in this template app).
-
-In order to test if the application is up, you can call its health endpoint:
-
-```bash
-  curl http://localhost:4550/health
-```
-
-You should get a response similar to this:
-
-```
-  {"status":"UP","diskSpace":{"status":"UP","total":249644974080,"free":137188298752,"threshold":10485760}}
-```
-
-### Alternative script to run application
-
-To skip all the setting up and building, just execute the following command:
-
-```bash
-./bin/run-in-docker.sh
-```
-
-For more information:
-
-```bash
-./bin/run-in-docker.sh -h
-```
-
-Script includes bare minimum environment variables necessary to start api instance. Whenever any variable is changed or any other script regarding docker image/container build, the suggested way to ensure all is cleaned up properly is by this command:
-
-```bash
-docker-compose rm
-```
-
-It clears stopped containers correctly. Might consider removing clutter of images too, especially the ones fiddled with:
-
-```bash
-docker images
-
-docker image rm <image-id>
-```
-
-There is no need to remove postgres and java or similar core images.
-
-### Other
-
-Hystrix offers much more than Circuit Breaker pattern implementation or command monitoring.
-Here are some other functionalities it provides:
- * [Separate, per-dependency thread pools](https://github.com/Netflix/Hystrix/wiki/How-it-Works#isolation)
- * [Semaphores](https://github.com/Netflix/Hystrix/wiki/How-it-Works#semaphores), which you can use to limit
- the number of concurrent calls to any given dependency
- * [Request caching](https://github.com/Netflix/Hystrix/wiki/How-it-Works#request-caching), allowing
- different code paths to execute Hystrix Commands without worrying about duplicating work
+# src/functionalTest/resources/templates
+add your case data template file in json format, this template will be used in your scenarios
+# src/functionalTest/resources/scenarios
+- add your test scenario files in json format
+# src/testUtils/java/uk/gov/hmcts/reform/wapostdeploymentfttests/services/AuthorizationHeadersProvider.java
+customize this class to setup your authorization headers and user credentials.
+# Caveat
+This repository is still under development and so changes may occur in the future.
+We will update this Readme file anytime we modify the structure or the underlying framework.
+If you are unsure about something, please check with the team for clarification.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-

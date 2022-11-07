@@ -1,0 +1,15 @@
+version: 1.0-preview-1
+steps:
+
+  - id: build
+    build: >
+      -t {{.Run.Registry}}/et/et-wa-post-deployment-ft-tests:latest -t {{.Run.Registry}}/et/et-wa-post-deployment-ft-tests:{{.Run.ID}}
+      .
+    keep: true
+
+  - id: push
+    push:
+      - "{{.Run.Registry}}/et/et-wa-post-deployment-ft-tests:{{.Run.ID}}"
+      - "{{.Run.Registry}}/et/et-wa-post-deployment-ft-tests:latest"
+    when:
+      - build

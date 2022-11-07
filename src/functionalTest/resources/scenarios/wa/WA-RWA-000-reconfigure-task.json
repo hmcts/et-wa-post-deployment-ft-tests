@@ -1,0 +1,466 @@
+{
+  "description": "create case and initialize task for the WA jurisdiction and update case data and trigger reconfiguration",
+  "enabled": true,
+  "jurisdiction": "WA",
+  "caseType": "WaCaseType",
+  "testType": "Reconfiguration",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "CREATE",
+        "state": "TODO",
+        "caseData": {
+          "template": "minimal-appeal-started.json"
+        }
+      }
+    ]
+  },
+  "before": {
+    "request": {
+      "input": {
+        "eventMessages": [
+          {
+            "template": "minimal-ccd-event-message.json"
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaCaseOfficer",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Taylor House",
+                "location": "765324",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "Functional PostDeployment",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                }
+              }
+            ]
+          }
+        },
+        "numberOfRolesAvailable": 10,
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "case-manager",
+              "permissions": [
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "challenged-access-admin",
+              "permissions": [
+                "Execute",
+                "Assign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "challenged-access-judiciary",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "challenged-access-legal-ops",
+              "permissions": [
+                "Own",
+                "Manage",
+                "Complete",
+                "Assign",
+                "Unassign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "ftpa-judge",
+              "permissions": [
+                "Execute"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-panel-judge",
+              "permissions": [
+                "Manage"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "lead-judge",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Execute",
+                "Complete",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "UnassignClaim",
+                "UnassignAssign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Manage",
+                "Cancel",
+                "Complete",
+                "Assign",
+                "Unassign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim"
+              ],
+              "authorisations": [
+
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "postRoleAssignments" : {
+    "credentials": "WaCaseOfficer",
+    "roleData": {
+      "template": "set-organisational-role-assignment-request.json",
+      "replacements": {
+        "roleName": "case-manager",
+        "caseType": "WaCaseType",
+        "jurisdiction": "WA",
+        "grantType": "SPECIFIC",
+        "roleType": "CASE",
+        "classification": "PUBLIC",
+        "roleCategory": "LEGAL_OPERATIONS"
+      }
+    }
+  },
+  "requiredUpdate": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "UPDATE",
+        "state": "TODO",
+        "caseData": {
+          "template": "minimal-appeal-started.json",
+          "replacements": {
+            "caseManagementLocation": {
+              "baseLocation": "512401"
+            },
+            "staffLocation": "Manchester",
+            "appellantGivenNames": "E2E",
+            "appellantFamilyName": "Tests"
+          }
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "WaCaseOfficer",
+      "input": {
+        "eventMessages": [
+          {
+            "template": "minimal-ccd-event-message.json",
+            "replacements": {
+              "EventId": "UPDATE",
+              "NewStateId": "Reconfigure"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaCaseOfficer",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "taskData": {
+          "template": "minimal-task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "name": "Process Application",
+                "type": "processApplication",
+                "task_state": "assigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Process Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "last_reconfiguration_time": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "location_name": "Manchester",
+                "location": "512401",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "WA",
+                "region": "1",
+                "case_type_id": "WaCaseType",
+                "case_category": "Protection",
+                "case_name": "E2E Tests",
+                "auto_assigned": true,
+                "warnings": false,
+                "warning_list": {
+                  "values": [
+                  ]
+                },
+                "case_management_category": "Protection",
+                "work_type_id": "hearing_work",
+                "work_type_label": "Hearing work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Decide an application](/case/WA/WaCaseType/${[CASE_REFERENCE]}/trigger/decideAnApplication)",
+                "role_category": "LEGAL_OPERATIONS",
+                "additional_properties": {
+                  "key1": "value1",
+                  "key2": "value2",
+                  "key3": "value3",
+                  "key4": "value4"
+                }
+              }
+            ]
+          }
+        },
+        "numberOfRolesAvailable": 10,
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "case-manager",
+              "permissions": [
+                "Own"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "challenged-access-admin",
+              "permissions": [
+                "Execute",
+                "Assign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "challenged-access-judiciary",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "challenged-access-legal-ops",
+              "permissions": [
+                "Own",
+                "Manage",
+                "Complete",
+                "Assign",
+                "Unassign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "ftpa-judge",
+              "permissions": [
+                "Execute"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-panel-judge",
+              "permissions": [
+                "Manage"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "lead-judge",
+              "permissions": [
+                "Read"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Execute",
+                "Complete",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "UnassignClaim",
+                "UnassignAssign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Manage",
+                "Cancel",
+                "Complete",
+                "Assign",
+                "Unassign"
+              ],
+              "authorisations": [
+
+              ]
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim"
+              ],
+              "authorisations": [
+
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

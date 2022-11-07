@@ -1,0 +1,14 @@
+{
+  "TextField": "hi world",
+  "appellantGivenNames": "Functional",
+  "appellantFamilyName": "PostDeployment",
+  "caseAccessCategory": "categoryA,categoryC",
+  "appealType": "protection",
+  "nextHearingId": "next-hearing-id",
+  "nextHearingDate": "{$ZONED_DATETIME_TODAY}",
+  "caseManagementLocation": {
+    "baseLocation": "765324"
+  },
+  "staffLocation": "Taylor House",
+  "urgent": "No"
+}
