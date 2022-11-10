@@ -43,7 +43,7 @@ public class DocumentManagementUploader {
                 documentUploadClientApi
                     .upload(
                         accessToken,
-                        "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWlfd2ViYXBwIiwiZXhwIjoxNjY3NTkwNjcyfQ.owoBF5IzjbjqeNBDG4xI87Etor64F6b9ypOPPfHUSddMHeZf32bvf0KOWDmxDpSfWQJgMubt36rjMT8nbamoOw",
+                        serviceAuthorizationToken,
                         userInfo.getUid(),
                         Collections.singletonList(file)
                     );

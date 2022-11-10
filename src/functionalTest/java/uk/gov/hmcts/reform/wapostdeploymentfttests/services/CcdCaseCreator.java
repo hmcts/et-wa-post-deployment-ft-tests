@@ -119,7 +119,7 @@ public class CcdCaseCreator {
         //Fire start event
         StartEventResponse startCase = coreCaseDataApi.startForCaseworker(
             userToken,
-            "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWlfd2ViYXBwIiwiZXhwIjoxNjY3ODUzOTY1fQ.k9ljxeoZX1qXBCJWNspM8NIuI3LU9iE79CT71Ml-e8tSDROpK9OOAF5KjtB3jooVOONQEG3Q7mbQnfrs7zoSVw",
+            serviceToken,
             userInfo.getUid(),
             jurisdiction,
             caseType,
