@@ -8,7 +8,7 @@ properties([
 @Library("Infrastructure")
 
 def type = "java"
-def product = "wa"
+def product = "et"
 def component = "post-deployment-ft-tests"
 
 def secrets = [
@@ -19,20 +19,12 @@ def secrets = [
 
                 secret('ccd-shared-servicebus-connection-string', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
 
-                secret('wa-test-law-firm-a-username', 'TEST_WA_LAW_FIRM_USERNAME'),
-                secret('wa-test-law-firm-a-password', 'TEST_WA_LAW_FIRM_PASSWORD'),
-
-                secret('wa-test-dlq-username', 'TEST_WA_DLQ_PROCESS_USERNAME'),
-                secret('wa-test-dlq-password', 'TEST_WA_DLQ_PROCESS_PASSWORD'),
-
-                secret('wa-test-caseofficer-a-username', 'TEST_WA_CASEOFFICER_PUBLIC_A_USERNAME'),
-                secret('wa-test-caseofficer-a-password', 'TEST_WA_CASEOFFICER_PUBLIC_A_PASSWORD'),
+                secret('et-wa-caseworker-username', 'ET_CASEOFFICER_USERNAME'),
+                secret('et-wa-caseworker-password', 'ET_CASEOFFICER_PASSWORD'),
 
                 secret('wa-system-username', 'WA_SYSTEM_USERNAME'),
                 secret('wa-system-password', 'WA_SYSTEM_PASSWORD'),
 
-                secret('wa-caseofficer-username', 'WA_CASEOFFICER_USERNAME'),
-                secret('wa-caseofficer-password', 'WA_CASEOFFICER_PASSWORD'),
         ],
         's2s-${env}': [
                 secret('microservicekey-wa-task-management-api', 'S2S_SECRET_TASK_MANAGEMENT_API'),
@@ -50,7 +42,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 //Run Jenkins_CNP with nightly pipeline
 withNightlyPipeline(type, product, component) {
-    env.AZURE_SERVICE_BUS_TOPIC_NAME = "ccd-case-events-aat"
+    env.AZURE_SERVICE_BUS_TOPIC_NAME = "et-case-event-handler-topic-sessions-ft"
 
     env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
