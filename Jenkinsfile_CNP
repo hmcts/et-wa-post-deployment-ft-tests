@@ -12,7 +12,7 @@ def product = "et"
 def component = "post-deployment-ft-tests"
 
 def secrets = [
-        'wa-${env}' : [
+        'et-${env}' : [
                 secret('idam-redirect-uri', 'IA_IDAM_REDIRECT_URI'),
 
                 secret('wa-idam-client-secret', 'WA_IDAM_CLIENT_SECRET'),
