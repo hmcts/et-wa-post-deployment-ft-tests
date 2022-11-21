@@ -1,5 +1,5 @@
 java:
-  applicationPort: 8888
+  applicationPort: 4553
   image: 'hmctspublic.azurecr.io/et/et-wa-post-deployment-ft-tests:latest'
   ingressHost: et-wa-post-deployment-ft-tests-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   aadIdentityName: et
