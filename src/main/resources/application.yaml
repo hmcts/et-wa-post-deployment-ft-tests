@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 4553
 
 management:
   endpoint:
@@ -28,7 +28,7 @@ azure:
     instrumentation-key: ${wa.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
 
 idam:
-  baseUrl: ${IDAM_STUB_SERVICE_NAME:http://sidam-api}
+  baseUrl: ${IDAM_URL:http://sidam-api}
   redirectUrl: ${IA_IDAM_REDIRECT_URI:http://xui-webapp/oauth2/callback}
   scope: "openid profile roles"
   s2s-auth:
@@ -36,7 +36,7 @@ idam:
     secret: ${S2S_SECRET_TASK_MANAGEMENT_API:AAAAAAAAAAAAAAAA}
     name: ${S2S_NAME_TASK_MANAGEMENT_API:wa_task_management_api}
   api:
-    baseUrl: ${IDAM_STUB_SERVICE_NAME:http://sidam-api}
+    baseUrl: ${IDAM_URL:http://sidam-api}
 
 camunda:
   url: ${CAMUNDA_URL:http://camunda-local-bpm/engine-rest}
