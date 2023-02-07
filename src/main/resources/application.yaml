@@ -29,6 +29,7 @@ azure:
 
 idam:
   baseUrl: ${IDAM_URL:http://sidam-api}
+  baseUrl: ${OPEN_ID_IDAM_URL:http://sidam-api}
   redirectUrl: ${IA_IDAM_REDIRECT_URI:http://xui-webapp/oauth2/callback}
   scope: "openid profile roles"
   s2s-auth:

@@ -1,9 +1,0 @@
-{
-  "EventInstanceId": "{$RANDOM_UUID}",
-  "CaseId": "{$GENERATED_CASE_ID}",
-  "JurisdictionId": "WA",
-  "CaseTypeId": "WaCaseType",
-  "EventId": "CREATE",
-  "NewStateId": "TODO",
-  "UserId": "{$USER_ID}"
-}

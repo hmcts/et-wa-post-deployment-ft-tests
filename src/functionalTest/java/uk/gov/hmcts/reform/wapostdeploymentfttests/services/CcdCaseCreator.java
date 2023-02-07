@@ -10,7 +10,6 @@ import uk.gov.hmcts.reform.ccd.client.model.CaseDataContent;
 import uk.gov.hmcts.reform.ccd.client.model.CaseDetails;
 import uk.gov.hmcts.reform.ccd.client.model.Event;
 import uk.gov.hmcts.reform.ccd.client.model.StartEventResponse;
-import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.documents.Document;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.idam.UserInfo;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.preparers.DocumentManagementFiles;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapMerger;
@@ -25,7 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import static java.util.Collections.emptyMap;
-import static uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.documents.DocumentNames.NOTICE_OF_APPEAL_PDF;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
 
@@ -229,8 +227,8 @@ public class CcdCaseCreator {
         String template = templatesByFilename.get(templateFilename);
 
         //TODO: Abstract this as teams might use different docs
-//        Document noticeOfAppealDocument = documentManagementFiles.getDocument(NOTICE_OF_APPEAL_PDF);
-//        template = template.replace("\"{$NOTICE_OF_DECISION_DOCUMENT}\"", toJsonString(noticeOfAppealDocument));
+        //Document noticeOfAppealDocument = documentManagementFiles.getDocument(NOTICE_OF_APPEAL_PDF);
+        //template = template.replace("\"{$NOTICE_OF_DECISION_DOCUMENT}\"", toJsonString(noticeOfAppealDocument));
 
         Map<String, Object> caseData = deserializeWithExpandedValues(template);
         Map<String, Object> caseDataReplacements = MapValueExtractor.extract(caseDataInput, "replacements");

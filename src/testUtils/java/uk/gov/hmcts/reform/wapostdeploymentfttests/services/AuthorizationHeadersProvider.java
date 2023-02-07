@@ -77,7 +77,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         );
     }
 
-    public Headers getETCaseWorkerAuthorization() {
+    public Headers getEtCaseWorkerAuthorization() {
         return new Headers(
             getUserAuthorizationOnly(
                 "ET_CASEOFFICER_USERNAME",
@@ -170,7 +170,7 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
             case "WaCaseOfficer":
                 return getWaCaseOfficerAuthorization();
             case "ETCaseWorker":
-                return getETCaseWorkerAuthorization();
+                return getEtCaseWorkerAuthorization();
             default:
                 throw new IllegalStateException("Credentials implementation for '" + credentials + "' not found");
         }
