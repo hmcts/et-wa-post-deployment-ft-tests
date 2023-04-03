@@ -8,5 +8,5 @@ maintainers:
   - name: HMCTS ET team
 dependencies:
   - name: java
-    version: 3.7.7
+    version: 3.8.1
     repository: '@hmctspublic'
