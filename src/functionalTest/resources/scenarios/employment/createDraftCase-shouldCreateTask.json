@@ -11,7 +11,7 @@
     "ccd": [
       {
         "eventId": "INITIATE_CASE_DRAFT",
-        "state": "",
+        "state": "Accepted",
         "caseData": {
           "template": "draft-case-created.json"
         }
