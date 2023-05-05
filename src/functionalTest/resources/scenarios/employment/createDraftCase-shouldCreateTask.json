@@ -7,11 +7,11 @@
     "taskRetrievalApi": "task-management-api"
   },
   "required": {
-    "credentials": "ETCaseWorker",
+    "credentials": "WaSystemUser",
     "ccd": [
       {
         "eventId": "INITIATE_CASE_DRAFT",
-        "state": "Accepted",
+        "state": "",
         "caseData": {
           "template": "draft-case-created.json"
         }
@@ -20,10 +20,11 @@
   },
   "test": {
     "request": {
-      "credentials": "ETCaseWorker",
+      "credentials": "WaSystemUser",
       "input": {
         "eventMessages": [
           {
+            "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "INITIATE_CASE_DRAFT",
@@ -35,7 +36,7 @@
     },
     "expectations": [
       {
-        "credentials": "ETCaseWorker",
+        "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
         "taskData": {
@@ -45,11 +46,9 @@
               {
                 "id": "{$VERIFIER-UUID}",
                 "case_id": "{$GENERATED_CASE_ID}",
-                "case_type_id": "et_englandwales",
-                "task_state": "unconfigured",
+                "task_state": "unassigned",
                 "name": "Draft Case Created",
-                "warnings": false,
-                "jurisdiction": "employment"
+                "warnings": false
               }
             ]
           }

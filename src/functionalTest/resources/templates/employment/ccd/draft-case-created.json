@@ -1,4 +1,8 @@
 {
   "caseType": "Single",
-  "caseSource": "Manually Created"
+  "caseSource": "Manually Created",
+  "claimantIndType": {
+    "claimant_first_names": "Bob",
+    "claimant_last_name": "Bobbo"
+  }
 }
