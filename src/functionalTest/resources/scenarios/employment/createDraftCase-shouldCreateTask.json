@@ -39,6 +39,7 @@
         "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
+        "numberOfRolesAvailable": 2,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
@@ -52,7 +53,40 @@
               }
             ]
           }
+        },
+        "roleData": {
+          "roles": [
+            {
+              "role_name": "judge",
+              "role_category": "JUDICIAL",
+              "permissions": [
+                "Read",
+                "Execute",
+                "Own",
+                "Claim",
+                "Manage",
+                "Unassign",
+                "Assign",
+                "Complete",
+                "Cancel"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Assign",
+                "Unassign",
+                "Manage",
+                "Cancel",
+                "Complete"
+              ],
+              "authorisations": []
+            }
+          ]
         }
+
       }
     ]
   }
