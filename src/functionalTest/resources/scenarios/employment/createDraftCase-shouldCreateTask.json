@@ -45,10 +45,8 @@
           "replacements": {
             "tasks": [
               {
-                "id": "{$VERIFIER-UUID}",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "task_state": "unassigned",
                 "name": "Draft Case Created",
+                "task_state": "unassigned",
                 "warnings": false
               }
             ]

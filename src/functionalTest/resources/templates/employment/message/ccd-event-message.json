@@ -4,7 +4,5 @@
   "EventTimeStamp": "{$LOCAL_DATETIME_TODAY}",
   "JurisdictionId": "EMPLOYMENT",
   "CaseTypeId": "ET_EnglandWales",
-  "EventId": "INITIATE_CASE_DRAFT",
-  "NewStateId": "AWAITING_SUBMISSION_TO_HMCTS",
   "UserId": "{$USER_ID}"
 }
