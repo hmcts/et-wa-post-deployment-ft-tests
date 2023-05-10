@@ -59,14 +59,12 @@
               "role_category": "JUDICIAL",
               "permissions": [
                 "Read",
-                "Execute",
                 "Own",
                 "Claim",
-                "Manage",
-                "Unassign",
-                "Assign",
-                "Complete",
-                "Cancel"
+                "CompleteOwn",
+                "CancelOwn",
+                "Unclaim",
+                "UnclaimAssign"
               ],
               "authorisations": []
             },
@@ -77,8 +75,7 @@
                 "Assign",
                 "Unassign",
                 "Manage",
-                "Cancel",
-                "Complete"
+                "Cancel"
               ],
               "authorisations": []
             }

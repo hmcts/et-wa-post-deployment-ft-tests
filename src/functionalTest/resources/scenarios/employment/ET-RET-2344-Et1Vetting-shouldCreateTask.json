@@ -39,7 +39,7 @@
         "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 6,
+        "numberOfRolesAvailable": 7,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
@@ -60,10 +60,10 @@
               "permissions": [
                 "Read",
                 "Own",
-                "CompleteOwn",
-                "CancelOwn",
                 "Claim",
-                "Unclaim"
+                "Unclaim",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
@@ -73,10 +73,23 @@
               "permissions": [
                 "Read",
                 "Own",
-                "CompleteOwn",
-                "CancelOwn",
                 "Claim",
-                "Unclaim"
+                "Unclaim",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "CTSC",
+              "role_name": "ctsc-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Claim",
+                "Unclaim",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
@@ -86,11 +99,11 @@
               "permissions": [
                 "Read",
                 "Own",
-                "CompleteOwn",
-                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign"
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
@@ -100,10 +113,10 @@
               "permissions": [
                 "Read",
                 "Own",
-                "CompleteOwn",
-                "CancelOwn",
                 "Claim",
-                "Unclaim"
+                "Unclaim",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
@@ -113,11 +126,11 @@
               "permissions": [
                 "Read",
                 "Own",
-                "CompleteOwn",
-                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign"
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
@@ -125,11 +138,10 @@
               "role_name": "task-supervisor",
               "permissions": [
                 "Read",
-                "Manage",
-                "Cancel",
-                "Complete",
                 "Assign",
-                "Unassign"
+                "Unassign",
+                "Manage",
+                "Cancel"
               ],
               "authorisations": []
             }
