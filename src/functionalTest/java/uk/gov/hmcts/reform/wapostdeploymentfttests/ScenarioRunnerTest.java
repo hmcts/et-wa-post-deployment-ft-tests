@@ -187,7 +187,6 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
                     //If before was found process with before values
                     processBeforeClauseScenario(scenario);
                     Logger.say(SCENARIO_BEFORE_COMPLETED);
-
                 }
 
                 if (scenario.getPostRoleAssignmentClauseValues() != null) {

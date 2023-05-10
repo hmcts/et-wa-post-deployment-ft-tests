@@ -1,0 +1,51 @@
+{
+  "caseSource": "Manually Created",
+  "claimant_TypeOfClaimant": "Individual",
+  "feeGroupReference": "111111111111",
+  "claimantWorkAddressQRespondent": {
+    "value": {
+      "code":"Coswell Cogs",
+      "label":"Coswell Cogs - 456, NN11RS"
+    },
+    "list_items":[{
+      "code":"Coswell Cogs",
+      "label":"Coswell Cogs - 456, NN11RS"
+    }]
+  },
+  "claimantRepresentedQuestion": "No",
+  "claimantWorkAddressQuestion": "Yes",
+  "claimantIndType": {
+    "claimant_last_name": "Jetson",
+    "claimant_first_names": "George"
+  },
+  "claimantType": {
+    "claimant_addressUK": {
+      "AddressLine1": "123",
+      "PostCode": "NN11RS"
+    }
+  },
+  "respondentCollection": [
+    {
+      "id": "24bb104f-5298-4475-922f-07866bfffaf1",
+      "value": {
+        "respondent_ACAS": "1111111111111",
+        "respondent_address": {
+          "AddressLine1": "456",
+          "PostCode": "NN11RS"
+        },
+        "respondent_name": "Cosmo Spacely",
+        "responseContinue": "Yes",
+        "responseReceived": "No",
+        "extensionRequested": "No",
+        "respondent_ACAS_question": "Yes",
+        "responseStruckOut": "No"
+      }
+    }
+  ],
+  "managingOffice": "Leeds",
+  "claimantHearingPreference": {
+    "hearing_preferences": [
+      "Video"
+    ]
+  }
+}
