@@ -60,11 +60,12 @@
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
-                "CompleteOwn",
-                "CancelOwn",
                 "Unclaim",
-                "UnclaimAssign"
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
@@ -72,9 +73,13 @@
               "role_name": "task-supervisor",
               "permissions": [
                 "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
                 "Assign",
                 "Unassign",
-                "Manage",
+                "Complete",
                 "Cancel"
               ],
               "authorisations": []

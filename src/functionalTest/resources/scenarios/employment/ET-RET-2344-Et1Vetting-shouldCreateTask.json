@@ -56,12 +56,29 @@
           "roles": [
             {
               "role_category": "ADMIN",
-              "role_name": "admin-caseworker",
+              "role_name": "allocated-admin-caseworker",
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "CTSC",
+              "role_name": "allocated-ctsc-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
                 "CompleteOwn",
                 "CancelOwn"
               ],
@@ -73,21 +90,10 @@
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Claim",
-                "Unclaim",
+                "UnclaimAssign",
                 "CompleteOwn",
                 "CancelOwn"
               ],
@@ -99,11 +105,13 @@
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
               ],
               "authorisations": []
             },
@@ -113,8 +121,10 @@
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
+                "UnclaimAssign",
                 "CompleteOwn",
                 "CancelOwn"
               ],
@@ -126,11 +136,13 @@
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
               ],
               "authorisations": []
             },
@@ -138,9 +150,13 @@
               "role_name": "task-supervisor",
               "permissions": [
                 "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
                 "Assign",
                 "Unassign",
-                "Manage",
+                "Complete",
                 "Cancel"
               ],
               "authorisations": []
