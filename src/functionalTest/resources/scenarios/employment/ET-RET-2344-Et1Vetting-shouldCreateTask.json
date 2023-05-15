@@ -47,7 +47,12 @@
               {
                 "name": "Et1 Vetting",
                 "task_state": "unassigned",
-                "warnings": false
+                "warnings": false,
+                "case_name": "George Jetson",
+                "work_type_id": "routine_work",
+                "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                "minor_priority": 500,
+                "major_priority": 5000
               }
             ]
           }

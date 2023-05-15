@@ -47,7 +47,12 @@
               {
                 "name": "Draft Case Created",
                 "task_state": "unassigned",
-                "warnings": false
+                "warnings": false,
+                "case_name": "George Jetson",
+                "work_type_id": "routine_work",
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
+                "minor_priority": 500,
+                "major_priority": 5000
               }
             ]
           }
