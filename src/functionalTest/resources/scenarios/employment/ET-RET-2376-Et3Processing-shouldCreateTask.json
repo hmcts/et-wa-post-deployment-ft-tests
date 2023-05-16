@@ -1,0 +1,129 @@
+{
+  "description": "ET submit case draft should create a ET3Processing task",
+  "enabled": true,
+  "jurisdiction": "EMPLOYMENT",
+  "caseType": "ET_EnglandWales",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "INITIATE_CASE_DRAFT",
+        "state": "AWAITING_SUBMISSION_TO_HMCTS",
+        "caseData": {
+          "template": "minimal-draft-case.json"
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "WaSystemUser",
+      "input": {
+        "eventMessages": [
+          {
+            "destination": "RestEndpoint",
+            "template": "ccd-event-message.json",
+            "replacements": {
+              "EventId": "et3Response",
+              "NewStateId": "Accepted"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaSystemUser",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "numberOfRolesAvailable": 4,
+        "taskData": {
+          "template": "task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "name": "ET3 Processing",
+                "task_state": "unassigned",
+                "warnings": false,
+                "case_name": "George Jetson",
+                "work_type_id": "routine_work",
+                "description": "[Review ET3 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
+                "minor_priority": 500,
+                "major_priority": 5000
+              }
+            ]
+          }
+        },
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "ADMIN",
+              "role_name": "allocated-admin-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "hearing-centre-admin",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "hearing-centre-team-leader",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
+              ],
+              "authorisations": []
+            }
+          ]
+        }
+
+      }
+    ]
+  }
+}
