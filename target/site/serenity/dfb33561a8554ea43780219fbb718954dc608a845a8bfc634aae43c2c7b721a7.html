@@ -144,7 +144,7 @@
             <a href="capabilities.html"><i class="fa fa-book"></i> Requirements</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 16-11-2022 17:42</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 17-05-2023 10:41</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -173,9 +173,9 @@
                 <table class="outcome-header">
                     <tr>
                         <td colspan="2" class="test-title-bar">
-                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-exclamation-triangle error-icon fa-2x' title='ERROR'></i></a></span>
+                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon fa-2x' title='SUCCESS'></i></a></span>
                             <span class="test-case-title">
-                                <span class="error-color">
+                                <span class="success-color">
                                     Scenarios should behave as specified
                                         <span class="related-issue-title"></span>
                                 </span>
@@ -214,57 +214,60 @@
                     <td colspan="5"></td>
                 </tr>
 
-                    <tr class="test-ERROR">
-                        <td width="40"><a href='##beforetable'><i class='fa fa-exclamation-triangle error-icon ' title='ERROR'></i></a></td>
-                        <td width="%" colspan="1">
-                                <span class="top-level-step">An error occurred outside of step execution</span>
-                        </td>
-                        <td width="130"><span
-                                    class="top-level-step">ERROR</span>
-                        </td>
-                        <td width="100"><span class="top-level-step">316.63s</span></td>
-                    </tr>
-                    <tr class="test-ERROR">
-                        <td width="40">&nbsp</td>
-                        <td width="%" colspan="3">
+                    <tr class="test-SUCCESS">
 
-    <div style="display:block">
-        <div class="table">
-            <div class="row">
-                <div class="col-sm-10" style="padding-left:1.5em; padding-top:0.5em; padding-bottom:0.5em;">
-                    <span class="error-message error-message-title"></span>
-                </div>
-                <div class="col-sm-2">
-                    <a class="btn btn-warning details-button" data-toggle="collapse" href="#stacktraceModal-overall""
-                       role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="far fa-eye"></i> More details</a>
-                </div>
-             </div>
-        </div>
-    <div>
+                        <td width="50" class="step-icon">
+                            <a name="0"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
 
-    <!-- Details Section -->
-    <div class="row stacktrace-details">
-      <div class="col">
-        <div class="collapse multi-collapse" id="stacktraceModal-overall">
-            <div class="card">
-                <div class="card-header">
-                    <h4>java.util.concurrent.TimeoutException </h4>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <pre>org.awaitility.core.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:101)<br />org.awaitility.core.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:81)<br />org.awaitility.core.ConditionAwaiter.await(ConditionAwaiter.java:101)<br />org.awaitility.core.CallableCondition.await(CallableCondition.java:78)<br />org.awaitility.core.CallableCondition.await(CallableCondition.java:26)<br />org.awaitility.core.ConditionFactory.until(ConditionFactory.java:895)<br />org.awaitility.core.ConditionFactory.until(ConditionFactory.java:864)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.services.taskretriever.TaskMgmApiRetrieverService.retrieveTask(TaskMgmApiRetrieverService.java:80)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.ScenarioRunnerTest.verifyTasks(ScenarioRunnerTest.java:371)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.ScenarioRunnerTest.lambda$processScenario$3(ScenarioRunnerTest.java:318)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.ScenarioRunnerTest.processScenario(ScenarioRunnerTest.java:310)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.ScenarioRunnerTest.processTestClauseScenario(ScenarioRunnerTest.java:217)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.ScenarioRunnerTest.runAllScenariosFor(ScenarioRunnerTest.java:204)<br />uk.gov.hmcts.reform.wapostdeploymentfttests.ScenarioRunnerTest.scenarios_should_behave_as_specified(ScenarioRunnerTest.java:126)<br />org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)<br />org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)<br />org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)<br />org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)<br />worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)<br />worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)<br /></pre>
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                POST http://localhost:8088/messages/messageId_353994055?from_dlq=false
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-1">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-1">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>Status code: 201</p>
+                                        <p>Content Type: application/json</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Authorization=Bearer eyJ6aXAiOiJOT05FIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiJNekF3TVRreE1qazJOak0xIn0.eyJzdWIiOiJ3YS1zeXN0ZW0tdXNlckBmYWtlLmhtY3RzLm5ldCIsImF1dGhfbGV2ZWwiOjAsImF1ZGl0VHJhY2tpbmdJZCI6IjMwNjJkMWJlLWE5MWItNGRjMS05OWIwLThhODM1ZWVlYjBhNyIsImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdDo1NTU2IiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoiMmQ5OGY4YzUtYWVkMS00YTQyLThkZTctYTk3ZTJiMjAzNWZkIiwiYXVkIjoiY2NkX2dhdGV3YXkiLCJuYmYiOjE2ODQzMTU3ODgsImdyYW50X3R5cGUiOiJwYXNzd29yZCIsImF1dGhfdGltZSI6MTY4NDMxNTc4ODg1OCwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIl0sInJlYWxtIjoiXC9obWN0cyIsImV4cCI6MTY4NDM0NDU4OCwiaWF0IjoxNjg0MzE1Nzg4LCJleHBpcmVzX2luIjoyODgwMCwianRpIjoiNjUxYjhkYWEtOGJjMy00Mzg3LTg5ZWUtMjQxMjY1YzhmOTllIn0.h1sRvQEEkRQQw9JBRSiNNgAK6aT5rSCvbn7zRc8_jrIA9BVLDH4uAUKdOoIov30iqmNTdBZt5-i4ai9tK1Al_1NhxaUzH1L9h1vdtbMZW1GCAsuLAOkWkWKBS5Vy7NZAGeXmj8Vp9bEHi4Ohg-3IrJt37pu39ws_RZeQUOEk2eUg3idQBjZptn4kTgCWUIFib4z92dxDhKOgNuRn8r8YUqKqjseiCYG0Lmk5jCftnJ10Wq5g-UXHH8O-0lGrDriQhc8ggf9UeL3jEBg_gdhBNWWQ9Q-k-LKtha9ZB9l7WisRSc9JyoHbtJBqql2lr1tbQIfLn_u2B9T_V39jkwvx1Q<br>ServiceAuthorization=Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3YV90YXNrX21hbmFnZW1lbnRfYXBpIiwiZXhwIjoxNjg0MzMwODcxfQ.slplQQjlFTVNSyi7gDq2PorBjnao8ZhOt8sq8T52K9fxGn1SbiN8PFAeEMycZx0joWEChXA9mbSQHSKoMkqbzA<br>Accept=*/*<br>Content-Type=application/json; charset=UTF-8</pre>
+                                        <h4>Content Body</h4>
+                                        <pre>{<br>    &quot;EventInstanceId&quot;: &quot;3b6c3a31-7bfa-4729-897e-81866ff4f524&quot;,<br>    &quot;CaseId&quot;: &quot;1684316471545351&quot;,<br>    &quot;EventTimeStamp&quot;: &quot;2023-05-17T10:41:12.003&quot;,<br>    &quot;JurisdictionId&quot;: &quot;EMPLOYMENT&quot;,<br>    &quot;CaseTypeId&quot;: &quot;ET_EnglandWales&quot;,<br>    &quot;UserId&quot;: &quot;wa-system-user@fake.hmcts.net&quot;,<br>    &quot;EventId&quot;: &quot;initialConsideration&quot;,<br>    &quot;NewStateId&quot;: &quot;Accepted&quot;<br>}</pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>X-Content-Type-Options: nosniff<br>X-XSS-Protection: 1; mode=block<br>Cache-Control: no-cache, no-store, max-age=0, must-revalidate<br>Pragma: no-cache<br>Expires: 0<br>X-Frame-Options: DENY<br>Content-Type: application/json<br>Transfer-Encoding: chunked<br>Date: Wed, 17 May 2023 09:41:14 GMT<br>Keep-Alive: timeout=60<br>Connection: keep-alive</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;MessageId&quot;: &quot;messageId_353994055&quot;,<br>    &quot;Sequence&quot;: 12,<br>    &quot;CaseId&quot;: &quot;1684316471545351&quot;,<br>    &quot;EventTimestamp&quot;: &quot;2023-05-17T10:41:12.003&quot;,<br>    &quot;FromDlq&quot;: false,<br>    &quot;State&quot;: &quot;NEW&quot;,<br>    &quot;MessageProperties&quot;: null,<br>    &quot;MessageContent&quot;: &quot;{\&quot;EventInstanceId\&quot;:\&quot;3b6c3a31-7bfa-4729-897e-81866ff4f524\&quot;,\&quot;CaseId\&quot;:\&quot;1684316471545351\&quot;,\&quot;EventTimeStamp\&quot;:\&quot;2023-05-17T10:41:12.003\&quot;,\&quot;JurisdictionId\&quot;:\&quot;EMPLOYMENT\&quot;,\&quot;CaseTypeId\&quot;:\&quot;ET_EnglandWales\&quot;,\&quot;UserId\&quot;:\&quot;wa-system-user@fake.hmcts.net\&quot;,\&quot;EventId\&quot;:\&quot;initialConsideration\&quot;,\&quot;NewStateId\&quot;:\&quot;Accepted\&quot;}&quot;,<br>    &quot;Received&quot;: &quot;2023-05-17T09:41:14.444841815&quot;,<br>    &quot;DeliveryCount&quot;: 0,<br>    &quot;HoldUntil&quot;: null,<br>    &quot;RetryCount&quot;: 0<br>}</pre>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+                                        </span>
+                                </span>
+                            </div>
                         </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">0s</span></td>
                     </tr>
-                <tr class="test-ERROR">
+                <tr class="test-SUCCESS">
                         <td colspan="2"></td>
-                    <td width="130"><span class="top-level-step"><em>ERROR</em></span></td>
-                    <td width="100"><span class="top-level-step"><em>316.63s</em></span></td>
+                    <td width="130"><span class="top-level-step"><em>SUCCESS</em></span></td>
+                    <td width="100"><span class="top-level-step"><em>26.74s</em></span></td>
                 </tr>
 
             </table>
