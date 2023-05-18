@@ -13,7 +13,10 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "isUrgent": "Yes"
+          }
         }
       }
     ]
@@ -52,14 +55,45 @@
           "replacements": {
             "tasks": [
               {
+                "id": "{$VERIFIER-UUID}",
                 "name": "Review Referral - ET1",
+                "type": "ReviewReferralAdmin",
                 "task_state": "unassigned",
-                "warnings": false,
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Review Referral - ET1",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
                 "case_name": "George Jetson",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
                 "work_type_id": "routine_work",
+                "work_type_label": "Routine work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
                 "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
-                "minor_priority": 500,
-                "major_priority": 5000,
+                "minor_priority": 100,
+                "major_priority": 1000,
                 "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
               }
             ]
