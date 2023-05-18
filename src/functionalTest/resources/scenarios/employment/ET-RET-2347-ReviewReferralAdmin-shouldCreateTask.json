@@ -32,7 +32,8 @@
               "AdditionalData": {
                 "Data": {
                   "referCaseTo": "Admin",
-                  "referralSubject": "ET1"
+                  "referralSubject": "ET1",
+                  "isUrgent": "Yes"
                 }
               }
             }
@@ -58,7 +59,8 @@
                 "work_type_id": "routine_work",
                 "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
                 "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
               }
             ]
           }
