@@ -31,7 +31,8 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin"
+                  "referCaseTo": "Admin",
+                  "referralSubject": "ET1"
                 }
               }
             }
@@ -50,7 +51,7 @@
           "replacements": {
             "tasks": [
               {
-                "name": "Review Referral - (Referral Subject)",
+                "name": "Review Referral - ET1",
                 "task_state": "unassigned",
                 "warnings": false,
                 "case_name": "George Jetson",
