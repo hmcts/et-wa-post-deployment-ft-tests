@@ -75,8 +75,8 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "hearing_work",
-                "work_type_label": "Hearing work",
+                "work_type_id": "decision_making_work",
+                "work_type_label": "Decision-making work",
                 "permissions": {
                   "values": [
                     "Read",
