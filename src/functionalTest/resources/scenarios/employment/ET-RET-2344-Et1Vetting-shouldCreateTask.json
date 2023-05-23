@@ -45,14 +45,47 @@
           "replacements": {
             "tasks": [
               {
+                "id": "{$VERIFIER-UUID}",
                 "name": "Et1 Vetting",
+                "type": "Et1Vetting",
                 "task_state": "unassigned",
-                "warnings": false,
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Et1 Vetting",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
                 "case_name": "George Jetson",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
                 "work_type_id": "routine_work",
+                "work_type_label": "Routine work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
                 "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                "role_category": "ADMIN,CTSC",
                 "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
               }
             ]
           }

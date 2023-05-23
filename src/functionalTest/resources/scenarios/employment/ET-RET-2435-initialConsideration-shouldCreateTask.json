@@ -13,7 +13,7 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-case.json"
+          "template": "minimal-draft-case.json"
         }
       }
     ]
