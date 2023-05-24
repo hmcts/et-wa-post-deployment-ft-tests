@@ -1,0 +1,183 @@
+{
+  "description": "ET replyToReferral should create a ReviewReferralResponseJudiciary task",
+  "enabled": true,
+  "jurisdiction": "EMPLOYMENT",
+  "caseType": "ET_EnglandWales",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "INITIATE_CASE_DRAFT",
+        "state": "AWAITING_SUBMISSION_TO_HMCTS",
+        "caseData": {
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "isUrgent": "Yes"
+          }
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "WaSystemUser",
+      "input": {
+        "eventMessages": [
+          {
+            "destination": "RestEndpoint",
+            "template": "ccd-event-message.json",
+            "replacements": {
+              "EventId": "replyToReferral",
+              "NewStateId": "Submitted",
+              "AdditionalData": {
+                "Data": {
+                  "referCaseTo": "Judge",
+                  "referralSubject": "Amend claim",
+                  "isUrgent": "Yes"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaSystemUser",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "numberOfRolesAvailable": 5,
+        "taskData": {
+          "template": "task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+                "id": "{$VERIFIER-UUID}",
+                "name": "Review Referral Response - Amend claim",
+                "type": "ReviewReferralResponseJudiciary",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Review Referral Response - Amend claim",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
+                "case_name": "George Jetson",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
+                "work_type_id": "decision_making_work",
+                "work_type_label": "Decision-making work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ]
+                },
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/replyToReferral1)",
+                "minor_priority": 100,
+                "major_priority": 1000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
+              }
+            ]
+          }
+        },
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "fee-paid-judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "leadership-judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
+              ],
+              "authorisations": []
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
