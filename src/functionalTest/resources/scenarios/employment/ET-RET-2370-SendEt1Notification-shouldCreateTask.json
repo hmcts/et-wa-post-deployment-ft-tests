@@ -1,5 +1,5 @@
 {
-  "description": "et preAcceptanceCase should create List Serve Claim & SendEt1Notification task",
+  "description": "et preAcceptanceCase should create SendEt1Notification task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -28,7 +28,7 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "preAcceptanceCase",
-              "NewStateId": "Accepted"
+              "NewStateId": "Rejected"
             }
           }
         ]
@@ -38,20 +38,12 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 2,
+        "numberOfTasksAvailable": 1,
         "numberOfRolesAvailable": 7,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
-              {
-                "name": "List/ Serve Claim",
-                "task_state": "unassigned",
-                "warnings": false,
-                "work_type_id": "routine_work",
-                "minor_priority": 500,
-                "major_priority": 5000
-              },
               {
                 "name": "Send ET1 Notification",
                 "task_state": "unassigned",
