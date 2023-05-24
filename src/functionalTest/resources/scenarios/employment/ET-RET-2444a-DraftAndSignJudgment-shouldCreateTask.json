@@ -1,5 +1,5 @@
 {
-  "description": "et preAcceptanceCase should create List Serve Claim & SendEt1Notification task",
+  "description": "ET createReferral/updateHearing should create a DraftAndSignJudgment task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,8 +27,14 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "preAcceptanceCase",
-              "NewStateId": "Accepted"
+              "EventId": "createReferral",
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "referCaseTo": "Judge",
+                  "referralSubject": "Rule 21 Referral"
+                }
+              }
             }
           }
         ]
@@ -38,27 +44,53 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 2,
-        "numberOfRolesAvailable": 7,
+        "numberOfTasksAvailable": 1,
+        "numberOfRolesAvailable": 5,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
-                "name": "List/ Serve Claim",
+                "id": "{$VERIFIER-UUID}",
+                "name": "Draft And Sign Judgment",
+                "type": "DraftAndSignJudgment",
                 "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Draft And Sign Judgment",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
+                "case_name": "George Jetson",
+                "auto_assigned": false,
                 "warnings": false,
-                "work_type_id": "routine_work",
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
+                "work_type_id": "decision_making_work",
+                "work_type_label": "Decision-making work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ]
+                },
+                "description": "[Refer the judgment for promulgation,once signed](cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
+                "role_category": "JUDICIAL",
                 "minor_priority": 500,
-                "major_priority": 5000
-              },
-              {
-                "name": "Send ET1 Notification",
-                "task_state": "unassigned",
-                "warnings": false,
-                "work_type_id": "routine_work",
-                "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}"
               }
             ]
           }
@@ -66,8 +98,8 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
-              "role_category": "ADMIN",
+              "role_category": "JUDICIAL",
+              "role_name": "fee-paid-judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -81,8 +113,8 @@
               "authorisations": []
             },
             {
-              "role_name": "allocated-ctsc-caseworker",
-              "role_category": "CTSC",
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -96,8 +128,8 @@
               "authorisations": []
             },
             {
-              "role_name": "ctsc",
-              "role_category": "CTSC",
+              "role_category": "JUDICIAL",
+              "role_name": "judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -111,45 +143,13 @@
               "authorisations": []
             },
             {
-              "role_name": "ctsc-team-leader",
-              "role_category": "CTSC",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Assign",
-                "Claim",
-                "Unclaim",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "hearing-centre-admin",
-              "role_category": "ADMIN",
+              "role_category": "JUDICIAL",
+              "role_name": "leadership-judge",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
                 "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "hearing-centre-team-leader",
-              "role_category": "ADMIN",
-              "permissions": [
-                "Read",
-                "Own",
-                "Claim",
-                "Unclaim",
-                "Manage",
                 "Assign",
                 "Unassign",
                 "Complete",
