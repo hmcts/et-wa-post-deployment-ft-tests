@@ -6,7 +6,7 @@ java:
 servicebus:
   enabled: true
   releaseNameOverride: ${SERVICE_NAME}-asb
-  resourceGroup: et-wa-task-configuration-preview-rg # not created yet
+  resourceGroup: et-aat
   sbNamespace: et
   setup:
     topics:
@@ -49,5 +49,4 @@ ccd-message-publisher:
     secrets:
       SERVICE_BUS_CONNECTION_STRING:
         secretRef: ccd-shared-servicebus-connection-string
-        key: ccd-shared-servicebus-connection-string
-
+        key: connectionString
