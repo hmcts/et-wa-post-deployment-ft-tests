@@ -10,6 +10,3 @@ dependencies:
   - name: java
     version: 4.1.1
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
-  - name: wa-chart
-    version: 0.1.5 # See latest release in releases tab
-    repository: https://hmctspublic.azurecr.io/helm/v1/repo/
