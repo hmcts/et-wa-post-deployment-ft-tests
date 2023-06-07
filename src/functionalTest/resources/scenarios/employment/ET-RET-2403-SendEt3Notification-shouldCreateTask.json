@@ -28,12 +28,7 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "et3Vetting",
-              "NewStateId": "Accepted",
-              "AdditionalData": {
-                "Data": {
-                  "et3Rule26": null
-                }
-              }
+              "NewStateId": "Accepted"
             }
           }
         ]
