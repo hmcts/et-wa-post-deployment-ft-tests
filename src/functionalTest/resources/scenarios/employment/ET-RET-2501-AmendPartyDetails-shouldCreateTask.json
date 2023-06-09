@@ -1,0 +1,127 @@
+{
+  "description": "ET SUBMIT_CLAIMANT_TSE event should create a AmendPartyDetails task",
+  "enabled": true,
+  "jurisdiction": "EMPLOYMENT",
+  "caseType": "ET_EnglandWales",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": "WaSystemUser",
+    "ccd": [
+      {
+        "eventId": "INITIATE_CASE_DRAFT",
+        "state": "AWAITING_SUBMISSION_TO_HMCTS",
+        "caseData": {
+          "template": "minimal-draft-case.json"
+        }
+      }
+    ]
+  },
+  "test": {
+    "request": {
+      "credentials": "WaSystemUser",
+      "input": {
+        "eventMessages": [
+          {
+            "destination": "RestEndpoint",
+            "template": "ccd-event-message.json",
+            "replacements": {
+              "EventId": "SUBMIT_CLAIMANT_TSE",
+              "NewStateId": "Accepted"
+            }
+          }
+        ]
+      }
+    },
+    "expectations": [
+      {
+        "credentials": "WaSystemUser",
+        "status": 200,
+        "numberOfTasksAvailable": 1,
+        "numberOfRolesAvailable": 4,
+        "taskData": {
+          "template": "task-response.json",
+          "replacements": {
+            "tasks": [
+              {
+               "name": "Amend Party Details",
+                "type": "AmendPartyDetails",
+                "work_type_id": "applications",
+                "work_type_label": "Applications",
+                "task_state": "unassigned",
+                "warnings": false,
+                 "role_category": "ADMIN"
+              }
+            ]
+          }
+        },
+        "roleData": {
+          "roles": [
+            {
+              "role_category": "ADMIN",
+              "role_name": "allocated-admin-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "hearing-centre-admin",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "ADMIN",
+              "role_name": "hearing-centre-team-leader",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_name": "task-supervisor",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
+              ],
+              "authorisations": []
+            }
+          ]
+        }
+
+      }
+    ]
+  }
+}
