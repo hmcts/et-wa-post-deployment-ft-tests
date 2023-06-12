@@ -45,13 +45,33 @@
           "replacements": {
             "tasks": [
               {
-               "name": "Amend Party Details",
+                "id": "{$VERIFIER-UUID}",
+                "name": "Amend Party Details",
                 "type": "AmendPartyDetails",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Amend Party Details",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
+                "case_name": "George Jetson",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
                 "work_type_id": "applications",
                 "work_type_label": "Applications",
-                "task_state": "unassigned",
-                "warnings": false,
-                 "role_category": "ADMIN"
+                "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
+                "role_category": "ADMIN",
+                "minor_priority": 500,
+                "major_priority": 5000
               }
             ]
           }
@@ -97,9 +117,10 @@
                 "Manage",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "Assign",
+                "Unassign",
+                "Complete",
+                "Cancel"
               ],
               "authorisations": []
             },
