@@ -15,7 +15,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "isUrgent": "Yes"
+            "referralCollection": [{"value": {"isUrgent": "Yes"}}]
           }
         }
       }
