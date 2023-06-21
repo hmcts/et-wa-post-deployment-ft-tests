@@ -1,5 +1,5 @@
 {
-  "description": "et CompleteInitialConsideration should create Complete Initial Consideration task",
+  "description": "et CompleteInitialConsideration should create Complete Initial Consideration & Send Et3 Notification tasks",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
