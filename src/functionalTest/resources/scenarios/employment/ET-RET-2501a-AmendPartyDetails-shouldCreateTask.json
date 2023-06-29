@@ -69,9 +69,7 @@
                 "work_type_id": "applications",
                 "work_type_label": "Applications",
                 "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
-                "role_category": "ADMIN",
-                "minor_priority": 500,
-                "major_priority": 5000
+                "role_category": "ADMIN"
               }
             ]
           }
