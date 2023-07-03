@@ -215,7 +215,7 @@
         "grantType": "STANDARD",
         "classification": "PUBLIC",
         "roleType": "CASE",
-        "roleName": "caseworker-employment-englandwales",
+        "roleName": "allocated-tribunal-caseworker",
         "roleCategory": "LEGAL_OPERATIONS"
       }
     }
