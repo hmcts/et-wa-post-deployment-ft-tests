@@ -1,5 +1,5 @@
 {
-  "description": "ET replyToReferral should create a ReviewReferralResponseJudiciary task",
+  "description": "ET replyToReferral should create an urgent ReviewReferralResponseLegalOps task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -31,10 +31,10 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "replyToReferral",
-              "NewStateId": "Submitted",
+              "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Judge",
+                  "referCaseTo": "Legal officer",
                   "referralSubject": "Amend claim",
                   "isUrgent": "Yes"
                 }
@@ -49,7 +49,7 @@
         "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 5,
+        "numberOfRolesAvailable": 4,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
@@ -57,7 +57,7 @@
               {
                 "id": "{$VERIFIER-UUID}",
                 "name": "Review Referral Response - Amend claim",
-                "type": "ReviewReferralResponseJudiciary",
+                "type": "ReviewReferralResponseLegalOps",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
@@ -76,18 +76,19 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "decision_making_work",
-                "work_type_label": "Decision-making work",
+                "work_type_id": "routine_work",
+                "work_type_label": "Routine work",
                 "permissions": {
                   "values": [
                     "Read",
                     "Own",
                     "Manage",
-                    "CompleteOwn",
-                    "CancelOwn",
+                    "Cancel",
+                    "Complete",
                     "Claim",
                     "Unclaim",
-                    "UnclaimAssign"
+                    "Assign",
+                    "Unassign"
                   ]
                 },
                 "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/replyToReferral1)",
@@ -101,62 +102,33 @@
         "roleData": {
           "roles": [
             {
-              "role_category": "JUDICIAL",
-              "role_name": "fee-paid-judge",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "allocated-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
+                "CompleteOwn",
+                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "UnclaimAssign"
               ],
               "authorisations": []
             },
             {
-              "role_category": "JUDICIAL",
-              "role_name": "hearing-judge",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "JUDICIAL",
-              "role_name": "judge",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "JUDICIAL",
-              "role_name": "leadership-judge",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Assign",
-                "Unassign",
+                "Cancel",
                 "Complete",
-                "Cancel"
+                "Claim",
+                "Unclaim",
+                "Assign",
+                "Unassign"
               ],
               "authorisations": []
             },
@@ -166,12 +138,27 @@
                 "Read",
                 "Own",
                 "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign"
               ],
               "authorisations": []
             }
