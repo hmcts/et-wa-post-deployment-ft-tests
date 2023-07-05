@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a ReviewReferralJudiciary task",
+  "description": "ET createReferral should create an urgent ReviewReferralJudiciary task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -15,7 +15,11 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "isUrgent": "Yes"
+            "referralCollection": [
+              {"value": {"isUrgent": "Yes"}},
+              {"value": {"isUrgent": "No"}},
+              {"value": {"isUrgent": "Yes"}}
+            ]
           }
         }
       }
