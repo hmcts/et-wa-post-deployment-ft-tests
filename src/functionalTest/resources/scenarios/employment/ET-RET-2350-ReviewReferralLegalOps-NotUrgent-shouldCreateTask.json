@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a IssueJudgment task",
+  "description": "ET createReferral should create a non-urgent ReviewReferralLegalOps task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -15,7 +15,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "isUrgent": "Yes"
+            "referralCollection": []
           }
         }
       }
@@ -31,11 +31,11 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "createReferral",
-              "NewStateId": "Accepted",
+              "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "Judgment",
+                  "referCaseTo": "Legal officer",
+                  "referralSubject": "Amend claim",
                   "isUrgent": "No"
                 }
               }
@@ -56,12 +56,14 @@
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Issue Judgment",
-                "type": "IssueJudgment",
+                "name": "Review Referral - Amend claim",
+                "type": "ReviewReferralLegalOps",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Issue Judgment",
+                "task_title": "Review Referral - Amend claim",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
                 "jurisdiction": "EMPLOYMENT",
                 "case_type_id": "ET_EnglandWales",
@@ -74,8 +76,8 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "hearing_work",
-                "work_type_label": "Hearing work",
+                "work_type_id": "routine_work",
+                "work_type_label": "Routine work",
                 "permissions": {
                   "values": [
                     "Read",
@@ -89,10 +91,10 @@
                     "Unassign"
                   ]
                 },
-                "description": "[Review Judgment Referral,then issue relevant correspondence](cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
-                "role_category": "ADMIN",
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
                 "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
               }
             ]
           }
@@ -100,48 +102,33 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
-              "role_category": "ADMIN",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "allocated-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
+                "CompleteOwn",
+                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "UnclaimAssign"
               ],
               "authorisations": []
             },
             {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
               ],
               "authorisations": []
             },
@@ -151,12 +138,27 @@
                 "Read",
                 "Own",
                 "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign"
               ],
               "authorisations": []
             }

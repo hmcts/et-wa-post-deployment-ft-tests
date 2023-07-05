@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a IssueJudgment task",
+  "description": "ET createReferral should create a non-urgent ReviewReferralJudiciary task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -13,10 +13,7 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json",
-          "replacements": {
-            "isUrgent": "Yes"
-          }
+          "template": "minimal-draft-case.json"
         }
       }
     ]
@@ -31,11 +28,11 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "createReferral",
-              "NewStateId": "Accepted",
+              "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "Judgment",
+                  "referCaseTo": "Judge",
+                  "referralSubject": "ET3/ECC",
                   "isUrgent": "No"
                 }
               }
@@ -49,19 +46,21 @@
         "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 4,
+        "numberOfRolesAvailable": 5,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Issue Judgment",
-                "type": "IssueJudgment",
+                "name": "Review Referral - ET3/ECC",
+                "type": "ReviewReferralJudiciary",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Issue Judgment",
+                "task_title": "Review Referral - ET3/ECC",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
                 "jurisdiction": "EMPLOYMENT",
                 "case_type_id": "ET_EnglandWales",
@@ -74,25 +73,24 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "hearing_work",
-                "work_type_label": "Hearing work",
+                "work_type_id": "decision_making_work",
+                "work_type_label": "Decision-making work",
                 "permissions": {
                   "values": [
                     "Read",
                     "Own",
                     "Manage",
-                    "Cancel",
-                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
                     "Claim",
                     "Unclaim",
-                    "Assign",
-                    "Unassign"
+                    "UnclaimAssign"
                   ]
                 },
-                "description": "[Review Judgment Referral,then issue relevant correspondence](cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
-                "role_category": "ADMIN",
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
                 "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
               }
             ]
           }
@@ -100,8 +98,8 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
-              "role_category": "ADMIN",
+              "role_category": "JUDICIAL",
+              "role_name": "fee-paid-judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -115,8 +113,8 @@
               "authorisations": []
             },
             {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -130,14 +128,28 @@
               "authorisations": []
             },
             {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
+              "role_category": "JUDICIAL",
+              "role_name": "judge",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
                 "Claim",
                 "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "leadership-judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
                 "Assign",
                 "Unassign",
                 "Complete",

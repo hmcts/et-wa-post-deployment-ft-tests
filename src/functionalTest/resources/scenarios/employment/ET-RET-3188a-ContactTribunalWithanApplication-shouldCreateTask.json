@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a IssueJudgment task",
+  "description": "ET SUBMIT_CLAIMANT_TSE event should create a ContactTribunalWithanApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -13,10 +13,7 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json",
-          "replacements": {
-            "isUrgent": "Yes"
-          }
+          "template": "minimal-draft-case.json"
         }
       }
     ]
@@ -30,15 +27,8 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "createReferral",
-              "NewStateId": "Accepted",
-              "AdditionalData": {
-                "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "Judgment",
-                  "isUrgent": "No"
-                }
-              }
+              "EventId": "SUBMIT_CLAIMANT_TSE",
+              "NewStateId": "Accepted"
             }
           }
         ]
@@ -56,12 +46,14 @@
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Issue Judgment",
-                "type": "IssueJudgment",
+                "name": "Contact Tribunal With An Application",
+                "type": "ContactTribunalWithanApplication",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Issue Judgment",
+                "task_title": "Contact Tribunal With An Application",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
                 "jurisdiction": "EMPLOYMENT",
                 "case_type_id": "ET_EnglandWales",
@@ -74,23 +66,9 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "hearing_work",
-                "work_type_label": "Hearing work",
-                "permissions": {
-                  "values": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Cancel",
-                    "Complete",
-                    "Claim",
-                    "Unclaim",
-                    "Assign",
-                    "Unassign"
-                  ]
-                },
-                "description": "[Review Judgment Referral,then issue relevant correspondence](cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
-                "role_category": "ADMIN",
+                "work_type_id": "applications",
+                "work_type_label": "Applications",
+                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
                 "minor_priority": 500,
                 "major_priority": 5000
               }
@@ -100,8 +78,8 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
               "role_category": "ADMIN",
+              "role_name": "allocated-admin-caseworker",
               "permissions": [
                 "Read",
                 "Own",
@@ -162,6 +140,7 @@
             }
           ]
         }
+
       }
     ]
   }

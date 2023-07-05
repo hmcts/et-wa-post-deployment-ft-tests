@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a ReviewReferralAdmin task",
+  "description": "ET createReferral should create an urgent ReviewReferralLegalOps task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -15,7 +15,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "isUrgent": "Yes"
+            "referralCollection": [{"value": {"isUrgent": "No"}},{"value": {"isUrgent": "Yes"}}]
           }
         }
       }
@@ -34,8 +34,8 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "ET1",
+                  "referCaseTo": "Legal officer",
+                  "referralSubject": "Amend claim",
                   "isUrgent": "Yes"
                 }
               }
@@ -49,19 +49,19 @@
         "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 7,
+        "numberOfRolesAvailable": 4,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Review Referral - ET1",
-                "type": "ReviewReferralAdmin",
+                "name": "Review Referral - Amend claim",
+                "type": "ReviewReferralLegalOps",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Review Referral - ET1",
+                "task_title": "Review Referral - Amend claim",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                 "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
@@ -69,7 +69,7 @@
                 "case_type_id": "ET_EnglandWales",
                 "case_id": "{$GENERATED_CASE_ID}",
                 "case_category": "Employment",
-                "case_name": "George Jetson",
+                "case_name": "George Jetson v Cosmo Spacely",
                 "auto_assigned": false,
                 "warnings": false,
                 "warning_list": {
@@ -92,7 +92,6 @@
                   ]
                 },
                 "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
-                "role_category": "ADMIN,CTSC",
                 "minor_priority": 100,
                 "major_priority": 1000,
                 "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
@@ -103,94 +102,33 @@
         "roleData": {
           "roles": [
             {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "allocated-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
+                "CompleteOwn",
+                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "UnclaimAssign"
               ],
               "authorisations": []
             },
             {
-              "role_category": "CTSC",
-              "role_name": "allocated-ctsc-caseworker",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
               ],
               "authorisations": []
             },
@@ -200,18 +138,32 @@
                 "Read",
                 "Own",
                 "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign"
               ],
               "authorisations": []
             }
           ]
         }
-
       }
     ]
   }
