@@ -74,7 +74,7 @@
               {
                 "id": "{$VERIFIER-UUID}",
                 "name": "Contact Tribunal With An Application",
-                "type": "ContactTribunalWithanApplication",
+                "type": "ContactTribunalWithAnApplication",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
