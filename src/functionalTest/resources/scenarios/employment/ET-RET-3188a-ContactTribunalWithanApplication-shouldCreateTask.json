@@ -1,5 +1,5 @@
 {
-  "description": "ET SUBMIT_CLAIMANT_TSE event should create a ContactTribunalWithanApplication task",
+  "description": "ET SUBMIT_CLAIMANT_TSE event should create a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -28,7 +28,15 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "SUBMIT_CLAIMANT_TSE",
-              "NewStateId": "Accepted"
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "genericTseApplicationCollection": [
+                    {"value": {"type": "Change my personal details"}},
+                    {"value": {"type": "Amend my claim"}}
+                  ]
+                }
+              }
             }
           }
         ]
@@ -47,7 +55,7 @@
               {
                 "id": "{$VERIFIER-UUID}",
                 "name": "Contact Tribunal With An Application",
-                "type": "ContactTribunalWithanApplication",
+                "type": "ContactTribunalWithAnApplication",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
