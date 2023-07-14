@@ -1,5 +1,5 @@
 {
-  "description": "ET tseRespond event should create a AmendPartyDetails task",
+  "description": "ET tseRespond event should create a AmendPartyDetails and a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -28,7 +28,16 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "tseRespond",
-              "NewStateId": "Accepted"
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "tseRespondSelectApplication": {
+                    "value": {
+                      "label": "20 Change personal details"
+                    }
+                  }
+                }
+              }
             }
           }
         ]
