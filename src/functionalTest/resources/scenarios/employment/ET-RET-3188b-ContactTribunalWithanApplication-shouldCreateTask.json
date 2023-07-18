@@ -28,7 +28,15 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "CLAIMANT_TSE_RESPOND",
-              "NewStateId": "Accepted"
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "genericTseApplicationCollection": [
+                    {"value": {"type": "Change my personal details"}},
+                    {"value": {"type": "Withdraw all/part of claim"}}
+                  ]
+                }
+              }
             }
           }
         ]
