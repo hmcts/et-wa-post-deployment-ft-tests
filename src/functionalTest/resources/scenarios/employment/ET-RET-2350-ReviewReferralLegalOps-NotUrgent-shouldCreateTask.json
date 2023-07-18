@@ -1,5 +1,5 @@
 {
-  "description": "ET CLAIMANT_TSE_RESPOND event should create a ContactTribunalWithAnApplication task",
+  "description": "ET createReferral should create a non-urgent ReviewReferralLegalOps task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -13,7 +13,10 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "referralCollection": []
+          }
         }
       }
     ]
@@ -27,8 +30,15 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "CLAIMANT_TSE_RESPOND",
-              "NewStateId": "Accepted"
+              "EventId": "createReferral",
+              "NewStateId": "Submitted",
+              "AdditionalData": {
+                "Data": {
+                  "referCaseTo": "Legal officer",
+                  "referralSubject": "Amend claim",
+                  "isUrgent": "No"
+                }
+              }
             }
           }
         ]
@@ -38,7 +48,7 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 2,
+        "numberOfTasksAvailable": 1,
         "numberOfRolesAvailable": 4,
         "taskData": {
           "template": "task-response.json",
@@ -46,39 +56,12 @@
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Amend Party Details",
-                "type": "AmendPartyDetails",
+                "name": "Review Referral - Amend claim",
+                "type": "ReviewReferralLegalOps",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Amend Party Details",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "applications",
-                "work_type_label": "Applications",
-                "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
-                "role_category": "ADMIN"
-              },
-              {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Contact Tribunal With An Application",
-                "type": "ContactTribunalWithAnApplication",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Contact Tribunal With An Application",
+                "task_title": "Review Referral - Amend claim",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                 "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
@@ -93,11 +76,25 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "applications",
-                "work_type_label": "Applications",
-                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                "work_type_id": "routine_work",
+                "work_type_label": "Routine work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
                 "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
               }
             ]
           }
@@ -105,48 +102,33 @@
         "roleData": {
           "roles": [
             {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "allocated-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
+                "CompleteOwn",
+                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
+                "UnclaimAssign"
               ],
               "authorisations": []
             },
             {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "senior-tribunal-caseworker",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
               ],
               "authorisations": []
             },
@@ -156,18 +138,32 @@
                 "Read",
                 "Own",
                 "Manage",
+                "Cancel",
+                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
+                "Unassign"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "LEGAL_OPERATIONS",
+              "role_name": "tribunal-caseworker",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "CompleteOwn",
+                "CancelOwn",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign"
               ],
               "authorisations": []
             }
           ]
         }
-
       }
     ]
   }

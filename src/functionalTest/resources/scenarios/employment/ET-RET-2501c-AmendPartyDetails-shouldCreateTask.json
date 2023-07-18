@@ -1,5 +1,5 @@
 {
-  "description": "ET CLAIMANT_TSE_RESPOND event should create a ContactTribunalWithAnApplication task",
+  "description": "ET respondentTSE event should create a AmendPartyDetails and a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,8 +27,13 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "CLAIMANT_TSE_RESPOND",
-              "NewStateId": "Accepted"
+              "EventId": "respondentTSE",
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "resTseSelectApplication": "Change personal details"
+                }
+              }
             }
           }
         ]

@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a ReviewReferralLegalOps task",
+  "description": "ET createReferral should create an urgent ReviewReferralJudiciary task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -15,7 +15,11 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "isUrgent": "Yes"
+            "referralCollection": [
+              {"value": {"isUrgent": "Yes"}},
+              {"value": {"isUrgent": "No"}},
+              {"value": {"isUrgent": "Yes"}}
+            ]
           }
         }
       }
@@ -34,8 +38,8 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Legal officer",
-                  "referralSubject": "Amend claim",
+                  "referCaseTo": "Judge",
+                  "referralSubject": "ET3/ECC",
                   "isUrgent": "Yes"
                 }
               }
@@ -49,19 +53,19 @@
         "credentials": "WaSystemUser",
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 4,
+        "numberOfRolesAvailable": 5,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Review Referral - Amend claim",
-                "type": "ReviewReferralLegalOps",
+                "name": "Review Referral - ET3/ECC",
+                "type": "ReviewReferralJudiciary",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Review Referral - Amend claim",
+                "task_title": "Review Referral - ET3/ECC",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                 "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
@@ -76,19 +80,18 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "routine_work",
-                "work_type_label": "Routine work",
+                "work_type_id": "decision_making_work",
+                "work_type_label": "Decision-making work",
                 "permissions": {
                   "values": [
                     "Read",
                     "Own",
                     "Manage",
-                    "Cancel",
-                    "Complete",
+                    "CompleteOwn",
+                    "CancelOwn",
                     "Claim",
                     "Unclaim",
-                    "Assign",
-                    "Unassign"
+                    "UnclaimAssign"
                   ]
                 },
                 "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
@@ -102,33 +105,62 @@
         "roleData": {
           "roles": [
             {
-              "role_category": "LEGAL_OPERATIONS",
-              "role_name": "allocated-tribunal-caseworker",
+              "role_category": "JUDICIAL",
+              "role_name": "fee-paid-judge",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "CompleteOwn",
-                "CancelOwn",
                 "Claim",
                 "Unclaim",
-                "UnclaimAssign"
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
               ],
               "authorisations": []
             },
             {
-              "role_category": "LEGAL_OPERATIONS",
-              "role_name": "senior-tribunal-caseworker",
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-judge",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "Cancel",
-                "Complete",
                 "Claim",
                 "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
+                "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "leadership-judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
                 "Assign",
-                "Unassign"
+                "Unassign",
+                "Complete",
+                "Cancel"
               ],
               "authorisations": []
             },
@@ -138,27 +170,12 @@
                 "Read",
                 "Own",
                 "Manage",
-                "Cancel",
-                "Complete",
                 "Claim",
                 "Unclaim",
                 "Assign",
-                "Unassign"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "LEGAL_OPERATIONS",
-              "role_name": "tribunal-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "CompleteOwn",
-                "CancelOwn",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign"
+                "Unassign",
+                "Complete",
+                "Cancel"
               ],
               "authorisations": []
             }

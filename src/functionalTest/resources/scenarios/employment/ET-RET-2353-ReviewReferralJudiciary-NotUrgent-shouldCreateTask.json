@@ -1,5 +1,5 @@
 {
-  "description": "ET CLAIMANT_TSE_RESPOND event should create a ContactTribunalWithAnApplication task",
+  "description": "ET createReferral should create a non-urgent ReviewReferralJudiciary task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,8 +27,15 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "CLAIMANT_TSE_RESPOND",
-              "NewStateId": "Accepted"
+              "EventId": "createReferral",
+              "NewStateId": "Submitted",
+              "AdditionalData": {
+                "Data": {
+                  "referCaseTo": "Judge",
+                  "referralSubject": "ET3/ECC",
+                  "isUrgent": "No"
+                }
+              }
             }
           }
         ]
@@ -38,47 +45,20 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 2,
-        "numberOfRolesAvailable": 4,
+        "numberOfTasksAvailable": 1,
+        "numberOfRolesAvailable": 5,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Amend Party Details",
-                "type": "AmendPartyDetails",
+                "name": "Review Referral - ET3/ECC",
+                "type": "ReviewReferralJudiciary",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Amend Party Details",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "applications",
-                "work_type_label": "Applications",
-                "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
-                "role_category": "ADMIN"
-              },
-              {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Contact Tribunal With An Application",
-                "type": "ContactTribunalWithAnApplication",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Contact Tribunal With An Application",
+                "task_title": "Review Referral - ET3/ECC",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                 "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
@@ -93,11 +73,24 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "work_type_id": "applications",
-                "work_type_label": "Applications",
-                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                "work_type_id": "decision_making_work",
+                "work_type_label": "Decision-making work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ]
+                },
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
                 "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
               }
             ]
           }
@@ -105,8 +98,8 @@
         "roleData": {
           "roles": [
             {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
+              "role_category": "JUDICIAL",
+              "role_name": "fee-paid-judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -120,8 +113,8 @@
               "authorisations": []
             },
             {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
+              "role_category": "JUDICIAL",
+              "role_name": "hearing-judge",
               "permissions": [
                 "Read",
                 "Own",
@@ -135,14 +128,28 @@
               "authorisations": []
             },
             {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
+              "role_category": "JUDICIAL",
+              "role_name": "judge",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
                 "Claim",
                 "Unclaim",
+                "UnclaimAssign",
+                "CompleteOwn",
+                "CancelOwn"
+              ],
+              "authorisations": []
+            },
+            {
+              "role_category": "JUDICIAL",
+              "role_name": "leadership-judge",
+              "permissions": [
+                "Read",
+                "Own",
+                "Manage",
+                "Claim",
                 "Assign",
                 "Unassign",
                 "Complete",
@@ -167,7 +174,6 @@
             }
           ]
         }
-
       }
     ]
   }
