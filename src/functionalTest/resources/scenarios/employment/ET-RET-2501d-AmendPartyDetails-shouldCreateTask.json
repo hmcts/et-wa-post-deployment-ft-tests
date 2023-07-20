@@ -1,5 +1,5 @@
 {
-  "description": "ET tseRespond event should create a AmendPartyDetails and a ContactTribunalWithAnApplication task",
+  "description": "ET tseRespond event should create an AmendPartyDetails task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",

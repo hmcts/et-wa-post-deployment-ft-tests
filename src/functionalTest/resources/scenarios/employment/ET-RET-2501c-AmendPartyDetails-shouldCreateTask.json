@@ -1,5 +1,5 @@
 {
-  "description": "ET respondentTSE event should create a AmendPartyDetails and a ContactTribunalWithAnApplication task",
+  "description": "ET respondentTSE event should create a AmendPartyDetails",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
