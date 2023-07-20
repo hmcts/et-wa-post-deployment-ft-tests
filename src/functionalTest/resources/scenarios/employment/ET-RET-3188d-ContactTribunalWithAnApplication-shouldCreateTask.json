@@ -31,11 +31,16 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "tseRespondSelectApplication": {
-                    "value": {
-                      "label": "3 Amend my claim"
+                  "genericTseApplicationCollection": [
+                    {
+                      "value": {
+                        "type": "Amend my claim",
+                        "respondCollection": [
+                          {"value": {"from": "Respondent"}}
+                        ]
+                      }
                     }
-                  }
+                  ]
                 }
               }
             }
