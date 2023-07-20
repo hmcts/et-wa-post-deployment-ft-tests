@@ -1,5 +1,5 @@
 {
-  "description": "ET CLAIMANT_TSE_RESPOND event should create a AmendPartyDetails task",
+  "description": "ET CLAIMANT_TSE_RESPOND event should create an AmendPartyDetails task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -32,8 +32,14 @@
               "AdditionalData": {
                 "Data": {
                   "genericTseApplicationCollection": [
-                    {"value": {"type": "Amend my claim"}},
-                    {"value": {"type": "Change my personal details"}}
+                    {
+                      "value": {
+                        "type": "Change personal details",
+                        "respondCollection": [
+                          {"value": {"from": "Claimant"}}
+                        ]
+                      }
+                    }
                   ]
                 }
               }
