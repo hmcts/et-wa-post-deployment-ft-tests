@@ -210,12 +210,12 @@
     "roleData": {
       "template": "set-organisational-role-assignment-request.json",
       "replacements": {
-        "roleName": "tribunal-caseworker",
         "caseType": "ET_EnglandWales",
         "jurisdiction": "EMPLOYMENT",
-        "grantType": "SPECIFIC",
-        "roleType": "CASE",
+        "grantType": "STANDARD",
         "classification": "PUBLIC",
+        "roleType": "CASE",
+        "roleName": "allocated-tribunal-caseworker",
         "roleCategory": "LEGAL_OPERATIONS"
       }
     }
