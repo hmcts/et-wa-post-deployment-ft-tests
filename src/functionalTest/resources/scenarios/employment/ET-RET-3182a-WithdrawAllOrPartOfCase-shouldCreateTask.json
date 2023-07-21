@@ -28,7 +28,14 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "SUBMIT_CLAIMANT_TSE",
-              "NewStateId": "Accepted"
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "genericTseApplicationCollection": [
+                    {"value": {"type": "Withdraw All or part of my Case"}}
+                  ]
+                }
+              }
             }
           }
         ]
@@ -59,7 +66,7 @@
                 "case_type_id": "ET_EnglandWales",
                 "case_id": "{$GENERATED_CASE_ID}",
                 "case_category": "Employment",
-                "case_name": "George Jetson",
+                "case_name": "George Jetson v Cosmo Spacely",
                 "auto_assigned": false,
                 "warnings": false,
                 "warning_list": {
