@@ -212,7 +212,7 @@
       "replacements": {
         "caseType": "ET_EnglandWales",
         "jurisdiction": "EMPLOYMENT",
-        "grantType": "STANDARD",
+        "grantType": "SPECIFIC",
         "classification": "PUBLIC",
         "roleType": "CASE",
         "roleName": "allocated-tribunal-caseworker",
