@@ -1,5 +1,5 @@
 {
-  "description": "et SendEt3Notification should create Send Et3 Notification task",
+  "description": "ET tseRespond event should create an AmendPartyDetails task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,8 +27,22 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "et3Vetting",
-              "NewStateId": "Accepted"
+              "EventId": "tseRespond",
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "genericTseApplicationCollection": [
+                    {
+                      "value": {
+                        "type": "Change my personal details",
+                        "respondCollection": [
+                          {"value": {"from": "Respondent"}}
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
             }
           }
         ]
@@ -46,12 +60,12 @@
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Send ET3 Notification",
-                "type": "SendEt3Notification",
+                "name": "Amend Party Details",
+                "type": "AmendPartyDetails",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Send ET3 Notification",
+                "task_title": "Amend Party Details",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                 "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
@@ -66,13 +80,10 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "warnings": false,
-                "work_type_id": "routine_work",
-                "minor_priority": 500,
-                "major_priority": 5000,
-                "description": "[Issue relevant ET3 Notification](cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
-                "role_category": "ADMIN",
-                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
+                "work_type_id": "applications",
+                "work_type_label": "Applications",
+                "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
+                "role_category": "ADMIN"
               }
             ]
           }
@@ -80,8 +91,8 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
               "role_category": "ADMIN",
+              "role_name": "allocated-admin-caseworker",
               "permissions": [
                 "Read",
                 "Own",
@@ -110,14 +121,14 @@
               "authorisations": []
             },
             {
-              "role_name": "hearing-centre-team-leader",
               "role_category": "ADMIN",
+              "role_name": "hearing-centre-team-leader",
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
-                "Manage",
                 "Assign",
                 "Unassign",
                 "Complete",

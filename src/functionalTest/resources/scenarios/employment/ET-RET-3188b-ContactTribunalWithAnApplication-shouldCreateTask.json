@@ -1,5 +1,5 @@
 {
-  "description": "et SendEt3Notification should create Send Et3 Notification task",
+  "description": "ET CLAIMANT_TSE_RESPOND event should create a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,8 +27,22 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "et3Vetting",
-              "NewStateId": "Accepted"
+              "EventId": "CLAIMANT_TSE_RESPOND",
+              "NewStateId": "Accepted",
+              "AdditionalData": {
+                "Data": {
+                  "genericTseApplicationCollection": [
+                    {
+                      "value": {
+                        "type": "Amend response",
+                        "respondCollection": [
+                          {"value": {"from": "Claimant"}}
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
             }
           }
         ]
@@ -46,14 +60,14 @@
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Send ET3 Notification",
-                "type": "SendEt3Notification",
+                "name": "Contact Tribunal With An Application",
+                "type": "ContactTribunalWithAnApplication",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Send ET3 Notification",
+                "task_title": "Contact Tribunal With An Application",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
                 "jurisdiction": "EMPLOYMENT",
                 "case_type_id": "ET_EnglandWales",
@@ -66,13 +80,11 @@
                   "values": []
                 },
                 "case_management_category": "Employment",
-                "warnings": false,
-                "work_type_id": "routine_work",
+                "work_type_id": "applications",
+                "work_type_label": "Applications",
+                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
                 "minor_priority": 500,
-                "major_priority": 5000,
-                "description": "[Issue relevant ET3 Notification](cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
-                "role_category": "ADMIN",
-                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
+                "major_priority": 5000
               }
             ]
           }
@@ -80,8 +92,8 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
               "role_category": "ADMIN",
+              "role_name": "allocated-admin-caseworker",
               "permissions": [
                 "Read",
                 "Own",
@@ -110,14 +122,14 @@
               "authorisations": []
             },
             {
-              "role_name": "hearing-centre-team-leader",
               "role_category": "ADMIN",
+              "role_name": "hearing-centre-team-leader",
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
-                "Manage",
                 "Assign",
                 "Unassign",
                 "Complete",
