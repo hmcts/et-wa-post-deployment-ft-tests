@@ -34,9 +34,14 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "ET1",
-                  "isUrgent": "No"
+                  "referralCollection": [{
+                    "value": {
+                      "referCaseTo": "Admin",
+                      "referralSubject": "ET1",
+                      "isUrgent": "No"
+                    }
+                  }
+                  ]
                 }
               }
             }

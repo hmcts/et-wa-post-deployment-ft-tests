@@ -31,9 +31,15 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Judge",
-                  "referralSubject": "Amend claim",
-                  "isUrgent": "Yes"
+                  "referralCollection": [
+                    {
+                      "value": {
+                        "referCaseTo": "Judge",
+                        "referralSubject": "Amend claim",
+                        "isUrgent": "Yes"
+                      }
+                    }
+                  ]
                 }
               }
             }
