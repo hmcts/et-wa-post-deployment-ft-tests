@@ -32,7 +32,7 @@
               "AdditionalData": {
                 "Data": {
                   "genericTseApplicationCollection": [
-                    {"value": {"type": "Withdraw All or part of my Case"}}
+                    {"value": {"type": "Strike out all/part of response"}}
                   ]
                 }
               }
