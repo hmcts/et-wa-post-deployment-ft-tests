@@ -39,7 +39,15 @@
                       "value": {
                         "referCaseTo": "Admin",
                         "referralSubject": "ET1",
-                        "isUrgent": "Yes"
+                        "isUrgent": "No",
+                        "referralReplyCollection": [
+                          {
+                            "value": {
+                              "directionTo": "Admin",
+                              "isUrgentReply": "No"
+                            }
+                          }
+                        ]
                       }
                     }
                   ]

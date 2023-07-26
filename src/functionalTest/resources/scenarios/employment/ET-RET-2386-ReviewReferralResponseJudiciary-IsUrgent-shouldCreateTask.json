@@ -39,7 +39,15 @@
                       "value": {
                         "referCaseTo": "Judge",
                         "referralSubject": "Amend claim",
-                        "isUrgent": "Yes"
+                        "isUrgent": "Yes",
+                        "referralReplyCollection": [
+                          {
+                            "value": {
+                              "directionTo": "Judge",
+                              "isUrgentReply": "Yes"
+                            }
+                          }
+                        ]
                       }
                     }
                   ]

@@ -39,7 +39,15 @@
                       "value": {
                         "referCaseTo": "Legal officer",
                         "referralSubject": "Amend claim",
-                        "isUrgent": "Yes"
+                        "isUrgent": "No",
+                        "referralReplyCollection": [
+                          {
+                            "value": {
+                              "directionTo": "Legal officer",
+                              "isUrgentReply": "No"
+                            }
+                          }
+                        ]
                       }
                     }
                   ]
