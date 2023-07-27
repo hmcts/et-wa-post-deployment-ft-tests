@@ -31,7 +31,10 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "resTseSelectApplication": "Change personal details"
+                  "genericTseApplicationCollection": [
+                    {"value": {"type": "Amend response"}},
+                    {"value": {"type": "Change personal details"}}
+                  ]
                 }
               }
             }

@@ -1,5 +1,5 @@
 {
-  "description": "ET SUBMIT_CLAIMANT_TSE event should create a AmendPartyDetails task",
+  "description": "ET SUBMIT_CLAIMANT_TSE event should create an AmendPartyDetails task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",

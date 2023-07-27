@@ -1,5 +1,5 @@
 {
-  "description": "ET tseRespond event should create a AmendPartyDetails task",
+  "description": "ET tseRespond event should create an AmendPartyDetails task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -31,7 +31,16 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "resTseSelectApplication": "Change personal details"
+                  "genericTseApplicationCollection": [
+                    {
+                      "value": {
+                        "type": "Change my personal details",
+                        "respondCollection": [
+                          {"value": {"from": "Respondent"}}
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             }

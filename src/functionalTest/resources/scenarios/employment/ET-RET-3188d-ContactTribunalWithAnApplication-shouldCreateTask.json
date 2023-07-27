@@ -1,5 +1,5 @@
 {
-  "description": "ET CLAIMANT_TSE_RESPOND event should create an AmendPartyDetails task",
+  "description": "ET tseRespond event should create a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,16 +27,16 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "CLAIMANT_TSE_RESPOND",
+              "EventId": "tseRespond",
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
                   "genericTseApplicationCollection": [
                     {
                       "value": {
-                        "type": "Change personal details",
+                        "type": "Amend my claim",
                         "respondCollection": [
-                          {"value": {"from": "Claimant"}}
+                          {"value": {"from": "Respondent"}}
                         ]
                       }
                     }
@@ -60,14 +60,14 @@
             "tasks": [
               {
                 "id": "{$VERIFIER-UUID}",
-                "name": "Amend Party Details",
-                "type": "AmendPartyDetails",
+                "name": "Contact Tribunal With An Application",
+                "type": "ContactTribunalWithAnApplication",
                 "task_state": "unassigned",
                 "task_system": "SELF",
                 "security_classification": "PUBLIC",
-                "task_title": "Amend Party Details",
+                "task_title": "Contact Tribunal With An Application",
                 "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "execution_type": "Case Management Task",
                 "jurisdiction": "EMPLOYMENT",
                 "case_type_id": "ET_EnglandWales",
@@ -82,8 +82,9 @@
                 "case_management_category": "Employment",
                 "work_type_id": "applications",
                 "work_type_label": "Applications",
-                "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
-                "role_category": "ADMIN"
+                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                "minor_priority": 500,
+                "major_priority": 5000
               }
             ]
           }

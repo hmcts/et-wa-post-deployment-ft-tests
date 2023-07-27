@@ -1,5 +1,5 @@
 {
-  "description": "ET tseRespond event should create a ContactTribunalWithAnApplication task",
+  "description": "ET respondentTSE event should create a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -27,11 +27,14 @@
             "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "tseRespond",
+              "EventId": "respondentTSE",
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "resTseSelectApplication": "Order a witness to attend to give evidence"
+                  "genericTseApplicationCollection": [
+                    {"value": {"type": "Change personal details"}},
+                    {"value": {"type": "Amend response"}}
+                  ]
                 }
               }
             }
@@ -43,39 +46,12 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 2,
+        "numberOfTasksAvailable": 1,
         "numberOfRolesAvailable": 4,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
-              {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Amend Party Details",
-                "type": "AmendPartyDetails",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Amend Party Details",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "applications",
-                "work_type_label": "Applications",
-                "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1)[,as instructed]",
-                "role_category": "ADMIN"
-              },
               {
                 "id": "{$VERIFIER-UUID}",
                 "name": "Contact Tribunal With An Application",
