@@ -32,8 +32,8 @@
               "AdditionalData": {
                 "Data": {
                   "genericTseApplicationCollection": [
-                    {"value": {"type": "Amend my claim"}},
-                    {"value": {"type": "Change my personal details"}}
+                    {"value": {"number": "1","type": "Amend my claim"}},
+                    {"value": {"number": "2","type": "Change my personal details"}}
                   ]
                 }
               }

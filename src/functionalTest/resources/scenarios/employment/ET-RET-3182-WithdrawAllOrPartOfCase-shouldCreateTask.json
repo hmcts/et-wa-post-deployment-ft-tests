@@ -32,7 +32,8 @@
               "AdditionalData": {
                 "Data": {
                   "genericTseApplicationCollection": [
-                    {"value": {"type": "Strike out all/part of response"}}
+                    {"value": {"number": "1","type": "Amend my claim"}},
+                    {"value": {"number": "2","type": "Strike out all/part of response"}}
                   ]
                 }
               }

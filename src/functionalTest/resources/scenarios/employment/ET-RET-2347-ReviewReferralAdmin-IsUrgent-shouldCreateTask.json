@@ -36,12 +36,12 @@
                 "Data": {
                   "referralCollection": [{
                     "value": {
+                      "referralNumber": "1",
                       "referCaseTo": "Admin",
                       "referralSubject": "ET1",
                       "isUrgent": "Yes"
                     }
-                  }
-                  ]
+                  }]
                 }
               }
             }

@@ -36,7 +36,17 @@
                       "value": {
                         "type": "Change my personal details",
                         "respondCollection": [
-                          {"value": {"from": "Respondent"}}
+                          {"id": "3","value": {"dateTime": "2023-07-27T15:38:47.769","from": "Claimant"}},
+                          {"id": "4","value": {"dateTime": "2023-07-27T16:38:47.769","from": "Respondent"}}
+                        ]
+                      }
+                    },
+                    {
+                      "value": {
+                        "type": "Amend my claim",
+                        "respondCollection": [
+                          {"id": "1","value": {"dateTime": "2023-07-27T13:38:47.769","from": "Respondent"}},
+                          {"id": "2","value": {"dateTime": "2023-07-27T14:38:47.769","from": "Claimant"}}
                         ]
                       }
                     }
