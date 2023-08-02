@@ -38,9 +38,13 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Judge",
-                  "referralSubject": "ET3/ECC",
-                  "isUrgent": "Yes"
+                  "referralCollection": [{
+                    "value": {
+                      "referCaseTo": "Judge",
+                      "referralSubject": "ET3/ECC",
+                      "isUrgent": "Yes"
+                    }
+                  }]
                 }
               }
             }

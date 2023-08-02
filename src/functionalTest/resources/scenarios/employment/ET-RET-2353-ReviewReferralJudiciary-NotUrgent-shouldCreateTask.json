@@ -13,7 +13,8 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": { "referralCollection": [{"value": {"isUrgent": "No"}}] }
         }
       }
     ]
@@ -31,9 +32,13 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Judge",
-                  "referralSubject": "ET3/ECC",
-                  "isUrgent": "No"
+                  "referralCollection": [{
+                    "value": {
+                      "referCaseTo": "Judge",
+                      "referralSubject": "ET3/ECC",
+                      "isUrgent": "No"
+                    }
+                  }]
                 }
               }
             }

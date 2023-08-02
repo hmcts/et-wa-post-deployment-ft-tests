@@ -15,7 +15,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": [{"value": {"isUrgent": "Yes"}}]
+            "referralCollection": [{"value": {"referralReplyCollection": [{"value": { "isUrgentReply": "Yes" }}]}}]
           }
         }
       }
@@ -34,9 +34,22 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Legal officer",
-                  "referralSubject": "Amend claim",
-                  "isUrgent": "Yes"
+                  "referralCollection": [
+                    {
+                      "value": {
+                        "referCaseTo": "Legal officer",
+                        "referralSubject": "Amend claim",
+                        "referralReplyCollection": [
+                          {
+                            "value": {
+                              "directionTo": "Legal officer",
+                              "isUrgentReply": "Yes"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             }

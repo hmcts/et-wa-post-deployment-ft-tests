@@ -15,7 +15,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": [{"value": {"isUrgent": "Yes"}}]
+            "referralCollection": [{"value": {"referralReplyCollection": [{"value": {"isUrgentReply": "Yes"}}]}}]
           }
         }
       }
@@ -34,9 +34,22 @@
               "NewStateId": "Submitted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "ET1",
-                  "isUrgent": "Yes"
+                  "referralCollection": [
+                    {
+                      "value": {
+                        "referCaseTo": "Admin",
+                        "referralSubject": "ET1",
+                        "referralReplyCollection": [
+                          {
+                            "value": {
+                              "directionTo": "Admin",
+                              "isUrgentReply": "Yes"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             }

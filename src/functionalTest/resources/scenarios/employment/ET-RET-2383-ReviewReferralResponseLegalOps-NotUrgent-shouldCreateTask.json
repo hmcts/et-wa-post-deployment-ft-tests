@@ -34,9 +34,22 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Legal officer",
-                  "referralSubject": "Amend claim",
-                  "isUrgent": "Yes"
+                  "referralCollection": [
+                    {
+                      "value": {
+                        "referCaseTo": "Legal officer",
+                        "referralSubject": "Amend claim",
+                        "referralReplyCollection": [
+                          {
+                            "value": {
+                              "directionTo": "Legal officer",
+                              "isUrgentReply": "No"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             }

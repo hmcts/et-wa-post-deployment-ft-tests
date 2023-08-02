@@ -30,8 +30,13 @@
               "EventId": "createReferral",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "Hearings"
+                  "referralCollection": [{
+                    "value": {
+                      "referCaseTo": "Admin",
+                      "referralSubject": "Hearings"
+                    }
+                   }
+                  ]
                 }
               }
             }

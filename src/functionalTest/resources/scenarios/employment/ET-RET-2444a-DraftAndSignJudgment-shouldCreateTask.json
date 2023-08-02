@@ -31,8 +31,13 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Judge",
-                  "referralSubject": "Rule 21"
+                  "referralCollection": [{
+                    "value": {
+                      "referCaseTo": "Judge",
+                      "referralSubject": "Rule 21"
+                    }
+                   }
+                  ]
                 }
               }
             }

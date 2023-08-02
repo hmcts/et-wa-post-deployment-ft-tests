@@ -34,9 +34,14 @@
               "NewStateId": "Accepted",
               "AdditionalData": {
                 "Data": {
-                  "referCaseTo": "Admin",
-                  "referralSubject": "Judgment",
-                  "isUrgent": "No"
+                  "referralCollection": [{
+                    "value": {
+                      "referCaseTo": "Admin",
+                      "referralSubject": "Judgment",
+                      "isUrgent": "No"
+                    }
+                   }
+                  ]
                 }
               }
             }
