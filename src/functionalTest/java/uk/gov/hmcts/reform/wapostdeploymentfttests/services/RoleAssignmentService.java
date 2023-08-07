@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.wapostdeploymentfttests.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Headers;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.clients.RoleAssignmentServiceApiClient;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.TestScenario;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
@@ -23,6 +25,7 @@ import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
 
 @Component
+@Slf4j
 public class RoleAssignmentService {
 
     public static final DateTimeFormatter ROLE_ASSIGNMENT_DATA_TIME_FORMATTER = ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
@@ -66,15 +69,23 @@ public class RoleAssignmentService {
 
         Headers requestAuthorizationHeaders = authorizationHeadersProvider
             .getAuthorizationHeaders(requestCredentials);
-        String userToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
+        Headers requestAuthorizationHeaders_WaSystemUser = authorizationHeadersProvider
+            .getAuthorizationHeaders("WaSystemUser");
+
+
+        String assignerToken = requestAuthorizationHeaders_WaSystemUser.getValue(AUTHORIZATION);
+        UserInfo assignerUserInfo = authorizationHeadersProvider.getUserInfo(assignerToken);
+
+
+        String assigneeToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
         String serviceToken = requestAuthorizationHeaders.getValue(SERVICE_AUTHORIZATION);
-        UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
+        UserInfo assigneeUserInfo = authorizationHeadersProvider.getUserInfo(assigneeToken);
 
         postRoleAssignment(
             caseId,
-            userToken,
+            assignerToken,
             serviceToken,
-            userInfo.getUid(),
+            assigneeUserInfo.getUid(),
             roleName,
             toJsonString(Map.of(
                 "caseId", caseId,
@@ -88,14 +99,14 @@ public class RoleAssignmentService {
             toJsonString(List.of()),
             roleType,
             classification,
-            "staff-organisational-role-mapping",
-            userInfo.getUid(),
-            false,
+            roleName,
+            UUID.randomUUID().toString(),
+            true,
             false,
             null,
-            "2020-01-01T00:00:00Z",
+            "2023-01-01T00:00:00Z",
             null,
-            userInfo.getUid()
+            assignerUserInfo.getUid()
         );
     }
 
@@ -147,6 +158,15 @@ public class RoleAssignmentService {
         String body = getBody(caseId, actorId, roleName, resourceFile, attributes, grantType, roleCategory,
             authorisations, roleType, classification, process, reference, replaceExisting,
             readOnly, notes, beginTime, endTime, assignerId);
+
+        log.info("actorId------>:{}",actorId);
+        log.info("");
+        log.info("Auth token------>:{}",bearerUserToken);
+        log.info("");
+        log.info("Service token------>:{}",s2sToken);
+        log.info("");
+        log.info("Request body------>:{}",body);
+        log.info("");
 
         roleAssignmentServiceApi.createRoleAssignment(
             body,

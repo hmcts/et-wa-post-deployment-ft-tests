@@ -17,3 +17,5 @@ IDAM_URL=http://localhost:5000
 CCD_DATA_STORE_URL=http://localhost:4452
 CCD_URL=http://localhost:4452
 ROLE_ASSIGNMENT_URL=http://localhost:4096
+WA_CASEOFFICER_USERNAME=et.caseworker@hmcts.net
+WA_CASEOFFICER_PASSWORD=System01
