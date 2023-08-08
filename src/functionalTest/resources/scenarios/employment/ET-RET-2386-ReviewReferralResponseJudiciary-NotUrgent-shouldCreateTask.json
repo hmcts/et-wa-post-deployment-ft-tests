@@ -36,7 +36,6 @@
                       "value": {
                         "referCaseTo": "Judge",
                         "referralSubject": "Amend claim",
-                        "isUrgent": "No",
                         "referralReplyCollection": [
                           {
                             "value": {

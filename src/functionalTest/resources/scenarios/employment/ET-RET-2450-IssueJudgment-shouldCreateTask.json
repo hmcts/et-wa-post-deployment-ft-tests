@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral should create a IssueJudgment task",
+  "description": "ET createReferral should create a IssueJudgment and a ReviewReferralAdmin task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -53,7 +53,7 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 1,
+        "numberOfTasksAvailable": 2,
         "numberOfRolesAvailable": 4,
         "taskData": {
           "template": "task-response.json",
@@ -98,6 +98,49 @@
                 "role_category": "ADMIN",
                 "minor_priority": 500,
                 "major_priority": 5000
+              },
+              {
+                "id": "{$VERIFIER-UUID}",
+                "name": "Review Referral - Judgment",
+                "type": "ReviewReferralAdmin",
+                "task_state": "unassigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Review Referral - Judgment",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
+                "case_name": "George Jetson v Cosmo Spacely",
+                "auto_assigned": false,
+                "warnings": false,
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
+                "work_type_id": "routine_work",
+                "work_type_label": "Routine work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
+                "role_category": "ADMIN,CTSC",
+                "minor_priority": 500,
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
               }
             ]
           }
