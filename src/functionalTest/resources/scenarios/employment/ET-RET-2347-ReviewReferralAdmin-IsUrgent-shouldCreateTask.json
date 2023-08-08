@@ -36,6 +36,13 @@
                     "value": {
                       "referralNumber": "1",
                       "referCaseTo": "Admin",
+                      "referralSubject": "ET3/ECC",
+                      "isUrgent": "No"
+                    }
+                  },{
+                    "value": {
+                      "referralNumber": "2",
+                      "referCaseTo": "Admin",
                       "referralSubject": "ET1",
                       "isUrgent": "Yes"
                     }

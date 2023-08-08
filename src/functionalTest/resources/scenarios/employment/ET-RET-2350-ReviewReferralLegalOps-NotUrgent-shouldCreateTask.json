@@ -36,6 +36,7 @@
                 "Data": {
                   "referralCollection": [{
                     "value": {
+                      "referralNumber": "1",
                       "referCaseTo": "Legal officer",
                       "referralSubject": "Amend claim",
                       "isUrgent": "No"
