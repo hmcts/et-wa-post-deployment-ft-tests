@@ -15,7 +15,17 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": [{"value": {"referralReplyCollection": [{"value": {"isUrgentReply": "Yes"}}]}}]
+            "referralCollection": [
+              {
+                "value": {
+                  "referralReplyCollection": [{
+                    "value": {
+                      "isUrgentReply": "Yes"
+                    }
+                  }]
+                }
+              }
+            ]
           }
         }
       }
@@ -39,14 +49,14 @@
                       "value": {
                         "referCaseTo": "Admin",
                         "referralSubject": "ET1",
-                        "referralReplyCollection": [
-                          {
-                            "value": {
-                              "directionTo": "Admin",
-                              "isUrgentReply": "Yes"
-                            }
+                        "referralReplyCollection": [{
+                          "value": {
+                            "referralSubject": "ET1",
+                            "directionTo": "Admin",
+                            "isUrgentReply": "Yes",
+                            "replyDateTime": "2023-07-27T15:38:47.769"
                           }
-                        ]
+                        }]
                       }
                     }
                   ]
