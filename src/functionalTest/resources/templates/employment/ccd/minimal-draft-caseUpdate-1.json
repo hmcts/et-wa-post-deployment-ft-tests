@@ -15,8 +15,8 @@
   "claimantRepresentedQuestion": "No",
   "claimantWorkAddressQuestion": "Yes",
   "claimantIndType": {
-    "claimant_last_name": "Jetson",
-    "claimant_first_names": "George"
+    "claimant_last_name": "functional",
+    "claimant_first_names": "PostDeployment"
   },
   "claimantType": {
     "claimant_addressUK": {
@@ -44,6 +44,24 @@
   ],
   "managingOffice": "Leeds",
   "receiptDate": "1989-01-01",
+  "et1VettingCanServeClaimYesOrNo": "No",
+  "et1VettingAcasCertIsYesOrNo1": "No",
+  "et1VettingAcasCertExemptYesOrNo1": "Yes",
+  "areTheseCodesCorrect": "Yes",
+  "isTrackAllocationCorrect": "Yes",
+  "isLocationCorrect": "Yes",
+  "et1SuggestHearingVenue": "No",
+  "et1GovOrMajorQuestion": "Yes",
+  "et1ReasonableAdjustmentsQuestion": "No",
+  "et1VideoHearingQuestion": "Yes",
+  "vettingJurisdictionCodeCollection": "ADT",
+  "preAcceptCase":{
+    "caseAccepted": "Yes",
+    "dateAccepted": "{$TODAY+1}",
+    "dateRejected": null,
+    "rejectReason": []
+  },
+  "reasonForCT": "nothing",
   "claimantHearingPreference": {
     "hearing_preferences": [
       "Video"

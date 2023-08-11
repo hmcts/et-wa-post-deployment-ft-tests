@@ -42,7 +42,7 @@ camunda:
   url: ${CAMUNDA_URL:http://camunda-local-bpm/engine-rest}
 
 role-assignment-service:
-  url: ${ROLE_ASSIGNMENT_URL:http://role-assignment}
+  url: ${ROLE_ASSIGNMENT_URL:http://am-role-assignment-service:4096}
 
 logging:
   level:

@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
@@ -63,18 +64,23 @@ public class RoleAssignmentService {
         String classification = extractOrDefault(replacementsValues, "classification", "PUBLIC");
         String roleCategory = extractOrDefault(replacementsValues, "roleCategory", "LEGAL_OPERATIONS");
 
-
         Headers requestAuthorizationHeaders = authorizationHeadersProvider
             .getAuthorizationHeaders(requestCredentials);
-        String userToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
+        Headers requestAuthHeadersForWaSystemUser = authorizationHeadersProvider
+            .getAuthorizationHeaders("WaSystemUser");
+
+        String assignerToken = requestAuthHeadersForWaSystemUser.getValue(AUTHORIZATION);
+        UserInfo assignerUserInfo = authorizationHeadersProvider.getUserInfo(assignerToken);
+
+        String assigneeToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
         String serviceToken = requestAuthorizationHeaders.getValue(SERVICE_AUTHORIZATION);
-        UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
+        UserInfo assigneeUserInfo = authorizationHeadersProvider.getUserInfo(assigneeToken);
 
         postRoleAssignment(
             caseId,
-            userToken,
+            assignerToken,
             serviceToken,
-            userInfo.getUid(),
+            assigneeUserInfo.getUid(),
             roleName,
             toJsonString(Map.of(
                 "caseId", caseId,
@@ -88,14 +94,14 @@ public class RoleAssignmentService {
             toJsonString(List.of()),
             roleType,
             classification,
-            "staff-organisational-role-mapping",
-            userInfo.getUid(),
-            false,
+            roleName,
+            UUID.randomUUID().toString(),
+            true,
             false,
             null,
-            "2020-01-01T00:00:00Z",
+            "2023-01-01T00:00:00Z",
             null,
-            userInfo.getUid()
+            assignerUserInfo.getUid()
         );
     }
 
