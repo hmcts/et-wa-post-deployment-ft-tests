@@ -64,16 +64,13 @@ public class RoleAssignmentService {
         String classification = extractOrDefault(replacementsValues, "classification", "PUBLIC");
         String roleCategory = extractOrDefault(replacementsValues, "roleCategory", "LEGAL_OPERATIONS");
 
-
         Headers requestAuthorizationHeaders = authorizationHeadersProvider
             .getAuthorizationHeaders(requestCredentials);
         Headers requestAuthHeadersForWaSystemUser = authorizationHeadersProvider
             .getAuthorizationHeaders("WaSystemUser");
 
-
         String assignerToken = requestAuthHeadersForWaSystemUser.getValue(AUTHORIZATION);
         UserInfo assignerUserInfo = authorizationHeadersProvider.getUserInfo(assignerToken);
-
 
         String assigneeToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
         String serviceToken = requestAuthorizationHeaders.getValue(SERVICE_AUTHORIZATION);
