@@ -206,7 +206,7 @@
     ]
   },
   "postRoleAssignments": {
-    "credentials": "WaSystemUser",
+    "credentials": "WaCaseOfficer",
     "roleData": {
       "template": "set-organisational-role-assignment-request.json",
       "replacements": {
@@ -215,17 +215,24 @@
         "grantType": "SPECIFIC",
         "classification": "PUBLIC",
         "roleType": "CASE",
-        "roleName": "allocated-tribunal-caseworker",
-        "roleCategory": "LEGAL_OPERATIONS"
+        "roleName": "allocated-admin-caseworker",
+        "roleCategory": "ADMIN"
       }
     }
   },
   "requiredUpdate": {
-    "credentials": "WaSystemUser",
+    "credentials": "WaCaseOfficer",
     "ccd": [
       {
+        "eventId": "SUBMIT_CASE_DRAFT",
+        "state": "AWAITING_SUBMISSION_TO_HMCTS",
+        "caseData": {
+          "template": "minimal-draft-case.json"
+        }
+      },
+      {
         "eventId": "et1Vetting",
-        "state": "appealSubmitted",
+        "state": "Submitted",
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
@@ -248,8 +255,12 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "preAcceptCase.caseAccepted": "Yes",
-            "preAcceptCase.dateAccepted": "{$TODAY+1}"
+            "preAcceptCase": {
+              "caseAccepted": "Yes",
+              "dateAccepted": "{$TODAY+1}",
+              "dateRejected": null,
+              "rejectReason": []
+            }
           }
         }
       },
@@ -257,11 +268,11 @@
         "eventId": "amendClaimantDetails",
         "state": "Accepted",
         "caseData": {
-          "template": "minimal-draft-case.json",
+          "template": "minimal-draft-caseUpdate.json",
           "replacements": {
             "claimantIndType": {
               "claimant_last_name": "functional",
-              "claimant_first_names": "PostDeployemnt"
+              "claimant_first_names": "PostDeployment"
             }
           }
         }
@@ -270,10 +281,7 @@
         "eventId": "addAmendJurisdiction",
         "state": "Accepted",
         "caseData": {
-          "template": "minimal-draft-case.json",
-          "replacements": {
-            "vettingJurisdictionCodeCollection": "ADT"
-          }
+          "template": "minimal-draft-caseUpdate-1.json"
         }
       }
     ]
@@ -284,11 +292,9 @@
       "input": {
         "eventMessages": [
           {
-            "destination": "RestEndpoint",
             "template": "ccd-event-message.json",
             "replacements": {
-              "EventId": "addAmendJurisdiction",
-              "NewStateId": "Accepted"
+              "EventId": "addAmendJurisdiction"
             }
           }
         ]
@@ -298,29 +304,54 @@
       {
         "credentials": "WaSystemUser",
         "status": 200,
-        "numberOfTasksAvailable": 2,
+        "numberOfTasksAvailable": 1,
         "numberOfRolesAvailable": 7,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
-                "name": "List/ Serve Claim",
-                "task_state": "unassigned",
+                "id": "{$VERIFIER-UUID}",
+                "name": "Et1 Vetting",
+                "type": "Et1Vetting",
+                "task_state": "assigned",
+                "task_system": "SELF",
+                "security_classification": "PUBLIC",
+                "task_title": "Et1 Vetting",
+                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}",
+                "execution_type": "Case Management Task",
+                "jurisdiction": "EMPLOYMENT",
+                "case_type_id": "ET_EnglandWales",
+                "case_id": "{$GENERATED_CASE_ID}",
+                "case_category": "Employment",
+                "case_name": "PostDeployment functional v Cosmo Spacely",
+                "auto_assigned": true,
                 "warnings": false,
+                "warning_list": {
+                  "values": []
+                },
+                "case_management_category": "Employment",
                 "work_type_id": "routine_work",
-                "case_name": "functional PostDeployemnt",
+                "work_type_label": "Routine work",
+                "permissions": {
+                  "values": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ]
+                },
+                "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                "role_category": "ADMIN,CTSC",
                 "minor_priority": 500,
-                "major_priority": 5000
-              },
-              {
-                "name": "Send ET1 Notification",
-                "task_state": "unassigned",
-                "warnings": false,
-                "work_type_id": "routine_work",
-                "case_name": "functional PostDeployemnt",
-                "minor_priority": 500,
-                "major_priority": 5000
+                "major_priority": 5000,
+                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
               }
             ]
           }
@@ -328,8 +359,8 @@
         "roleData": {
           "roles": [
             {
-              "role_name": "allocated-admin-caseworker",
               "role_category": "ADMIN",
+              "role_name": "allocated-admin-caseworker",
               "permissions": [
                 "Read",
                 "Own",
@@ -343,8 +374,8 @@
               "authorisations": []
             },
             {
+              "role_category": "CTSC",
               "role_name": "allocated-ctsc-caseworker",
-              "role_category": "CTSC",
               "permissions": [
                 "Read",
                 "Own",
@@ -358,8 +389,8 @@
               "authorisations": []
             },
             {
+              "role_category": "CTSC",
               "role_name": "ctsc",
-              "role_category": "CTSC",
               "permissions": [
                 "Read",
                 "Own",
@@ -373,15 +404,15 @@
               "authorisations": []
             },
             {
-              "role_name": "ctsc-team-leader",
               "role_category": "CTSC",
+              "role_name": "ctsc-team-leader",
               "permissions": [
                 "Read",
                 "Own",
                 "Manage",
-                "Assign",
                 "Claim",
                 "Unclaim",
+                "Assign",
                 "Unassign",
                 "Complete",
                 "Cancel"
@@ -389,8 +420,8 @@
               "authorisations": []
             },
             {
-              "role_name": "hearing-centre-admin",
               "role_category": "ADMIN",
+              "role_name": "hearing-centre-admin",
               "permissions": [
                 "Read",
                 "Own",
@@ -404,14 +435,14 @@
               "authorisations": []
             },
             {
-              "role_name": "hearing-centre-team-leader",
               "role_category": "ADMIN",
+              "role_name": "hearing-centre-team-leader",
               "permissions": [
                 "Read",
                 "Own",
+                "Manage",
                 "Claim",
                 "Unclaim",
-                "Manage",
                 "Assign",
                 "Unassign",
                 "Complete",

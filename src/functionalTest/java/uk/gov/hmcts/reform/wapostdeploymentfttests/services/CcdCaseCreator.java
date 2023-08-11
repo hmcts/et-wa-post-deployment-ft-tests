@@ -89,8 +89,8 @@ public class CcdCaseCreator {
         Map<String, Object> caseData = getCaseData(scenario, ccdTemplatesByFilename);
 
         String eventId = MapValueExtractor.extractOrThrow(scenario, "eventId");
-
-        fireStartAndSubmitEventsFor(
+        
+        fireStartAndSubmitEventsForUpdate(
             caseId,
             eventId,
             jurisdiction,
@@ -194,6 +194,59 @@ public class CcdCaseCreator {
             userInfo.getUid(),
             jurisdiction,
             caseType,
+            true,
+            submitCaseDataContent
+        );
+
+        System.out.println("Event [" + eventId + "] completed for case with Id [" + submitEventResponse.getId() + "]");
+
+        return submitEventResponse;
+    }
+    private CaseDetails fireStartAndSubmitEventsForUpdate(String caseId,
+                                                    String eventId,
+                                                    String jurisdiction,
+                                                    String caseType,
+                                                    Map<String, Object> caseData,
+                                                    Headers authorizationHeaders) {
+
+
+        String userToken = authorizationHeaders.getValue(AUTHORIZATION);
+        String serviceToken = authorizationHeaders.getValue(SERVICE_AUTHORIZATION);
+        UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
+
+        Objects.requireNonNull(caseId, "caseId cannot be null when submitting an event");
+        Objects.requireNonNull(userInfo.getUid(), "User Id cannot be null when submitting an event");
+
+        //Fire start event
+        StartEventResponse startEventResponse = coreCaseDataApi.startEventForCitizen(
+            userToken,
+            serviceToken,
+            userInfo.getUid(),
+            jurisdiction,
+            caseType,
+            caseId,
+            eventId
+        );
+
+        CaseDataContent submitCaseDataContent = CaseDataContent.builder()
+            .eventToken(startEventResponse.getToken())
+            .event(Event.builder()
+                       .id(startEventResponse.getEventId())
+                       .summary("summary")
+                       .description("description")
+                       .build())
+            .data(caseData)
+            .build();
+
+
+        //Fire submit event
+        CaseDetails submitEventResponse = coreCaseDataApi.submitEventForCitizen(
+            userToken,
+            serviceToken,
+            userInfo.getUid(),
+            jurisdiction,
+            caseType,
+            caseId,
             true,
             submitCaseDataContent
         );
