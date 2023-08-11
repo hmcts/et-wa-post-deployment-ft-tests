@@ -69,11 +69,11 @@ public class RoleAssignmentService {
 
         Headers requestAuthorizationHeaders = authorizationHeadersProvider
             .getAuthorizationHeaders(requestCredentials);
-        Headers requestAuthorizationHeaders_WaSystemUser = authorizationHeadersProvider
+        Headers requestAuthHeadersForWaSystemUser = authorizationHeadersProvider
             .getAuthorizationHeaders("WaSystemUser");
 
 
-        String assignerToken = requestAuthorizationHeaders_WaSystemUser.getValue(AUTHORIZATION);
+        String assignerToken = requestAuthHeadersForWaSystemUser.getValue(AUTHORIZATION);
         UserInfo assignerUserInfo = authorizationHeadersProvider.getUserInfo(assignerToken);
 
 

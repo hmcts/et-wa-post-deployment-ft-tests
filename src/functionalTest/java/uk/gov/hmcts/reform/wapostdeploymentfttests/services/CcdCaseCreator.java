@@ -89,7 +89,7 @@ public class CcdCaseCreator {
         Map<String, Object> caseData = getCaseData(scenario, ccdTemplatesByFilename);
 
         String eventId = MapValueExtractor.extractOrThrow(scenario, "eventId");
-        
+
         fireStartAndSubmitEventsForUpdate(
             caseId,
             eventId,
@@ -202,6 +202,7 @@ public class CcdCaseCreator {
 
         return submitEventResponse;
     }
+
     private CaseDetails fireStartAndSubmitEventsForUpdate(String caseId,
                                                     String eventId,
                                                     String jurisdiction,
