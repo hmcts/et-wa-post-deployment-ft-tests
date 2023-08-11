@@ -34,9 +34,21 @@
                   "genericTseApplicationCollection": [
                     {
                       "value": {
+                        "number": "1",
+                        "type": "Change my personal details",
+                        "respondCollection": [
+                          {"value": {"applicationType": "Change my personal details","dateTime": "2023-07-27T15:38:47.769","from": "Claimant"}},
+                          {"value": {"applicationType": "Change my personal details","dateTime": "2023-07-27T16:38:47.769","from": "Respondent"}}
+                        ]
+                      }
+                    },
+                    {
+                      "value": {
+                        "number": "2",
                         "type": "Amend my claim",
                         "respondCollection": [
-                          {"value": {"from": "Respondent"}}
+                          {"value": {"applicationType": "Amend my claim","dateTime": "2023-07-27T17:38:47.769","from": "Respondent"}},
+                          {"value": {"applicationType": "Amend my claim","dateTime": "2023-07-27T14:38:47.769","from": "Claimant"}}
                         ]
                       }
                     }
