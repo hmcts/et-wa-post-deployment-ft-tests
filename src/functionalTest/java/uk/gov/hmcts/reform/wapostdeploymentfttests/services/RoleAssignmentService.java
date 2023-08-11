@@ -3,7 +3,6 @@ package uk.gov.hmcts.reform.wapostdeploymentfttests.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Headers;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.clients.RoleAssignmentServiceApiClient;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.TestScenario;
@@ -25,7 +24,6 @@ import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
 
 @Component
-@Slf4j
 public class RoleAssignmentService {
 
     public static final DateTimeFormatter ROLE_ASSIGNMENT_DATA_TIME_FORMATTER = ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
@@ -158,15 +156,6 @@ public class RoleAssignmentService {
         String body = getBody(caseId, actorId, roleName, resourceFile, attributes, grantType, roleCategory,
             authorisations, roleType, classification, process, reference, replaceExisting,
             readOnly, notes, beginTime, endTime, assignerId);
-
-        log.info("actorId------>:{}",actorId);
-        log.info("");
-        log.info("Auth token------>:{}",bearerUserToken);
-        log.info("");
-        log.info("Service token------>:{}",s2sToken);
-        log.info("");
-        log.info("Request body------>:{}",body);
-        log.info("");
 
         roleAssignmentServiceApi.createRoleAssignment(
             body,
