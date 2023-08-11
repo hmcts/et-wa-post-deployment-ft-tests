@@ -16,9 +16,9 @@
           "template": "minimal-draft-case.json",
           "replacements": {
             "referralCollection": [
-              {"value": {"isUrgent": "Yes"}},
-              {"value": {"isUrgent": "No"}},
-              {"value": {"isUrgent": "Yes"}}
+              {"referralNumber": "1","value": {"isUrgent": "Yes"}},
+              {"referralNumber": "2","value": {"isUrgent": "No"}},
+              {"referralNumber": "3","value": {"isUrgent": "Yes"}}
             ]
           }
         }
