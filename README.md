@@ -2,9 +2,6 @@
 
 [![Build Status](https://travis-ci.org/hmcts/et-wa-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/et-wa-post-deployment-ft-tests)
 
-##Important
-The DMN
-
 ## Purpose
 This repository contains a set of functional tests which are designed to run periodically or after a helm deployment as a post deployment job to ensure regression.
 
