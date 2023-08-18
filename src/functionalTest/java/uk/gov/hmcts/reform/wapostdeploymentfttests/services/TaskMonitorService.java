@@ -52,6 +52,7 @@ public class TaskMonitorService {
         Map<String, Map<String, String>> requestBody = Map.of("job_details", Map.of("name", "RECONFIGURATION"));
 
         initiateJob(requestBody, authorizationHeaders);
+        await().atLeast(DEFAULT_TIMEOUT_SECONDS, SECONDS);
     }
 
     private void initiateJob(Map<String, Map<String, String>> requestBody, Headers authorizationHeaders) {

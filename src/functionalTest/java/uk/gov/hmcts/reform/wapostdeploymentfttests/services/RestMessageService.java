@@ -78,4 +78,26 @@ public class RestMessageService {
         return "messageId_" + ThreadLocalRandom.current().nextLong(1000000000);
     }
 
+    public void deleteMessage(String messageId, String caseId) {
+
+        System.out.println(
+            format("Attempting to delete a message from Case Event Handler using REST endpoint with "
+                       + "caseId: %s, messageId: %s", caseId, messageId)
+        );
+
+        Headers systemUserUserToken = authorizationHeadersProvider.getWaSystemUserAuthorization();
+
+        Response result = given()
+            .headers(systemUserUserToken)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(messageId)
+            .when()
+            .delete(caseEventHandlerUrl + "/messages/" + messageId);
+
+        result.then().assertThat()
+            .statusCode(HttpStatus.OK.value());
+
+        System.out.println("Message deleted successfully using Case Event Handler REST endpoint");
+    }
+
 }

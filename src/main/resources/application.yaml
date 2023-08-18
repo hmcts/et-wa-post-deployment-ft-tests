@@ -37,6 +37,8 @@ idam:
     name: ${S2S_NAME_TASK_MANAGEMENT_API:wa_task_management_api}
   api:
     baseUrl: ${IDAM_URL:http://sidam-api}
+  test:
+    userCleanupEnabled: ${ENABLE_TEST_USER_DELETION:false}
 
 camunda:
   url: ${CAMUNDA_URL:http://camunda-local-bpm/engine-rest}

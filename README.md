@@ -56,11 +56,11 @@ More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/
 ```
 ### You can also target a specific scenario:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000-requestRespondentEvidence-with-awaitingRespondentEvidence-postEventState-should-create-a-task
+./gradlew clean functional --tests ScenarioRunnerTest --info -Dscenario=ET-RET-2344-Et1Vetting
 ```
 ### or multiple scenarios:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000
+./gradlew clean functional --tests ScenarioRunnerTest --info -Dscenario=ET-RET-2501
 ```
 
 ## Tips for onboarding teams
