@@ -4,10 +4,14 @@ import io.restassured.http.Headers;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestScenario {
 
@@ -18,7 +22,7 @@ public class TestScenario {
     private final Map<String, Object> postRoleAssignmentClauseValues;
     private final String jurisdiction;
     private final String caseType;
-
+    private final List<String> taskIds;
     private final Map<String, String> caseIdMap;
     private final Set<Map<String, Object>> searchMap;
     private Headers requestAuthorizationHeaders;
@@ -40,6 +44,7 @@ public class TestScenario {
         this.postRoleAssignmentClauseValues = postRoleAssignmentClauseValues;
         this.caseIdMap = new HashMap<>();
         this.searchMap = new HashSet<>();
+        this.taskIds = new ArrayList<>();
     }
 
     public Map<String, Object> getScenarioMapValues() {
@@ -106,6 +111,15 @@ public class TestScenario {
 
     public Set<Map<String, Object>> getSearchMap() {
         return searchMap;
+    }
+
+    public void addTaskId(String taskId) {
+        assertNotNull(taskId);
+        taskIds.add(taskId);
+    }
+
+    public List<String> getTaskIds() {
+        return taskIds;
     }
 
 }
