@@ -214,7 +214,7 @@
             "template": "ccd-event-message.json",
             "replacements": {
               "EventId": "disposeCase",
-              "NewStateId": "Accepted",
+              "NewStateId": "Closed",
               "AdditionalData": {
                 "Data": {
                   "clerkResponsible": {
@@ -222,10 +222,11 @@
                       "code": "A Clerk",
                       "label": "A Clerk"
                     },
-                    "list_items": [{
-                      "code": "A Clerk",
-                      "label": "A Clerk"
-                    }
+                    "list_items": [
+                      {
+                        "code": "A Clerk",
+                        "label": "A Clerk"
+                      }
                     ]
                   }
                 }
