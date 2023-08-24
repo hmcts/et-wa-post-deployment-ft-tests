@@ -55,6 +55,7 @@ public class TaskManagementService {
         //Also trigger (CRON) Jobs programmatically
         taskMonitorService.triggerInitiationJob(authorizationHeaders);
         taskMonitorService.triggerTerminationJob(authorizationHeaders);
+        taskMonitorService.triggerReconfigurationJob(authorizationHeaders);
 
         int expectedStatus = MapValueExtractor.extractOrDefault(
             clauseValues, "status", 200);
@@ -66,7 +67,7 @@ public class TaskManagementService {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(requestBody)
             .when()
-            .post(taskManagementUrl + "/task");
+            .post(taskManagementUrl + "/task/extended-search");
 
         result.then().assertThat()
             .statusCode(expectedStatus)

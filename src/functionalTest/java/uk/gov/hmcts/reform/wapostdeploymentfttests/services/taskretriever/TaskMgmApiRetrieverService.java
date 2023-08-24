@@ -17,12 +17,16 @@ import uk.gov.hmcts.reform.wapostdeploymentfttests.util.StringResourceLoader;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.verifiers.Verifier;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
+import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonList;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
@@ -92,6 +96,7 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         additionalValues
                     );
 
+                    log.info("Expectation {}", expectedResponseBody);
                     if (searchByCaseIdResponseBody.isBlank()) {
                         log.error("Find my case ID response is empty. Test will now fail");
                         return false;
@@ -120,40 +125,99 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         return false;
                     }
 
-                    String taskId = MapValueExtractor.extract(tasks.get(0), "id");
-                    log.info("task id is {}", taskId);
 
-                    String retrieveTaskRolePermissionsResponseBody =
-                        taskManagementService.retrieveTaskRolePermissions(
-                            clauseValues,
-                            taskId,
-                            scenario.getExpectationAuthorizationHeaders()
-                        );
+                    tasks.forEach(t -> scenario.addTaskId(MapValueExtractor.extract(t, "id")));
+                    AtomicReference<Map<String, Object>> actualRoleResponse = new AtomicReference<>(emptyMap());
+                    AtomicReference<Map<String, Object>> expectedRoleResponse = new AtomicReference<>(emptyMap());
 
-                    if (retrieveTaskRolePermissionsResponseBody.isBlank()) {
-                        log.error("Task role permissions response is empty. Test will now fail");
-                        return false;
-                    }
-
-                    String rolesExpectationResponseBody = buildRolesExpectationResponseBody(
+                    Map<String, Object> scenarioMap = deserializeValuesUtil.expandMapValues(
                         deserializedClauseValues,
                         additionalValues
                     );
 
-                    log.info("expected roles: {}", rolesExpectationResponseBody);
-                    Map<String, Object> actualRoleResponse = MapSerializer.deserialize(
-                        retrieveTaskRolePermissionsResponseBody);
-                    Map<String, Object> expectedRoleResponse = MapSerializer.deserialize(
-                        rolesExpectationResponseBody);
 
-                    verifiers.forEach(verifier ->
-                        verifier.verify(
-                            clauseValues,
-                            expectedRoleResponse,
-                            actualRoleResponse
-                        )
-                    );
+                    AtomicInteger index = new AtomicInteger(0);
+                    tasks.forEach(task -> {
+                        try {
+                            String taskId = MapValueExtractor.extract(task, "id");
+                            log.info("task id is {}", taskId);
 
+                            List<Map<String, Object>> taskDataList = MapValueExtractor.extract(
+                                scenarioMap,
+                                "taskData.replacements.tasks"
+                            );
+
+                            if (taskDataList == null || taskDataList.isEmpty()) {
+                                log.info("taskDataList is null or empty");
+                                return;
+                            }
+
+                            Map<String, Object> taskData = taskDataList.get(index.get());
+
+                            List<Map<String, Object>> metaDataList = MapValueExtractor.extract(
+                                taskData,
+                                "test_meta_data"
+                            );
+
+                            if (metaDataList == null || metaDataList.isEmpty()) {
+                                log.info("metaDataList is null or empty");
+                                return;
+                            }
+
+                            String roleDataKey = metaDataList.stream()
+                                .filter(md -> md.containsKey("key"))
+                                .map(md -> md.get("value").toString())
+                                .findFirst()
+                                .orElse(null);
+
+                            Map<String, Object> roleDataMap = filterRoleData(clauseValues, roleDataKey);
+
+                            //skip role assignment validation if no role data provided in scenario
+                            if (roleDataMap.isEmpty()) {
+                                isTestPassed.set(true);
+                                return;
+                            }
+
+                            String retrieveTaskRolePermissionsResponseBody =
+                                taskManagementService.retrieveTaskRolePermissions(
+                                    roleDataMap,
+                                    taskId,
+                                    scenario.getExpectationAuthorizationHeaders()
+                                );
+
+                            if (retrieveTaskRolePermissionsResponseBody.isBlank()) {
+                                log.error("Task role permissions response is empty. Test will now fail");
+                                isTestPassed.set(false);
+                            }
+
+                            String rolesExpectationResponseBody = buildRolesExpectationResponseBody(
+                                deserializedClauseValues,
+                                additionalValues
+                            );
+
+                            log.info("expected roles: {}", rolesExpectationResponseBody);
+                            actualRoleResponse.set(MapSerializer.deserialize(
+                                retrieveTaskRolePermissionsResponseBody));
+                            expectedRoleResponse.set(MapSerializer.deserialize(
+                                rolesExpectationResponseBody));
+
+                            verifiers.forEach(verifier ->
+                                                  verifier.verify(
+                                                      clauseValues,
+                                                      expectedRoleResponse.get(),
+                                                      actualRoleResponse.get()
+                                                  )
+                            );
+
+                            index.getAndIncrement();
+
+                        } catch (Exception e) {
+                            isTestPassed.set(false);
+                            Logger.say(SCENARIO_FAILED, scenario.getScenarioMapValues().get("description"));
+                            throw new RuntimeException(e);
+                        }
+
+                    });
 
                     isTestPassed.set(true);
                     return true;
@@ -162,6 +226,21 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         if (!isTestPassed.get()) {
             Logger.say(SCENARIO_FAILED, scenario.getScenarioMapValues().get("description"));
         }
+    }
+
+    protected Map<String, Object> filterRoleData(Map<String, Object> clauseValues, String key) {
+
+        List<Map<String, Object>> roleData =
+            MapValueExtractor.extractOrDefault(
+                clauseValues,
+                "roleData",
+                new ArrayList<>()
+            );
+
+        return roleData.stream()
+            .filter((Map<String, Object> rd) -> rd.get("key").equals(key))
+            .findFirst()
+            .orElse(emptyMap());
     }
 
     private Comparator<JsonNode> taskTitleComparator() {
