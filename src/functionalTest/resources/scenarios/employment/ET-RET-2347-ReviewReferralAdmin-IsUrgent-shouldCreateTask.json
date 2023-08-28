@@ -7,214 +7,231 @@
     "taskRetrievalApi": "task-management-api"
   },
   "required": {
-    "credentials": "WaSystemUser",
+    "credentials": {
+      "key": "WaSystemUser"
+    },
     "ccd": [
       {
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
           "template": "minimal-draft-case.json",
-          "replacements": { "referralCollection": [{"value": {"isUrgent": "Yes"}}] }
+          "replacements": {
+            "referralCollection": [
+              {
+                "value": {
+                  "isUrgent": "Yes"
+                }
+              }
+            ]
+          }
         }
       }
     ]
   },
-  "test": {
-    "request": {
-      "credentials": "WaSystemUser",
-      "input": {
-        "eventMessages": [
-          {
-            "destination": "RestEndpoint",
-            "template": "ccd-event-message.json",
-            "replacements": {
-              "EventId": "createReferral",
-              "NewStateId": "Submitted",
-              "AdditionalData": {
-                "Data": {
-                  "referralCollection": [{
-                    "value": {
-                      "referCaseTo": "Admin",
-                      "referralSubject": "ET1",
-                      "isUrgent": "Yes"
-                    }
-                  }]
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "WaSystemUser"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "ccd-event-message.json",
+              "replacements": {
+                "EventId": "createReferral",
+                "NewStateId": "Submitted",
+                "AdditionalData": {
+                  "Data": {
+                    "referralCollection": [
+                      {
+                        "value": {
+                          "referCaseTo": "Admin",
+                          "referralSubject": "ET1",
+                          "isUrgent": "Yes"
+                        }
+                      }
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      }
-    },
-    "expectations": [
-      {
-        "credentials": "WaSystemUser",
-        "status": 200,
-        "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 7,
-        "taskData": {
-          "template": "task-response.json",
-          "replacements": {
-            "tasks": [
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "WaSystemUser"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "numberOfRolesAvailable": 7,
+          "taskData": {
+            "template": "task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "id": "{$VERIFIER-UUID}",
+                  "name": "Review Referral - ET1",
+                  "type": "ReviewReferralAdmin",
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Review Referral - ET1",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
+                  "work_type_id": "routine_work",
+                  "work_type_label": "Routine work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "Cancel",
+                      "Complete",
+                      "Claim",
+                      "Unclaim",
+                      "Assign",
+                      "Unassign"
+                    ]
+                  },
+                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
+                  "role_category": "ADMIN,CTSC",
+                  "minor_priority": 100,
+                  "major_priority": 1000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
               {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Review Referral - ET1",
-                "type": "ReviewReferralAdmin",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Review Referral - ET1",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "routine_work",
-                "work_type_label": "Routine work",
-                "permissions": {
-                  "values": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Cancel",
-                    "Complete",
-                    "Claim",
-                    "Unclaim",
-                    "Assign",
-                    "Unassign"
-                  ]
-                },
-                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
-                "role_category": "ADMIN,CTSC",
-                "minor_priority": 100,
-                "major_priority": 1000,
-                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
+                "role_category": "ADMIN",
+                "role_name": "allocated-admin-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "allocated-ctsc-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "ctsc",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "CTSC",
+                "role_name": "ctsc-team-leader",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-admin",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-team-leader",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
               }
             ]
           }
-        },
-        "roleData": {
-          "roles": [
-            {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "allocated-ctsc-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "task-supervisor",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            }
-          ]
         }
-
-      }
-    ]
-  }
+      ]
+    }
+  ]
 }

@@ -7,7 +7,9 @@
     "taskRetrievalApi": "task-management-api"
   },
   "required": {
-    "credentials": "WaSystemUser",
+    "credentials": {
+      "key": "WaSystemUser"
+    },
     "ccd": [
       {
         "eventId": "INITIATE_CASE_DRAFT",
@@ -18,144 +20,153 @@
       }
     ]
   },
-  "test": {
-    "request": {
-      "credentials": "WaSystemUser",
-      "input": {
-        "eventMessages": [
-          {
-            "destination": "RestEndpoint",
-            "template": "ccd-event-message.json",
-            "replacements": {
-              "EventId": "tseRespond",
-              "NewStateId": "Accepted",
-              "AdditionalData": {
-                "Data": {
-                  "genericTseApplicationCollection": [
-                    {
-                      "value": {
-                        "type": "Amend my claim",
-                        "respondCollection": [
-                          {"value": {"from": "Respondent"}}
-                        ]
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "WaSystemUser"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "ccd-event-message.json",
+              "replacements": {
+                "EventId": "tseRespond",
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "genericTseApplicationCollection": [
+                      {
+                        "value": {
+                          "type": "Amend my claim",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Respondent"
+                              }
+                            }
+                          ]
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      }
-    },
-    "expectations": [
-      {
-        "credentials": "WaSystemUser",
-        "status": 200,
-        "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 4,
-        "taskData": {
-          "template": "task-response.json",
-          "replacements": {
-            "tasks": [
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "WaSystemUser"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "numberOfRolesAvailable": 4,
+          "taskData": {
+            "template": "task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "id": "{$VERIFIER-UUID}",
+                  "name": "Contact Tribunal With An Application",
+                  "type": "ContactTribunalWithAnApplication",
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Contact Tribunal With An Application",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
+                  "work_type_id": "applications",
+                  "work_type_label": "Applications",
+                  "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                  "minor_priority": 500,
+                  "major_priority": 5000
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
               {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Contact Tribunal With An Application",
-                "type": "ContactTribunalWithAnApplication",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Contact Tribunal With An Application",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "applications",
-                "work_type_label": "Applications",
-                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
-                "minor_priority": 500,
-                "major_priority": 5000
+                "role_category": "ADMIN",
+                "role_name": "allocated-admin-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-admin",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-team-leader",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
               }
             ]
           }
-        },
-        "roleData": {
-          "roles": [
-            {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "task-supervisor",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            }
-          ]
         }
-
-      }
-    ]
-  }
+      ]
+    }
+  ]
 }

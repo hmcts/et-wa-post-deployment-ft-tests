@@ -7,7 +7,9 @@
     "taskRetrievalApi": "task-management-api"
   },
   "required": {
-    "credentials": "WaSystemUser",
+    "credentials": {
+      "key": "WaSystemUser"
+    },
     "ccd": [
       {
         "eventId": "INITIATE_CASE_DRAFT",
@@ -18,210 +20,216 @@
       }
     ]
   },
-  "test": {
-    "request": {
-      "credentials": "WaSystemUser",
-      "input": {
-        "eventMessages": [
-          {
-            "destination": "RestEndpoint",
-            "template": "ccd-event-message.json",
-            "replacements": {
-              "EventId": "createReferral",
-              "NewStateId": "Accepted",
-              "AdditionalData": {
-                "Data": {
-                  "referralCollection": [{
-                    "value": {
-                      "referCaseTo": "Judge",
-                      "referralSubject": "Rule 21"
-                    }
-                   }
-                  ]
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "WaSystemUser"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "ccd-event-message.json",
+              "replacements": {
+                "EventId": "createReferral",
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "referralCollection": [
+                      {
+                        "value": {
+                          "referCaseTo": "Judge",
+                          "referralSubject": "Rule 21"
+                        }
+                      }
+                    ]
+                  }
                 }
               }
             }
-          }
-        ]
-      }
-    },
-    "expectations": [
-      {
-        "credentials": "WaSystemUser",
-        "status": 200,
-        "numberOfTasksAvailable": 2,
-        "numberOfRolesAvailable": 5,
-        "taskData": {
-          "template": "task-response.json",
-          "replacements": {
-            "tasks": [
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "WaSystemUser"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 2,
+          "numberOfRolesAvailable": 5,
+          "taskData": {
+            "template": "task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "id": "{$VERIFIER-UUID}",
+                  "name": "Draft And Sign Judgment",
+                  "type": "DraftAndSignJudgment",
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Draft And Sign Judgment",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
+                  "work_type_id": "decision_making_work",
+                  "work_type_label": "Decision-making work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "CompleteOwn",
+                      "CancelOwn",
+                      "Claim",
+                      "Unclaim",
+                      "UnclaimAssign"
+                    ]
+                  },
+                  "description": "[Refer the judgment for promulgation,once signed](cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
+                  "role_category": "JUDICIAL",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}"
+                },
+                {
+                  "id": "{$VERIFIER-UUID}",
+                  "name": "Review Referral - Rule 21",
+                  "type": "ReviewReferralJudiciary",
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Review Referral - Rule 21",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
+                  "work_type_id": "decision_making_work",
+                  "work_type_label": "Decision-making work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "CompleteOwn",
+                      "CancelOwn",
+                      "Claim",
+                      "Unclaim",
+                      "UnclaimAssign"
+                    ]
+                  },
+                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
               {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Draft And Sign Judgment",
-                "type": "DraftAndSignJudgment",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Draft And Sign Judgment",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "decision_making_work",
-                "work_type_label": "Decision-making work",
-                "permissions": {
-                  "values": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "CompleteOwn",
-                    "CancelOwn",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign"
-                  ]
-                },
-                "description": "[Refer the judgment for promulgation,once signed](cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
                 "role_category": "JUDICIAL",
-                "minor_priority": 500,
-                "major_priority": 5000,
-                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}"
+                "role_name": "fee-paid-judge",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
               },
               {
-                "id": "{$VERIFIER-UUID}",
-                "name": "Review Referral - Rule 21",
-                "type": "ReviewReferralJudiciary",
-                "task_state": "unassigned",
-                "task_system": "SELF",
-                "security_classification": "PUBLIC",
-                "task_title": "Review Referral - Rule 21",
-                "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
-                "execution_type": "Case Management Task",
-                "jurisdiction": "EMPLOYMENT",
-                "case_type_id": "ET_EnglandWales",
-                "case_id": "{$GENERATED_CASE_ID}",
-                "case_category": "Employment",
-                "case_name": "George Jetson v Cosmo Spacely",
-                "auto_assigned": false,
-                "warnings": false,
-                "warning_list": {
-                  "values": []
-                },
-                "case_management_category": "Employment",
-                "work_type_id": "decision_making_work",
-                "work_type_label": "Decision-making work",
-                "permissions": {
-                  "values": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "CompleteOwn",
-                    "CancelOwn",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign"
-                  ]
-                },
-                "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/createReferral1)",
-                "minor_priority": 500,
-                "major_priority": 5000,
-                "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+                "role_category": "JUDICIAL",
+                "role_name": "hearing-judge",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "JUDICIAL",
+                "role_name": "judge",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "JUDICIAL",
+                "role_name": "leadership-judge",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
               }
             ]
           }
-        },
-        "roleData": {
-          "roles": [
-            {
-              "role_category": "JUDICIAL",
-              "role_name": "fee-paid-judge",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "JUDICIAL",
-              "role_name": "hearing-judge",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "JUDICIAL",
-              "role_name": "judge",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "JUDICIAL",
-              "role_name": "leadership-judge",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "task-supervisor",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            }
-          ]
         }
-
-      }
-    ]
-  }
+      ]
+    }
+  ]
 }

@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.wapostdeploymentfttests.services;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,15 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.clients.IdamWebApi;
+import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.idam.CredentialRequest;
+import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.idam.RoleCode;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.idam.UserInfo;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -21,9 +28,11 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
 
     public static final String AUTHORIZATION = "Authorization";
     public static final String SERVICE_AUTHORIZATION = "ServiceAuthorization";
+    private static final String WA_USER_PASSWORD = "System01";
 
     private final Map<String, String> tokens = new ConcurrentHashMap<>();
     private final Map<String, UserInfo> userInfo = new ConcurrentHashMap<>();
+    private final Map<String, String> testUserAccounts = new ConcurrentHashMap<>();
     @Value("${idam.redirectUrl}")
     protected String idamRedirectUrl;
     @Value("${idam.scope}")
@@ -32,12 +41,100 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
     protected String idamClientId;
     @Value("${spring.security.oauth2.client.registration.oidc.client-secret}")
     protected String idamClientSecret;
+    @Value("${idam.test.userCleanupEnabled:false}")
+    private boolean testUserDeletionEnabled;
 
     @Autowired
     private IdamWebApi idamWebApi;
 
     @Autowired
     private AuthTokenGenerator serviceAuthTokenGenerator;
+
+    @Autowired
+    private RoleAssignmentService roleAssignmentService;
+
+    @Override
+    public Headers getWaSystemUserAuthorization() {
+        return new Headers(
+            getUserAuthorizationHeader(
+                "WaSystemUser",
+                System.getenv("WA_SYSTEM_USERNAME"),
+                System.getenv("WA_SYSTEM_PASSWORD")
+            ),
+            getServiceAuthorizationHeader()
+        );
+    }
+
+    public Headers getWaCaseOfficerAuthorization() {
+        return new Headers(
+            getUserAuthorizationHeader(
+                "WaCaseOfficer",
+                System.getenv("WA_CASEOFFICER_USERNAME"),
+                System.getenv("WA_CASEOFFICER_PASSWORD")
+            ),
+            getServiceAuthorizationHeader()
+        );
+    }
+
+    public Headers getEtCaseWorkerAuthorization() {
+        return new Headers(
+            getUserAuthorizationHeader(
+                "ETCaseWorker",
+                System.getenv("ET_CASEOFFICER_USERNAME"),
+                System.getenv("ET_CASEOFFICER_PASSWORD")
+            ),
+            getServiceAuthorizationHeader()
+        );
+    }
+
+    @Override
+    public Headers getWaUserAuthorization(CredentialRequest request) throws IOException {
+        if ("WaSystemUser".equals(request.getCredentialsKey())) {
+            return getWaSystemUserAuthorization();
+        } else if ("WaCaseOfficer".equals(request.getCredentialsKey())) {
+            return getWaCaseOfficerAuthorization();
+        } else if ("ETCaseWorker".equals(request.getCredentialsKey())) {
+            return getEtCaseWorkerAuthorization();
+        } else {
+            String userEmail = findOrGenerateUserAccount(request.getCredentialsKey(), request.isGranularPermission());
+
+            return new Headers(
+                getUserAuthorizationHeader(request.getCredentialsKey(), userEmail),
+                getServiceAuthorizationHeader()
+            );
+        }
+    }
+
+    @Override
+    public UserInfo getUserInfo(String userToken) {
+        return userInfo.computeIfAbsent(
+            userToken,
+            user -> idamWebApi.userInfo(userToken)
+        );
+    }
+
+    @Override
+    public void cleanupTestUsers() {
+        testUserAccounts.entrySet()
+            .forEach(entry -> {
+                Headers headers =  new Headers(
+                    getUserAuthorizationHeader(entry.getKey(), entry.getValue()),
+                    getServiceAuthorizationHeader()
+                );
+                UserInfo userInfo = getUserInfo(headers.getValue(AUTHORIZATION));
+                roleAssignmentService.clearAllRoleAssignments(headers, userInfo);
+                deleteAccount(entry.getValue());
+            });
+    }
+
+    private void deleteAccount(String username) {
+        if (testUserDeletionEnabled) {
+            log.info("Deleting test account '{}'", username);
+            idamWebApi.deleteTestUser(username);
+        } else {
+            log.info("Test User deletion feature flag was not enabled, user '{}' was not deleted", username);
+        }
+    }
 
     public Header getServiceAuthorizationHeader() {
         String serviceToken = tokens.computeIfAbsent(
@@ -48,84 +145,11 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         return new Header(SERVICE_AUTHORIZATION, serviceToken);
     }
 
-    public Headers getTribunalCaseworkerAAuthorization() {
-        return new Headers(
-            getCaseworkerAAuthorizationOnly(),
-            getServiceAuthorizationHeader()
-        );
+    private Header getUserAuthorizationHeader(String key, String username) {
+        return getUserAuthorizationHeader(key, username, WA_USER_PASSWORD);
     }
 
-    public Headers getWaSystemUserAuthorization() {
-        return new Headers(
-            getUserAuthorizationOnly(
-                "WA_SYSTEM_USERNAME",
-                "WA_SYSTEM_PASSWORD",
-                "WaSystemUser"
-            ),
-            getServiceAuthorizationHeader()
-        );
-    }
-
-    public Headers getWaCaseOfficerAuthorization() {
-        return new Headers(
-            getUserAuthorizationOnly(
-                "WA_CASEOFFICER_USERNAME",
-                "WA_CASEOFFICER_PASSWORD",
-                "WaCaseOfficer"
-            ),
-            getServiceAuthorizationHeader()
-        );
-    }
-
-    public Headers getEtCaseWorkerAuthorization() {
-        return new Headers(
-            getUserAuthorizationOnly(
-                "ET_CASEOFFICER_USERNAME",
-                "ET_CASEOFFICER_PASSWORD",
-                "ETCaseWorker"
-            ),
-            getServiceAuthorizationHeader()
-        );
-    }
-
-    public Headers getLegalRepAuthorization() {
-        Header requiredHeader = getLawFirmAuthorizationOnly();
-
-        return new Headers(
-            requiredHeader,
-            getServiceAuthorizationHeader()
-        );
-    }
-
-    public Header getCaseworkerAAuthorizationOnly() {
-
-        return getUserAuthorizationOnly("TEST_WA_CASEOFFICER_PUBLIC_A_USERNAME",
-                                        "TEST_WA_CASEOFFICER_PUBLIC_A_PASSWORD",
-                                        "Caseworker A");
-    }
-
-    public Header getUserAuthorizationOnly(String username, String password, String key) {
-        return getAuthorization(key, System.getenv(username), System.getenv(password));
-    }
-
-    public Header getLawFirmAuthorizationOnly() {
-        return getUserAuthorizationOnly(
-            "TEST_WA_LAW_FIRM_USERNAME",
-            "TEST_WA_LAW_FIRM_PASSWORD",
-            "LawFirm"
-        );
-    }
-
-    public Header getWaDlqSystemUserAuthorization() {
-        return getUserAuthorizationOnly(
-            "TEST_WA_DLQ_PROCESS_USERNAME",
-            "TEST_WA_DLQ_PROCESS_PASSWORD",
-            "WaDlqSystemUser"
-        );
-    }
-
-    private Header getAuthorization(String key, String username, String password) {
-
+    private Header getUserAuthorizationHeader(String key, String username, String password) {
         MultiValueMap<String, String> body = createIdamRequest(username, password);
 
         String accessToken = tokens.computeIfAbsent(
@@ -134,7 +158,6 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         );
         return new Header(AUTHORIZATION, accessToken);
     }
-
 
     private MultiValueMap<String, String> createIdamRequest(String username, String password) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
@@ -149,31 +172,88 @@ public class AuthorizationHeadersProvider  implements AuthorizationHeaders {
         return body;
     }
 
-    @Override
-    public UserInfo getUserInfo(String userToken) {
-        return userInfo.computeIfAbsent(
-            userToken,
-            user -> idamWebApi.userInfo(userToken)
+    private String findOrGenerateUserAccount(String credentialsKey, boolean granularPermission) throws IOException {
+        return testUserAccounts.computeIfAbsent(
+            credentialsKey,
+            user -> generateUserAccount(credentialsKey, granularPermission)
         );
-
     }
 
-    @Override
-    public Headers getAuthorizationHeaders(String credentials) {
-        switch (credentials) {
-            case "IALegalRepresentative":
-                return getLegalRepAuthorization();
-            case "IACaseworker":
-                return getTribunalCaseworkerAAuthorization();
-            case "WaSystemUser":
-                return getWaSystemUserAuthorization();
-            case "WaCaseOfficer":
-                return getWaCaseOfficerAuthorization();
-            case "ETCaseWorker":
-                return getEtCaseWorkerAuthorization();
-            default:
-                throw new IllegalStateException("Credentials implementation for '" + credentials + "' not found");
+    private String generateUserAccount(String credentialsKey, boolean granularPermission) {
+        String emailPrefix = granularPermission ? "wa-granular-permission-pdt" : "wa-pdt-";
+        String userEmail = emailPrefix + UUID.randomUUID() + "@fake.hmcts.net";
+
+        List<RoleCode> requiredRoles = new ArrayList<>(List.of(
+            new RoleCode("caseworker"),
+            new RoleCode("caseworker-employment"),
+            new RoleCode("caseworker-employment-englandwales"),
+            new RoleCode("caseworker-employment-scotland"),
+            new RoleCode("caseworker-wa"),
+            new RoleCode("caseworker-wa-task-configuration")
+        ));
+
+        log.info("Attempting to create a new test account {}", userEmail);
+
+        Map<String, Object> body = requestBody(userEmail, requiredRoles);
+
+        idamWebApi.createTestUser(body);
+
+        log.info("Test account created successfully");
+
+        List<String> roleAssignments = findRoleAssignmentRequirements(credentialsKey);
+        log.info("Assigning role assignments {}", roleAssignments);
+
+        for (String r : roleAssignments) {
+            assignRoleAssignment(userEmail, credentialsKey, r);
         }
 
+        return userEmail;
+    }
+
+    @NotNull
+    private Map<String, Object> requestBody(String userEmail, List<RoleCode> requiredRoles) {
+        RoleCode userGroup = new RoleCode("caseworker");
+
+        Map<String, Object> body = new ConcurrentHashMap<>();
+        body.put("email", userEmail);
+        body.put("password", WA_USER_PASSWORD);
+        body.put("forename", "WAPDTAccount");
+        body.put("surname", "Functional");
+        body.put("roles", requiredRoles);
+        body.put("userGroup", userGroup);
+        return body;
+    }
+
+    private List<String> findRoleAssignmentRequirements(String credentialsKey) {
+        List<String> roleAssignments = new ArrayList<>();
+        switch (credentialsKey) {
+            case "WaCaseOfficer":
+                roleAssignments.add("case-allocator");
+                roleAssignments.add("task-supervisor");
+                roleAssignments.add("tribunal-caseworker");
+                break;
+            case "WaTribunalCaseOfficer":
+                roleAssignments.add("case-allocator");
+                roleAssignments.add("hearing-centre-admin");
+                break;
+            case "WaSeniorTribunalCaseOfficer":
+                roleAssignments.add("senior-tribunal-caseworker");
+                break;
+            case "WaTaskSupervisor":
+                roleAssignments.add("task-supervisor");
+                break;
+            default:
+                throw new IllegalStateException("Credentials implementation for '" + credentialsKey + "' not found");
+        }
+        return roleAssignments;
+    }
+
+    private void assignRoleAssignment(String userEmail, String credentialsKey, String roleName) {
+        Headers authenticationHeaders = new Headers(
+            getUserAuthorizationHeader(credentialsKey, userEmail),
+            getServiceAuthorizationHeader()
+        );
+        UserInfo userInfo = getUserInfo(authenticationHeaders.getValue(AUTHORIZATION));
+        roleAssignmentService.setupRoleAssignment(authenticationHeaders, userInfo, roleName);
     }
 }
