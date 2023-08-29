@@ -273,14 +273,22 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         Map<String, Object> postRoleAssignmentValues = scenario.getPostRoleAssignmentClauseValues();
 
         Headers requestAuthorizationHeaders = getHeadersFromCredentials(postRoleAssignmentValues, "credentials");
-
-        String userToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
         String serviceToken = requestAuthorizationHeaders.getValue(SERVICE_AUTHORIZATION);
-        UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
+        String assigneeToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
+        UserInfo assigneeUserInfo  = authorizationHeadersProvider.getUserInfo(assigneeToken);
+
+        Headers requestAuthorizationHeadersWaSystemUser =
+            authorizationHeadersProvider.getWaSystemUserAuthorization();
+        String assignerToken = requestAuthorizationHeadersWaSystemUser.getValue(AUTHORIZATION);
+        UserInfo assignerUserInfo = authorizationHeadersProvider.getUserInfo(assignerToken);
 
         roleAssignmentService.processRoleAssignments(
             scenario,
-            postRoleAssignmentClauseValues, userToken, serviceToken, userInfo);
+            postRoleAssignmentClauseValues,
+            serviceToken,
+            assigneeUserInfo,
+            assignerToken,
+            assignerUserInfo);
     }
 
     private void updateBaseCcdCase(TestScenario scenario) throws IOException {

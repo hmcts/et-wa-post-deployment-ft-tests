@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
@@ -54,9 +55,10 @@ public class RoleAssignmentService {
 
     public void processRoleAssignments(TestScenario scenario,
                                        Map<String, Object> postRoleAssignmentValues,
-                                       String userToken,
                                        String serviceToken,
-                                       UserInfo userInfo) throws IOException {
+                                       UserInfo assigneeUserInfo,
+                                       String assignerToken,
+                                       UserInfo assignerUserInfo) throws IOException {
 
         String caseId = scenario.getAssignedCaseId("defaultCaseId");
 
@@ -80,9 +82,9 @@ public class RoleAssignmentService {
 
         postRoleAssignment(
             caseId,
-            userToken,
+            assignerToken,
             serviceToken,
-            userInfo.getUid(),
+            assigneeUserInfo.getUid(),
             roleName,
             toJsonString(Map.of(
                 "caseId", caseId,
@@ -96,14 +98,14 @@ public class RoleAssignmentService {
             toJsonString(List.of()),
             roleType,
             classification,
-            "staff-organisational-role-mapping",
-            userInfo.getUid(),
-            false,
+            roleName, //"staff-organisational-role-mapping",
+            UUID.randomUUID().toString(), //assignerUserInfo.getUid(),
+            true,
             false,
             null,
             "2023-01-01T00:00:00Z",
             null,
-            userInfo.getUid()
+            assignerUserInfo.getUid()
         );
     }
 
