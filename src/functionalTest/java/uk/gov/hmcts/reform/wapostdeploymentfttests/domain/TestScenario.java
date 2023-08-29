@@ -28,9 +28,6 @@ public class TestScenario {
     private final Map<String, String> caseIdMap;
     private final Set<Map<String, Object>> searchMap;
 
-    //private Headers requestAuthorizationHeaders
-    //private Headers expectationAuthorizationHeaders
-
     public TestScenario(@NotNull Map<String, Object> scenarioMapValues,
                         @NotNull String scenarioSource,
                         @NotNull String jurisdiction,
@@ -122,21 +119,4 @@ public class TestScenario {
     public void setAssigneeId(String assigneeId) {
         this.assigneeId = assigneeId;
     }
-
-    /*
-    public Headers getRequestAuthorizationHeaders() {
-        return requestAuthorizationHeaders;
-    }
-
-    public void setRequestAuthorizationHeaders(Headers requestAuthorizationHeaders) {
-        this.requestAuthorizationHeaders = requestAuthorizationHeaders;
-    }
-
-    public Headers getExpectationAuthorizationHeaders() {
-        return expectationAuthorizationHeaders;
-    }
-
-    public void setExpectationAuthorizationHeaders(Headers expectationAuthorizationHeaders) {
-        this.expectationAuthorizationHeaders = expectationAuthorizationHeaders;
-    }*/
 }
