@@ -228,7 +228,7 @@
       }
     }
   },
-  "requiredUpdate": {
+  "updateCase": {
     "credentials": {
       "key": "WaCaseOfficer"
     },

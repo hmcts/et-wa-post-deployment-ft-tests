@@ -115,7 +115,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
     }
 
     @Test
-    public void scenarios_should_behave_as_specified() throws Exception, URISyntaxException {
+    public void scenarios_should_behave_as_specified() throws Exception {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -297,7 +297,7 @@ public class ScenarioRunnerTest extends SpringBootFunctionalBaseTest {
         Headers requestAuthorizationHeaders = getHeadersFromCredentials(scenarioValues, "required.credentials");
 
         List<Map<String, Object>> ccdCaseToUpdate = new ArrayList<>(Objects.requireNonNull(
-            MapValueExtractor.extract(scenarioValues, "requiredUpdate.ccd")));
+            MapValueExtractor.extract(scenarioValues, "updateCase.ccd")));
 
         ccdCaseToUpdate.forEach(caseValues -> {
             try {
