@@ -1,5 +1,5 @@
 {
-  "description": "ET event should trigger completion",
+  "description": "ET 'COMPLETE' request should trigger completion of ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -171,31 +171,6 @@
         "type": "COMPLETE",
         "credentials": {
           "key": "WaSystemUser"
-        },
-        "input": {
-          "eventMessages": [
-            {
-              "destination": "RestEndpoint",
-              "template": "ccd-event-message.json",
-              "replacements": {
-                "EventId": "createReferral",
-                "NewStateId": "Submitted",
-                "AdditionalData": {
-                  "Data": {
-                    "referralCollection": [
-                      {
-                        "value": {
-                          "referCaseTo": "Admin",
-                          "referralSubject": "ET1",
-                          "isUrgent": "Yes"
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          ]
         }
       },
       "expectations": [
