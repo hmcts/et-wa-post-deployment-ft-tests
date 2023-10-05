@@ -43,6 +43,13 @@
     }
   ],
   "managingOffice": "Leeds",
+  "caseManagementCategory": {
+    "selectedLabel": "Employment"
+  },
+  "caseManagementLocation": {
+    "region": "3",
+    "baseLocation": "36313"
+  },
   "receiptDate": "1989-01-01",
   "claimantHearingPreference": {
     "hearing_preferences": [
