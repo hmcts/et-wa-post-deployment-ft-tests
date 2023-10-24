@@ -39,11 +39,36 @@
                     "genericTseApplicationCollection": [
                       {
                         "value": {
+                          "number": "1",
                           "type": "Change my personal details",
                           "respondCollection": [
                             {
                               "value": {
-                                "from": "Respondent"
+                                "from": "Claimant",
+                                "applicationType": "Change my personal details",
+                                "dateTime": "2023-10-01T12:00:00.000"
+                              }
+                            },
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Change my personal details",
+                                "dateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "number": "2",
+                          "type": "Claimant not complied",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Claimant not complied",
+                                "dateTime": "2023-10-01T13:00:00.000"
                               }
                             }
                           ]

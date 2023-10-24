@@ -39,11 +39,13 @@
                     "genericTseApplicationCollection": [
                       {
                         "value": {
+                          "number": "1",
                           "type": "Change personal details"
                         }
                       },
                       {
                         "value": {
+                          "number": "2",
                           "type": "Amend response"
                         }
                       }
