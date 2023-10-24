@@ -48,6 +48,15 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
+                          "referCaseTo": "Admin",
+                          "referralSubject": "Amend claim",
+                          "isUrgent": "No"
+                        }
+                      },
+                      {
+                        "value": {
+                          "referralNumber": "2",
                           "referCaseTo": "Admin",
                           "referralSubject": "ET1",
                           "isUrgent": "Yes"

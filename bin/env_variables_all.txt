@@ -19,4 +19,5 @@ WA_CASEOFFICER_USERNAME=et.caseadmin@hmcts.net
 WA_CASEOFFICER_PASSWORD=System01
 ENABLE_TEST_USER_DELETION=false
 IDAM_URL=http://localhost:5000
+OPEN_ID_IDAM_URL=http://localhost:5000
 IDAM_STUB_SERVICE_NAME=http://localhost:5000

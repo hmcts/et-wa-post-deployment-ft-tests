@@ -44,6 +44,17 @@
   ],
   "managingOffice": "Leeds",
   "caseManagementCategory": {
+    "value": {
+      "code": "Employment Tribunals",
+      "label": "Employment"
+    },
+    "list_items": [
+      {
+        "code": "Employment Tribunals",
+        "label": "Employment"
+      }
+    ],
+    "selectedCode": "Employment Tribunals",
     "selectedLabel": "Employment"
   },
   "caseManagementLocation": {
