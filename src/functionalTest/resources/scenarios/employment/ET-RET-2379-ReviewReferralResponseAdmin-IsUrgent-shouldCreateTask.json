@@ -59,8 +59,34 @@
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralSubject": "ET1",
+                                "directionTo": "Legal officer",
+                                "isUrgentReply": "Yes",
+                                "replyDateTime": "2023-10-01T12:00:00.000"
+                              }
+                            },
+                            {
+                              "value": {
+                                "referralSubject": "ET1",
                                 "directionTo": "Admin",
-                                "isUrgentReply": "Yes"
+                                "isUrgentReply": "Yes",
+                                "replyDateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "referCaseTo": "Admin",
+                          "referralSubject": "ET3/ECC",
+                          "referralReplyCollection": [
+                            {
+                              "value": {
+                                "referralSubject": "ET3/ECC",
+                                "directionTo": "Admin",
+                                "isUrgentReply": "Yes",
+                                "replyDateTime": "2023-10-01T13:00:00.000"
                               }
                             }
                           ]

@@ -44,8 +44,34 @@
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralSubject": "Amend claim",
+                                "directionTo": "Admin",
+                                "isUrgentReply": "No",
+                                "replyDateTime": "2023-10-01T12:00:00.000"
+                              }
+                            },
+                            {
+                              "value": {
+                                "referralSubject": "Amend claim",
                                 "directionTo": "Judge",
-                                "isUrgentReply": "No"
+                                "isUrgentReply": "No",
+                                "replyDateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "referCaseTo": "Judge",
+                          "referralSubject": "ET1",
+                          "referralReplyCollection": [
+                            {
+                              "value": {
+                                "referralSubject": "ET1",
+                                "directionTo": "Judge",
+                                "isUrgentReply": "No",
+                                "replyDateTime": "2023-10-01T13:00:00.000"
                               }
                             }
                           ]
