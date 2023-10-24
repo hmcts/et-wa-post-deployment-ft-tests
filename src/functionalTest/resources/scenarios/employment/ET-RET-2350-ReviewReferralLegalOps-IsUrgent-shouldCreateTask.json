@@ -20,6 +20,13 @@
             "referralCollection": [
               {
                 "value": {
+                  "referralNumber": "1",
+                  "isUrgent": "No"
+                }
+              },
+              {
+                "value": {
+                  "referralNumber": "2",
                   "isUrgent": "Yes"
                 }
               }
