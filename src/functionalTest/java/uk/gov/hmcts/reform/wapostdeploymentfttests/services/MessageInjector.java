@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.wapostdeploymentfttests.services;
 
-import io.restassured.http.Headers;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.TestScenario;
@@ -19,9 +19,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
-
 @Service
+@Slf4j
 public class MessageInjector {
 
     @Autowired
@@ -38,20 +37,15 @@ public class MessageInjector {
 
     public void injectMessage(Map<String, Object> clauseValues,
                               TestScenario scenario,
-                              String jurisdiction,
-                              Headers authorizationHeaders) throws IOException {
-
-        String jurisdictionId = jurisdiction.toLowerCase(Locale.ENGLISH);
+                              UserInfo userInfo) throws IOException {
+        String jurisdictionId = scenario.getJurisdiction().toLowerCase(Locale.ENGLISH);
         Map<String, String> eventMessageTemplatesByFilename =
             StringResourceLoader.load(
                 "/templates/" + jurisdictionId + "/message/*.json"
             );
 
-        String userToken = authorizationHeaders.getValue(AUTHORIZATION);
-        UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
-
         List<Map<String, Object>> messagesToSend = new ArrayList<>(Objects.requireNonNull(
-            MapValueExtractor.extract(clauseValues, "request.input.eventMessages")));
+            MapValueExtractor.extract(clauseValues, "input.eventMessages")));
 
         messagesToSend.forEach(messageData -> {
             try {
@@ -62,6 +56,8 @@ public class MessageInjector {
                                                      userInfo.getEmail());
                 String destination = MapValueExtractor.extractOrDefault(messageData, "destination", "ASB");
 
+                log.info("Sending message case id: {}, destination: {}, message: {} ",
+                         testCaseId, destination, eventMessage);
                 sendMessage(eventMessage, testCaseId, jurisdictionId, destination);
             } catch (IOException e) {
                 System.out.println("Could not create a message");

@@ -46,10 +46,22 @@ public final class Logger {
                 colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: BEFORE Clause completed successfully");
                 break;
             case SCENARIO_ROLE_ASSIGNMENT_FOUND:
-                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Found POST_ROLE_ASSIGNMENTS Clause found");
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: POST_ROLE_ASSIGNMENTS Clause found");
                 break;
             case SCENARIO_ROLE_ASSIGNMENT_COMPLETED:
                 colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: POST_ROLE_ASSIGNMENTS Clause completed successfully");
+                break;
+            case SCENARIO_UPDATE_CASE_FOUND:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Update case Clause found");
+                break;
+            case SCENARIO_UPDATE_CASE_COMPLETED:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Update case Clause completed successfully");
+                break;
+            case CLEANUP_USERS_RUNNING:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Clean up idam users");
+                break;
+            case CLEANUP_USERS_FINISHED:
+                colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: All idam users removed");
                 break;
             case SCENARIO_RUNNING:
                 colouredPrintLine(ANSI_CYAN, "ℹ️ SCENARIO: Processing scenario");

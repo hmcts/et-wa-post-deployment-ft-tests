@@ -20,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNullElse;
+import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.RegularExpressions.ASSIGNEE_ID_PATTERN;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.RegularExpressions.ENVIRONMENT_PROPERTY_PATTERN;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.RegularExpressions.GENERATED_CASE_ID_PATTERN;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.RegularExpressions.LOCAL_DATETIME_TODAY_PATTERN;
@@ -218,6 +219,11 @@ public class MapValueExpander {
                         value = expandUserId(value, additionalValues.get("userId"));
                     }
                 }
+                if (ASSIGNEE_ID_PATTERN.matcher(value).find() && !additionalValues.isEmpty()) {
+                    if (additionalValues.get("assigneeId") != null) {
+                        value = expandAssigneeId(value, additionalValues.get("assigneeId"));
+                    }
+                }
                 if (ENVIRONMENT_PROPERTY_PATTERN.matcher(value).find()) {
                     // Environment variables default to empty string if not found.
                     String expandedFromEnvValue = expandEnvironmentProperty(value);
@@ -269,6 +275,23 @@ public class MapValueExpander {
 
     private String expandUserId(String value, String replacementValue) {
         Matcher matcher = USER_ID_PATTERN.matcher(value);
+        String expandedValue = value;
+
+        if (replacementValue != null) {
+
+            while (matcher.find()) {
+
+                String token = matcher.group(0);
+
+                expandedValue = expandedValue.replace(token, replacementValue);
+            }
+        }
+
+        return expandedValue;
+    }
+
+    private String expandAssigneeId(String value, String replacementValue) {
+        Matcher matcher = ASSIGNEE_ID_PATTERN.matcher(value);
         String expandedValue = value;
 
         if (replacementValue != null) {

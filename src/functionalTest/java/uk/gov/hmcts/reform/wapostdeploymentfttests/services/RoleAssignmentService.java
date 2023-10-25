@@ -1,12 +1,16 @@
 package uk.gov.hmcts.reform.wapostdeploymentfttests.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.FeignException;
 import io.restassured.http.Headers;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.clients.RoleAssignmentServiceApiClient;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.TestScenario;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.idam.UserInfo;
+import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.role.RoleAssignment;
+import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.role.RoleAssignmentResource;
+import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.role.enums.RoleType;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.util.StringResourceLoader;
 
 import java.io.IOException;
@@ -20,31 +24,43 @@ import java.util.UUID;
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
+import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.JsonUtil.toJsonString;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor.extractOrDefault;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor.extractOrThrow;
 
 @Component
+@Slf4j
 public class RoleAssignmentService {
 
     public static final DateTimeFormatter ROLE_ASSIGNMENT_DATA_TIME_FORMATTER = ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
 
-    private final ObjectMapper objectMapper;
-    private final AuthorizationHeadersProvider authorizationHeadersProvider;
+    private static final String DEFAULT_ROLE_ASSIGNMENT_TEMPLATE;
+
     private final RoleAssignmentServiceApiClient roleAssignmentServiceApi;
 
-    public RoleAssignmentService(AuthorizationHeadersProvider authorizationHeadersProvider,
-                                 ObjectMapper objectMapper,
-                                 RoleAssignmentServiceApiClient roleAssignmentServiceApi) {
-        this.authorizationHeadersProvider = authorizationHeadersProvider;
-        this.objectMapper = objectMapper;
+    static {
+        try {
+            Map<String, String> templates = StringResourceLoader.load(
+                "/templates/employment/roleAssignment/*.json"
+            );
+            DEFAULT_ROLE_ASSIGNMENT_TEMPLATE = templates.get("set-organisational-role-assignment-request.json");
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load default role assignment template", e);
+        }
+    }
+
+    public RoleAssignmentService(RoleAssignmentServiceApiClient roleAssignmentServiceApi) {
         this.roleAssignmentServiceApi = roleAssignmentServiceApi;
     }
 
     public void processRoleAssignments(TestScenario scenario,
-                                       Map<String, Object> postRoleAssignmentValues) throws IOException {
+                                       Map<String, Object> postRoleAssignmentValues,
+                                       String serviceToken,
+                                       UserInfo assigneeUserInfo,
+                                       String assignerToken,
+                                       UserInfo assignerUserInfo) throws IOException {
 
         String caseId = scenario.getAssignedCaseId("defaultCaseId");
-        String requestCredentials = extractOrThrow(postRoleAssignmentValues, "credentials");
 
         Map<String, Object> roleDataValues = extractOrThrow(postRoleAssignmentValues, "roleData");
         Map<String, Object> replacementsValues = extractOrThrow(roleDataValues, "replacements");
@@ -64,18 +80,6 @@ public class RoleAssignmentService {
         String classification = extractOrDefault(replacementsValues, "classification", "PUBLIC");
         String roleCategory = extractOrDefault(replacementsValues, "roleCategory", "LEGAL_OPERATIONS");
 
-        Headers requestAuthorizationHeaders = authorizationHeadersProvider
-            .getAuthorizationHeaders(requestCredentials);
-        Headers requestAuthHeadersForWaSystemUser = authorizationHeadersProvider
-            .getAuthorizationHeaders("WaSystemUser");
-
-        String assignerToken = requestAuthHeadersForWaSystemUser.getValue(AUTHORIZATION);
-        UserInfo assignerUserInfo = authorizationHeadersProvider.getUserInfo(assignerToken);
-
-        String assigneeToken = requestAuthorizationHeaders.getValue(AUTHORIZATION);
-        String serviceToken = requestAuthorizationHeaders.getValue(SERVICE_AUTHORIZATION);
-        UserInfo assigneeUserInfo = authorizationHeadersProvider.getUserInfo(assigneeToken);
-
         postRoleAssignment(
             caseId,
             assignerToken,
@@ -94,8 +98,8 @@ public class RoleAssignmentService {
             toJsonString(List.of()),
             roleType,
             classification,
-            roleName,
-            UUID.randomUUID().toString(),
+            roleName, //"staff-organisational-role-mapping",
+            UUID.randomUUID().toString(), //assignerUserInfo.getUid(),
             true,
             false,
             null,
@@ -105,28 +109,87 @@ public class RoleAssignmentService {
         );
     }
 
-    private String toJsonString(Map<String, String> attributes) {
-        String json = null;
-
-        try {
-            json = objectMapper.writeValueAsString(attributes);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return json;
+    public void setupRoleAssignment(Headers headers, UserInfo userInfo, String roleName) {
+        postRoleAssignment(
+            null,
+            headers.getValue(AUTHORIZATION),
+            headers.getValue(SERVICE_AUTHORIZATION),
+            userInfo.getUid(),
+            roleName,
+            toJsonString(Map.of(
+                "caseType", "WaCaseType",
+                "jurisdiction", "WA",
+                "primaryLocation", "765324"
+            )),
+            DEFAULT_ROLE_ASSIGNMENT_TEMPLATE,
+            "STANDARD",
+            "LEGAL_OPERATIONS",
+            toJsonString(List.of()),
+            "ORGANISATION",
+            "PUBLIC",
+            "staff-organisational-role-mapping",
+            userInfo.getUid(),
+            false,
+            false,
+            null,
+            "2020-01-01T00:00:00Z",
+            null,
+            userInfo.getUid()
+        );
     }
 
-    private String toJsonString(List<String> attributes) {
-        String json = null;
+    public void clearAllRoleAssignments(Headers headers, UserInfo userInfo) {
+        String userToken = headers.getValue(AUTHORIZATION);
+        String serviceToken = headers.getValue(SERVICE_AUTHORIZATION);
+
+        RoleAssignmentResource response = null;
 
         try {
-            json = objectMapper.writeValueAsString(attributes);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            //Retrieve All role assignments
+            response = roleAssignmentServiceApi.getRolesForUser(userInfo.getUid(), userToken, serviceToken);
+
+        } catch (FeignException ex) {
+            if (ex.status() == HttpStatus.NOT_FOUND.value()) {
+                System.out.println("No roles found, nothing to delete.");
+            } else {
+                ex.printStackTrace();
+            }
         }
 
-        return json;
+        if (response != null) {
+            //Delete All role assignments
+            List<RoleAssignment> organisationalRoleAssignments = response.getRoleAssignmentResponse().stream()
+                .filter(assignment -> RoleType.ORGANISATION.equals(assignment.getRoleType()))
+                .toList();
+
+            List<RoleAssignment> caseRoleAssignments = response.getRoleAssignmentResponse().stream()
+                .filter(assignment -> RoleType.CASE.equals(assignment.getRoleType()))
+                .toList();
+
+            //Check if there are 'orphaned' restricted roles
+            if (organisationalRoleAssignments.isEmpty() && !caseRoleAssignments.isEmpty()) {
+                log.info("Orphaned Restricted role assignments were found.");
+                log.info("Creating a temporary role assignment to perform cleanup");
+                //Create a temporary organisational role
+                setupRoleAssignment(headers, userInfo, "case-allocator");
+                //Recursive
+                clearAllRoleAssignments(headers, userInfo);
+            }
+
+            log.info("Deleting role assignment for user {}", userInfo.getEmail());
+
+            caseRoleAssignments.forEach(
+                assignment -> roleAssignmentServiceApi.deleteRoleAssignmentById(assignment.getId(),
+                                                                                userToken,
+                                                                                serviceToken)
+            );
+
+            organisationalRoleAssignments.forEach(
+                assignment -> roleAssignmentServiceApi.deleteRoleAssignmentById(assignment.getId(),
+                                                                                userToken,
+                                                                                serviceToken)
+            );
+        }
     }
 
     private void postRoleAssignment(String caseId,

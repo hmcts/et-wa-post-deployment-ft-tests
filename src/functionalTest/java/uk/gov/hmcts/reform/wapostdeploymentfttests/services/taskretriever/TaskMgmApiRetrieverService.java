@@ -18,7 +18,9 @@ import uk.gov.hmcts.reform.wapostdeploymentfttests.verifiers.Verifier;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -52,12 +54,14 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
 
     @SneakyThrows
     @Override
-    public void retrieveTask(Map<String, Object> clauseValues, TestScenario scenario, String caseId) {
-        retrieveTask(clauseValues, scenario, singletonList(caseId));
+    public void retrieveTask(Map<String, Object> clauseValues, TestScenario scenario, String caseId,
+                             Headers authorizationHeaders) {
+        retrieveTask(clauseValues, scenario, singletonList(caseId), authorizationHeaders);
     }
 
     @SneakyThrows
-    public void retrieveTask(Map<String, Object> clauseValues, TestScenario scenario, List<String> caseIds) {
+    public void retrieveTask(Map<String, Object> clauseValues, TestScenario scenario,
+                             List<String> caseIds, Headers authorizationHeaders) {
 
         Map<String, String> taskTemplatesByFilename =
             StringResourceLoader.load(
@@ -69,6 +73,10 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
             additionalValues = scenario.getAssignedCaseIdMap();
         } else {
             additionalValues = Map.of("caseId", caseIds.get(0));
+        }
+
+        if (scenario.getAssigneeId() != null) {
+            additionalValues.put("assigneeId", scenario.getAssigneeId());
         }
 
         Map<String, Object> deserializedClauseValues =
@@ -87,7 +95,8 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                     String searchByCaseIdResponseBody = taskManagementService.search(
                         deserializedClauseValues,
                         caseIds,
-                        scenario
+                        scenario,
+                        authorizationHeaders
                     );
 
                     String expectedResponseBody = buildTaskExpectationResponseBody(
@@ -95,8 +104,8 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         taskTemplatesByFilename,
                         additionalValues
                     );
-
                     log.info("Expectation {}", expectedResponseBody);
+
                     if (searchByCaseIdResponseBody.isBlank()) {
                         log.error("Find my case ID response is empty. Test will now fail");
                         return false;
@@ -125,7 +134,6 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         return false;
                     }
 
-
                     tasks.forEach(t -> scenario.addTaskId(MapValueExtractor.extract(t, "id")));
                     AtomicReference<Map<String, Object>> actualRoleResponse = new AtomicReference<>(emptyMap());
                     AtomicReference<Map<String, Object>> expectedRoleResponse = new AtomicReference<>(emptyMap());
@@ -134,7 +142,6 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                         deserializedClauseValues,
                         additionalValues
                     );
-
 
                     AtomicInteger index = new AtomicInteger(0);
                     tasks.forEach(task -> {
@@ -178,11 +185,19 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                                 return;
                             }
 
+                            int expectedStatus = MapValueExtractor.extractOrDefault(
+                                clauseValues, "status", 200);
+
+
+                            Map<String, Object> scenarioValues = scenario.getScenarioMapValues();
+
+
                             String retrieveTaskRolePermissionsResponseBody =
                                 taskManagementService.retrieveTaskRolePermissions(
                                     roleDataMap,
                                     taskId,
-                                    scenario.getExpectationAuthorizationHeaders()
+                                    expectedStatus,
+                                    authorizationHeaders
                                 );
 
                             if (retrieveTaskRolePermissionsResponseBody.isBlank()) {
@@ -192,7 +207,8 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
 
                             String rolesExpectationResponseBody = buildRolesExpectationResponseBody(
                                 deserializedClauseValues,
-                                additionalValues
+                                additionalValues,
+                                roleDataKey
                             );
 
                             log.info("expected roles: {}", rolesExpectationResponseBody);
@@ -202,11 +218,11 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                                 rolesExpectationResponseBody));
 
                             verifiers.forEach(verifier ->
-                                                  verifier.verify(
-                                                      clauseValues,
-                                                      expectedRoleResponse.get(),
-                                                      actualRoleResponse.get()
-                                                  )
+                                verifier.verify(
+                                    clauseValues,
+                                    expectedRoleResponse.get(),
+                                    actualRoleResponse.get()
+                                )
                             );
 
                             index.getAndIncrement();
@@ -226,21 +242,6 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         if (!isTestPassed.get()) {
             Logger.say(SCENARIO_FAILED, scenario.getScenarioMapValues().get("description"));
         }
-    }
-
-    protected Map<String, Object> filterRoleData(Map<String, Object> clauseValues, String key) {
-
-        List<Map<String, Object>> roleData =
-            MapValueExtractor.extractOrDefault(
-                clauseValues,
-                "roleData",
-                new ArrayList<>()
-            );
-
-        return roleData.stream()
-            .filter((Map<String, Object> rd) -> rd.get("key").equals(key))
-            .findFirst()
-            .orElse(emptyMap());
     }
 
     private Comparator<JsonNode> taskTitleComparator() {
@@ -276,11 +277,16 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
     }
 
     private String buildRolesExpectationResponseBody(Map<String, Object> clauseValues,
-                                                     Map<String, String> additionalValues) throws IOException {
+                                                     Map<String, String> additionalValues,
+                                                     String roleDataKey) throws IOException {
 
         Map<String, Object> scenario = deserializeValuesUtil.expandMapValues(clauseValues, additionalValues);
-        Map<String, Object> roleData = MapValueExtractor.extract(scenario, "roleData");
-        return MapSerializer.serialize(roleData);
+        Map<String, Object> roleDataMap = filterRoleData(scenario, roleDataKey);
+        HashMap<String, Object> roleMap = new HashMap<>(roleDataMap);
+
+        List<String> toBeRemovedKeys = Arrays.asList("key", "numberOfRolesAvailable");
+        roleMap.entrySet().removeIf(entry -> toBeRemovedKeys.contains(entry.getKey()));
+        return MapSerializer.serialize(roleMap);
     }
 
     public void performOperation(Headers authorizationHeaders) {
@@ -294,5 +300,20 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                     taskManagementService.performOperation(authorizationHeaders);
                     return true;
                 });
+    }
+
+    protected Map<String, Object> filterRoleData(Map<String, Object> clauseValues, String key) {
+
+        List<Map<String, Object>> roleData =
+            MapValueExtractor.extractOrDefault(
+                clauseValues,
+                "roleData",
+                new ArrayList<>()
+            );
+
+        return roleData.stream()
+            .filter((Map<String, Object> rd) -> rd.get("key").equals(key))
+            .findFirst()
+            .orElse(emptyMap());
     }
 }

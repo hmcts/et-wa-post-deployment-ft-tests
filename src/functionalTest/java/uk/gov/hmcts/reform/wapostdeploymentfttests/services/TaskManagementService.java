@@ -5,9 +5,11 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.TestScenario;
+import uk.gov.hmcts.reform.wapostdeploymentfttests.domain.entities.idam.UserInfo;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.util.DeserializeValuesUtil;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExpander;
 import uk.gov.hmcts.reform.wapostdeploymentfttests.util.MapValueExtractor;
@@ -24,6 +26,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 public class TaskManagementService {
 
+    private static final String EXTENDED_SEARCH_ENDPOINT_PATH = "/task/extended-search";
+    private static final String ROLES_ENDPOINT_PATH = "/task/{task-id}/roles";
+    private static final String CLAIM_ENDPOINT_PATH = "/task/{task-id}/claim";
+    private static final String ASSIGN_ENDPOINT_PATH = "/task/{task-id}/assign";
+    private static final String COMPLETE_ENDPOINT_PATH = "/task/{task-id}/complete";
+
     @Autowired
     protected AuthorizationHeadersProvider authorizationHeadersProvider;
 
@@ -39,9 +47,8 @@ public class TaskManagementService {
 
     public String search(Map<String, Object> clauseValues,
                          List caseIds,
-                         TestScenario scenario) {
-
-        Headers authorizationHeaders = scenario.getExpectationAuthorizationHeaders();
+                         TestScenario scenario,
+                         Headers authorizationHeaders) {
 
         Map<String, Object> searchParameter = Map.of(
             "key", "caseId",
@@ -67,7 +74,7 @@ public class TaskManagementService {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(requestBody)
             .when()
-            .post(taskManagementUrl + "/task/extended-search");
+            .post(taskManagementUrl + EXTENDED_SEARCH_ENDPOINT_PATH);
 
         result.then().assertThat()
             .statusCode(expectedStatus)
@@ -85,17 +92,15 @@ public class TaskManagementService {
 
     public String retrieveTaskRolePermissions(Map<String, Object> clauseValues,
                                               String taskId,
+                                              int expectedStatus,
                                               Headers authorizationHeaders) {
 
         Response result = given()
             .headers(authorizationHeaders)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .when()
-            .get(taskManagementUrl + "/task/" + taskId + "/roles");
+            .get(taskManagementUrl + ROLES_ENDPOINT_PATH, taskId);
 
-
-        int expectedStatus = MapValueExtractor.extractOrDefault(
-            clauseValues, "status", 200);
 
         int expectedRoles = MapValueExtractor.extractOrDefault(
             clauseValues, "numberOfRolesAvailable", 4);
@@ -112,6 +117,69 @@ public class TaskManagementService {
         log.info("Response body: " + actualResponseBody);
 
         return actualResponseBody;
+    }
+
+    public void claimTask(TestScenario scenario, Headers authorizationHeaders, UserInfo userInfo) {
+        if (scenario.getTaskIds().isEmpty()) {
+            log.error("Task id list for claim is empty. Test will now fail");
+        } else {
+            scenario.getTaskIds().forEach(taskId -> {
+                Response result = given()
+                    .headers(authorizationHeaders)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .when()
+                    .post(taskManagementUrl + CLAIM_ENDPOINT_PATH, taskId);
+
+                result.then().assertThat()
+                    .statusCode(HttpStatus.NO_CONTENT.value());
+                log.info("Claim task request, task id: {}, assignee id: {}, response code: {}",
+                         taskId, userInfo.getUid(), result.getStatusCode());
+            });
+
+            scenario.setAssigneeId(userInfo.getUid());
+        }
+    }
+
+    public void assignTask(TestScenario scenario, Headers authorizationHeaders, UserInfo assignee) {
+
+        if (scenario.getTaskIds().isEmpty()) {
+            log.error("Task id list for assign is empty. Test will now fail");
+        } else {
+            scenario.getTaskIds().forEach(taskId -> {
+                Response result = given()
+                    .headers(authorizationHeaders)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .body("{\"user_id\": \"" + assignee.getUid() + "\" }")
+                    .when()
+                    .post(taskManagementUrl + ASSIGN_ENDPOINT_PATH, taskId);
+
+                result.then().assertThat()
+                    .statusCode(HttpStatus.NO_CONTENT.value());
+                log.info("Assign task request, task id: {}, assignee id: {}, response code: {}",
+                         taskId, assignee.getUid(), result.getStatusCode());
+            });
+
+            scenario.setAssigneeId(assignee.getUid());
+        }
+    }
+
+    public void completeTask(TestScenario scenario, Headers authorizationHeaders, UserInfo userInfo) {
+        if (scenario.getTaskIds().isEmpty()) {
+            log.error("Task id list for complete is empty. Test will now fail");
+        } else {
+            scenario.getTaskIds().forEach(taskId -> {
+                Response result = given()
+                    .headers(authorizationHeaders)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .when()
+                    .post(taskManagementUrl + COMPLETE_ENDPOINT_PATH, taskId);
+
+                result.then().assertThat()
+                    .statusCode(HttpStatus.NO_CONTENT.value());
+                log.info("Complete task request, task id: {}, requester id: {}, response code: {}",
+                         taskId, userInfo.getUid(), result.getStatusCode());
+            });
+        }
     }
 
     public void performOperation(Headers authorizationHeaders) {

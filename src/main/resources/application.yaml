@@ -28,21 +28,23 @@ azure:
     instrumentation-key: ${wa.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
 
 idam:
-  baseUrl: ${IDAM_URL:http://sidam-api}
+  baseUrl: ${OPEN_ID_IDAM_URL:http://sidam-api}
   redirectUrl: ${IA_IDAM_REDIRECT_URI:http://xui-webapp/oauth2/callback}
   scope: "openid profile roles"
   s2s-auth:
-    url: ${IDAM_S2S_URL:http://service-auth-provider-api}
+    url: ${S2S_URL:http://service-auth-provider-api}
     secret: ${S2S_SECRET_TASK_MANAGEMENT_API:AAAAAAAAAAAAAAAA}
     name: ${S2S_NAME_TASK_MANAGEMENT_API:wa_task_management_api}
   api:
     baseUrl: ${IDAM_URL:http://sidam-api}
+  test:
+    userCleanupEnabled: ${ENABLE_TEST_USER_DELETION:false}
 
 camunda:
   url: ${CAMUNDA_URL:http://camunda-local-bpm/engine-rest}
 
 role-assignment-service:
-  url: ${ROLE_ASSIGNMENT_URL:http://am-role-assignment-service:4096}
+  url: ${ROLE_ASSIGNMENT_URL:http://role-assignment}
 
 logging:
   level:

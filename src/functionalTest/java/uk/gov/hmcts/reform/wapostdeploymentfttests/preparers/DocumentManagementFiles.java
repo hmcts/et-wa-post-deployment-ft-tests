@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.wapostdeploymentfttests.preparers;
 
+import io.restassured.http.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.AUTHORIZATION;
+import static uk.gov.hmcts.reform.wapostdeploymentfttests.services.AuthorizationHeadersProvider.SERVICE_AUTHORIZATION;
 
 @Component
 public class DocumentManagementFiles implements Preparer {
@@ -61,9 +65,12 @@ public class DocumentManagementFiles implements Preparer {
                 throw new RuntimeException("Missing content type mapping for document: " + filename);
             }
 
-            String userToken = authorizationHeadersProvider.getLawFirmAuthorizationOnly().getValue();
+            Headers headers = authorizationHeadersProvider.getWaSystemUserAuthorization();
+            String userToken = headers.getValue(AUTHORIZATION);
+            String serviceToken = headers.getValue(SERVICE_AUTHORIZATION);
+            //String userToken = authorizationHeadersProvider.getLawFirmAuthorizationOnly().getValue()
+            //String serviceToken = authorizationHeadersProvider.getServiceAuthorizationHeader().getValue()
             UserInfo userInfo = authorizationHeadersProvider.getUserInfo(userToken);
-            String serviceToken = authorizationHeadersProvider.getServiceAuthorizationHeader().getValue();
 
             return documentManagementUploader.upload(
                 documentResource,

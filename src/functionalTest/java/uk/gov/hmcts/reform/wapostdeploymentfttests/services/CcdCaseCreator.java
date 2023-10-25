@@ -60,17 +60,6 @@ public class CcdCaseCreator {
             authorizationHeaders
         );
 
-        if (!jurisdiction.equalsIgnoreCase("WA")) {
-            fireStartAndSubmitEventsFor(
-                caseId,
-                eventId,
-                jurisdiction,
-                caseType,
-                caseData,
-                authorizationHeaders
-            );
-        }
-
         return caseId;
 
     }

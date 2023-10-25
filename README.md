@@ -2,9 +2,6 @@
 
 [![Build Status](https://travis-ci.org/hmcts/et-wa-post-deployment-ft-tests.svg?branch=master)](https://travis-ci.org/hmcts/et-wa-post-deployment-ft-tests)
 
-##Important
-The DMN
-
 ## Purpose
 This repository contains a set of functional tests which are designed to run periodically or after a helm deployment as a post deployment job to ensure regression.
 
@@ -35,7 +32,9 @@ This way we can test user paths end to end.
 
 ## When merging to master:
 
-When performing a merge against master the withNightlyPipeline() will be used to run this tests and verify the build this is because this app is not a service that needs to be deployed but rather just a test framework.
+When performing a merge against master the withNightlyPipeline() will be used to run this tests
+and verify the build this is because this app is not a service
+that needs to be deployed but rather just a test framework.
 The withNightlyPipeline() will perform:
 
 - Dependency check
@@ -59,11 +58,11 @@ More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/
 ```
 ### You can also target a specific scenario:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000-requestRespondentEvidence-with-awaitingRespondentEvidence-postEventState-should-create-a-task
+./gradlew clean functional --tests ScenarioRunnerTest --info -Dscenario=ET-RET-2344-Et1Vetting
 ```
 ### or multiple scenarios:
 ```bash
-./gradlew functional --tests ScenarioRunnerTest --info -Dscenario=IA-RWA-000
+./gradlew clean functional --tests ScenarioRunnerTest --info -Dscenario=ET-RET-2501
 ```
 
 ## Tips for onboarding teams

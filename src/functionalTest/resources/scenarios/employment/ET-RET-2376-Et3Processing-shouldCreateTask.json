@@ -7,7 +7,9 @@
     "taskRetrievalApi": "task-management-api"
   },
   "required": {
-    "credentials": "WaSystemUser",
+    "credentials": {
+      "key": "WaSystemUser"
+    },
     "ccd": [
       {
         "eventId": "INITIATE_CASE_DRAFT",
@@ -18,185 +20,191 @@
       }
     ]
   },
-  "test": {
-    "request": {
-      "credentials": "WaSystemUser",
-      "input": {
-        "eventMessages": [
-          {
-            "destination": "RestEndpoint",
-            "template": "ccd-event-message.json",
-            "replacements": {
-              "EventId": "et3Response",
-              "NewStateId": "Accepted"
-            }
-          }
-        ]
-      }
-    },
-    "expectations": [
-      {
-        "credentials": "WaSystemUser",
-        "status": 200,
-        "numberOfTasksAvailable": 2,
-        "numberOfRolesAvailable": 4,
-        "taskData": {
-          "template": "task-response.json",
-          "replacements": {
-            "tasks": [
-              {
-                "name": "ET3 Processing",
-                "task_state": "unassigned",
-                "warnings": false,
-                "case_name": "George Jetson v Cosmo Spacely",
-                "work_type_id": "routine_work",
-                "description": "[Review ET3 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
-                "minor_priority": 500,
-                "major_priority": 5000
-              },
-              {
-                "name": "Review Rule 21 Referral",
-                "task_state": "unassigned",
-                "warnings": false,
-                "case_name": "George Jetson v Cosmo Spacely",
-                "work_type_id": "routine_work",
-                "minor_priority": 500,
-                "major_priority": 5000
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "WaSystemUser"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "ccd-event-message.json",
+              "replacements": {
+                "EventId": "et3Response",
+                "NewStateId": "Accepted"
               }
-            ]
-          }
-        },
-        "roleData": {
-          "roles": [
-            {
-              "role_category": "LEGAL_OPERATIONS",
-              "role_name": "allocated-tribunal-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "CompleteOwn",
-                "CancelOwn",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "LEGAL_OPERATIONS",
-              "role_name": "senior-tribunal-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Cancel",
-                "Complete",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "task-supervisor",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Cancel",
-                "Complete",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "LEGAL_OPERATIONS",
-              "role_name": "tribunal-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "CompleteOwn",
-                "CancelOwn",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign"
-              ],
-              "authorisations": []
-            }
-          ]
-        },
-        "roleData": {
-          "roles": [
-            {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "task-supervisor",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
             }
           ]
         }
-      }
-    ]
-  }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "WaSystemUser"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 2,
+          "numberOfRolesAvailable": 4,
+          "taskData": {
+            "template": "task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "name": "ET3 Processing",
+                  "task_state": "unassigned",
+                  "warnings": false,
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "work_type_id": "routine_work",
+                  "description": "[Review ET3 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
+                  "minor_priority": 500,
+                  "major_priority": 5000
+                },
+                {
+                  "name": "Review Rule 21 Referral",
+                  "task_state": "unassigned",
+                  "warnings": false,
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "work_type_id": "routine_work",
+                  "minor_priority": 500,
+                  "major_priority": 5000
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "allocated-tribunal-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "CompleteOwn",
+                  "CancelOwn",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "senior-tribunal-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Cancel",
+                  "Complete",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Cancel",
+                  "Complete",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "tribunal-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "CompleteOwn",
+                  "CancelOwn",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign"
+                ],
+                "authorisations": []
+              }
+            ]
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "ADMIN",
+                "role_name": "allocated-admin-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-admin",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-team-leader",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
