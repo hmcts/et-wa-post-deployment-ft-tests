@@ -17,7 +17,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": []
+            "referralCollection": null
           }
         }
       }
