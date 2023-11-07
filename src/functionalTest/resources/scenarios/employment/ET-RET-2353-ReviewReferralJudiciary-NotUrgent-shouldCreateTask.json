@@ -119,7 +119,7 @@
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
+                  "description": "[Reply to Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/replyToReferral/replyToReferral1) or [Close Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/closeReferral/closeReferral1) or [Accept/Reject Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/preAcceptanceCase/preAcceptanceCase1)",
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"

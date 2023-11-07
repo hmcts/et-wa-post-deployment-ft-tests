@@ -57,7 +57,7 @@
                   "warnings": false,
                   "case_name": "George Jetson v Cosmo Spacely",
                   "work_type_id": "routine_work",
-                  "description": "[Review ET3 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
+                  "description": "[ET3 Processing](/cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
                   "minor_priority": 500,
                   "major_priority": 5000
                 },

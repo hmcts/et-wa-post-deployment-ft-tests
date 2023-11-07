@@ -92,7 +92,7 @@
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[provide your initial consideration](/cases/case-details/${[CASE_REFERENCE]}/trigger/initialConsideration/initialConsideration1)",
+                  "description": "[Initial Consideration](/cases/case-details/${[CASE_REFERENCE]}/trigger/initialConsideration/initialConsideration1)",
                   "role_category": "JUDICIAL",
                   "minor_priority": 500,
                   "major_priority": 5000,
@@ -123,7 +123,7 @@
                   "work_type_id": "routine_work",
                   "minor_priority": 500,
                   "major_priority": 5000,
-                  "description": "[Issue relevant ET3 Notification](cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
+                  "description": "[Issue ET3 Notification](/cases/case-details/${[CASE_REFERENCE]}/trigger/et3Notification/et3Notification1)",
                   "role_category": "ADMIN",
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
                 }
