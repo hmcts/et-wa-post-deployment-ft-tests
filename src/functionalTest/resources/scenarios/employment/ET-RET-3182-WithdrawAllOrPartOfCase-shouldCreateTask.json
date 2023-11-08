@@ -86,7 +86,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Withdraw all or part of the case](cases/case-details/${[CASE_REFERENCE]}/trigger/disposeCase/disposeCase1)",
+                  "description": "[Create Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/closeReferral/closeReferral1) or [Close Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/disposeCase/disposeCase1)",
                   "role_category": "ADMIN",
                   "minor_priority": 500,
                   "major_priority": 5000

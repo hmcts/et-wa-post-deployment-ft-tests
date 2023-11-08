@@ -87,7 +87,7 @@
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[Refer the judgment for promulgation,once signed](cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
+                  "description": "[Add or Amend a Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
                   "role_category": "JUDICIAL",
                   "minor_priority": 500,
                   "major_priority": 5000,

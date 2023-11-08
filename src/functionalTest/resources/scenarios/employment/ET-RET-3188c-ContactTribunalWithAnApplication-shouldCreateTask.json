@@ -93,7 +93,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                  "description": "[Create Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
                   "minor_priority": 500,
                   "major_priority": 5000
                 }

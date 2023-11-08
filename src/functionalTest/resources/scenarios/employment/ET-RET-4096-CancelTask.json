@@ -87,7 +87,7 @@
                     "Unassign"
                   ]
                 },
-                "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
                 "role_category": "ADMIN,CTSC",
                 "minor_priority": 500,
                 "major_priority": 5000,
@@ -294,7 +294,7 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                  "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
                   "role_category": "ADMIN,CTSC",
                   "minor_priority": 500,
                   "major_priority": 5000,
