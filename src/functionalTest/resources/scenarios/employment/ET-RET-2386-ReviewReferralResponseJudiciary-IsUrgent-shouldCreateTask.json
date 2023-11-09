@@ -78,10 +78,10 @@
                           "referralReplyCollection": [
                             {
                               "value": {
-                                "referralSubject": "Amend claim",
+                                "referralSubject": null,
                                 "directionTo": "Admin",
                                 "isUrgentReply": "No",
-                                "replyDateTime": "2023-10-01T12:00:00.000"
+                                "replyDateTime": null
                               }
                             },
                             {
@@ -102,10 +102,10 @@
                           "referralReplyCollection": [
                             {
                               "value": {
-                                "referralSubject": "ET3/ECC",
+                                "referralSubject": null,
                                 "directionTo": "Judge",
                                 "isUrgentReply": "No",
-                                "replyDateTime": "2023-10-01T13:00:00.000"
+                                "replyDateTime": null
                               }
                             }
                           ]
