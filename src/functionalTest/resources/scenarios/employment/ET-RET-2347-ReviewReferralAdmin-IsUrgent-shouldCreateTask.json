@@ -127,7 +127,7 @@
                     ]
                   },
                   "description": "[Reply to Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/replyToReferral/replyToReferral1) or [Close Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/closeReferral/closeReferral1)",
-                  "role_category": "ADMIN,CTSC",
+                  "role_category": "ADMIN",
                   "minor_priority": 100,
                   "major_priority": 1000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
