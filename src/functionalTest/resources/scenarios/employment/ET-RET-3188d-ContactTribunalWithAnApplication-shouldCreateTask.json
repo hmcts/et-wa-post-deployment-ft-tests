@@ -45,8 +45,8 @@
                             {
                               "value": {
                                 "from": "Claimant",
-                                "applicationType": "Claimant not complied",
-                                "dateTime": "2023-10-01T12:00:00.000"
+                                "applicationType": null,
+                                "dateTime": null
                               }
                             },
                             {

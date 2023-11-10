@@ -45,8 +45,8 @@
                             {
                               "value": {
                                 "from": "Claimant",
-                                "applicationType": "Change my personal details",
-                                "dateTime": "2023-10-01T12:00:00.000"
+                                "applicationType": null,
+                                "dateTime": null
                               }
                             },
                             {
@@ -67,8 +67,8 @@
                             {
                               "value": {
                                 "from": "Respondent",
-                                "applicationType": "Claimant not complied",
-                                "dateTime": "2023-10-01T13:00:00.000"
+                                "applicationType": null,
+                                "dateTime": null
                               }
                             }
                           ]
