@@ -41,7 +41,7 @@
                         "id": "24bb104f-5298-4475-922f-07866bfffaf1",
                         "value": {
                           "et3Vetting": {
-                            "et3Rule26": "Yes"
+                            "et3Rule26": true
                           },
                           "respondent_ACAS": "1111111111111",
                           "respondent_address": {
