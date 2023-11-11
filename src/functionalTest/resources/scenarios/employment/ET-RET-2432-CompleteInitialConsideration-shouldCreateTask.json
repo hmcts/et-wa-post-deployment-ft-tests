@@ -36,7 +36,15 @@
                 "NewStateId": "Accepted",
                 "AdditionalData": {
                   "Data": {
-                    "et3Rule26": "Yes"
+                    "respondentCollection": [
+                      {
+                        "value": {
+                          "et3Vetting": {
+                            "et3Rule26": true
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }
