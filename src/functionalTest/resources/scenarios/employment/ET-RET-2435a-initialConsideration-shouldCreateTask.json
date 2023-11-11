@@ -33,7 +33,19 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "initialConsideration",
-                "NewStateId": "Accepted"
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "etICCanProceed": false,
+                    "etICHearingAlreadyListed": true,
+                    "etICHearingNotListedList": [
+                      "List for preliminary hearing",
+                      "Seek comments on the video hearing",
+                      "List for final hearing",
+                      "UDL hearing"
+                    ]
+                  }
+                }
               }
             }
           ]
