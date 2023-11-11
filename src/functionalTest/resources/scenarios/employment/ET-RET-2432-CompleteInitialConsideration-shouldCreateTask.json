@@ -38,22 +38,10 @@
                   "Data": {
                     "respondentCollection": [
                       {
-                        "id": "24bb104f-5298-4475-922f-07866bfffaf1",
                         "value": {
                           "et3Vetting": {
                             "et3Rule26": true
-                          },
-                          "respondent_ACAS": "1111111111111",
-                          "respondent_address": {
-                            "AddressLine1": "456",
-                            "PostCode": "NN11RS"
-                          },
-                          "respondent_name": "Cosmo Spacely",
-                          "responseContinue": "Yes",
-                          "responseReceived": "No",
-                          "extensionRequested": "No",
-                          "respondent_ACAS_question": "Yes",
-                          "responseStruckOut": "No"
+                          }
                         }
                       }
                     ]
