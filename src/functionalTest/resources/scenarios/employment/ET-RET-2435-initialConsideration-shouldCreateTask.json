@@ -33,7 +33,18 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "initialConsideration",
-                "NewStateId": "Accepted"
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "etInitialConsiderationRule27": {
+                      "etICRule27ClaimToBe": "Dismissed in full",
+                      "etICRule27Direction": [
+                        "No jurisdiction"
+                      ],
+                      "etICRule27NumberOfDays": 5
+                    }
+                  }
+                }
               }
             }
           ]
