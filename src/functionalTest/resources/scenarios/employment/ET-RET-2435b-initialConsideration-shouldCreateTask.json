@@ -43,11 +43,7 @@
                       "UDL hearing"
                     ],
                     "etInitialConsiderationRule27": {
-                      "etICRule27ClaimToBe": "Dismissed in full",
-                      "etICRule27Direction": [
-                        "No jurisdiction"
-                      ],
-                      "etICRule27NumberOfDays": 5
+                      "etICRule27ClaimToBe": "Dismissed in full"
                     }
                   }
                 }
