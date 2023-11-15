@@ -147,7 +147,7 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[List Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendHearing/addAmendHearing1) or [TODO](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendHearing/addAmendHearing1)",
+                  "description": "[List Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendHearing/addAmendHearing1) or [Generate Issue Initial Consideration Directions Task](/cases/case-details/${[CASE_REFERENCE]}/trigger/issueInitialConsiderationDirectionsWA/submit)",
                   "role_category": "ADMIN",
                   "minor_priority": 500,
                   "major_priority": 5000,
