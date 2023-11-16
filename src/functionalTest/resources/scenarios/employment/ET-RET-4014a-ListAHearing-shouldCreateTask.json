@@ -38,7 +38,10 @@
                   "Data": {
                     "etICCanProceed": true,
                     "etICHearingAlreadyListed": true,
-                    "etICHearingNotListedList": []
+                    "etICHearingNotListedList": [],
+                    "etInitialConsiderationRule27": {
+                      "etICRule27ClaimToBe": "Dismissed in full"
+                    }
                   }
                 }
               }

@@ -43,7 +43,10 @@
                       "Seek comments on the video hearing",
                       "List for final hearing",
                       "UDL hearing"
-                    ]
+                    ],
+                    "etInitialConsiderationRule27": {
+                      "etICRule27ClaimToBe": "Dismissed in full"
+                    }
                   }
                 }
               }

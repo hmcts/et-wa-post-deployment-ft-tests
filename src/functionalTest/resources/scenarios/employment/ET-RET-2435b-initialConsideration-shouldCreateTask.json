@@ -41,7 +41,10 @@
                     "etICHearingNotListedList": [
                       "Seek comments on the video hearing",
                       "UDL hearing"
-                    ]
+                    ],
+                    "etInitialConsiderationRule27": {
+                      "etICRule27ClaimToBe": "Dismissed in full"
+                    }
                   }
                 }
               }

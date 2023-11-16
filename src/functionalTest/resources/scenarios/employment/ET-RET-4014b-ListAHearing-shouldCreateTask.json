@@ -41,7 +41,10 @@
                     "etICHearingNotListedList": [
                       "List for preliminary hearing",
                       "Seek comments on the video hearing"
-                    ]
+                    ],
+                    "etInitialConsiderationRule28": {
+                      "etICRule28ClaimToBe": "Dismissed in part"
+                    }
                   }
                 }
               }
