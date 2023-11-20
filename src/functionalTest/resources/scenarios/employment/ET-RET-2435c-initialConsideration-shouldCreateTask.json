@@ -1,5 +1,5 @@
 {
-  "description": "et initialConsideration should create a List A Hearing task",
+  "description": "et issueInitialConsiderationDirectionsWA should create Issue Initial Consideration Directions task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -32,18 +32,8 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "initialConsideration",
-                "NewStateId": "Accepted",
-                "AdditionalData": {
-                  "Data": {
-                    "etICCanProceed": true,
-                    "etICHearingAlreadyListed": false,
-                    "etICHearingNotListedList": [
-                      "List for final hearing",
-                      "UDL hearing"
-                    ]
-                  }
-                }
+                "EventId": "issueInitialConsiderationDirectionsWA",
+                "NewStateId": "Accepted"
               }
             }
           ]
@@ -56,21 +46,21 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 6,
+          "numberOfRolesAvailable": 4,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
               "tasks": [
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "List A Hearing",
-                  "type": "ListAHearing",
+                  "name": "Issue Initial Consideration Directions",
+                  "type": "IssueInitialConsiderationDirections",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "List A Hearing",
+                  "task_title": "Issue Initial Consideration Directions",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+10_WORKING_DAYS}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}",
                   "location_name": "Leeds",
                   "location": "36313",
                   "execution_type": "Case Management Task",
@@ -101,11 +91,11 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[List Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendHearing/addAmendHearing1) or [TODO](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendHearing/addAmendHearing1)",
+                  "description": "[Issue Directions](/cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
                   "role_category": "ADMIN",
                   "minor_priority": 500,
                   "major_priority": 5000,
-                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+10_WORKING_DAYS}"
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
                 }
               ]
             }
