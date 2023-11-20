@@ -33,7 +33,23 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "uploadDocumentForServing",
-                "NewStateId": "Accepted"
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "bfActions": [
+                      {
+                        "value": {
+                          "bfDate": "{$TODAY}"
+                        }
+                      },
+                      {
+                        "value": {
+                          "bfDate": "{$TODAY+2_WORKING_DAYS}"
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
           ]
