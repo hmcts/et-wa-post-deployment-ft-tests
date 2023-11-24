@@ -116,7 +116,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Update Respondent Details](/cases/case-details/${[CASE_REFERENCE]}/trigger/amendRespondentDetails/amendRespondentDetails1)",
+                  "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
                   "role_category": "ADMIN"
                 }
               ]
