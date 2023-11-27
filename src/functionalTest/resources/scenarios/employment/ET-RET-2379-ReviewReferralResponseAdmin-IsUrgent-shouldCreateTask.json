@@ -78,6 +78,7 @@
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralNumber": "1",
                                 "referralSubject": null,
                                 "directionTo": "Legal officer",
                                 "isUrgentReply": "No",
@@ -86,6 +87,7 @@
                             },
                             {
                               "value": {
+                                "referralNumber": "1",
                                 "referralSubject": "ET1",
                                 "directionTo": "Admin",
                                 "isUrgentReply": "Yes",
@@ -102,6 +104,7 @@
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralNumber": "2",
                                 "referralSubject": null,
                                 "directionTo": "Admin",
                                 "isUrgentReply": "No",
@@ -133,12 +136,12 @@
               "tasks": [
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral Response - ET1",
+                  "name": "Review Referral #1 - ET1 Response",
                   "type": "ReviewReferralResponseAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Referral Response - ET1",
+                  "task_title": "Review Referral #1 - ET1 Response",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                   "execution_type": "Case Management Task",
