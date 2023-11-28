@@ -91,12 +91,12 @@
               "tasks": [
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral - ET3/ECC",
+                  "name": "Review Referral #2 - ET3/ECC",
                   "type": "ReviewReferralJudiciary",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Referral - ET3/ECC",
+                  "task_title": "Review Referral #2 - ET3/ECC",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                   "execution_type": "Case Management Task",
