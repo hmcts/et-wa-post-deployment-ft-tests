@@ -73,11 +73,13 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
                           "referCaseTo": "Legal officer",
                           "referralSubject": "Amend claim",
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralNumber": "1",
                                 "referralSubject": "Amend claim",
                                 "directionTo": "Admin",
                                 "isUrgentReply": "No",
@@ -86,6 +88,7 @@
                             },
                             {
                               "value": {
+                                "referralNumber": "1",
                                 "referralSubject": "Amend claim",
                                 "directionTo": "Legal officer",
                                 "isUrgentReply": "Yes",
@@ -97,11 +100,13 @@
                       },
                       {
                         "value": {
+                          "referralNumber": "2",
                           "referCaseTo": "Legal officer",
                           "referralSubject": "ET3/ECC",
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralNumber": "2",
                                 "referralSubject": "ET3/ECC",
                                 "directionTo": "Legal officer",
                                 "isUrgentReply": "No",
@@ -133,12 +138,12 @@
               "tasks": [
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral Response - Amend claim",
+                  "name": "Review Referral #1 - Amend claim Response",
                   "type": "ReviewReferralResponseLegalOps",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Referral Response - Amend claim",
+                  "task_title": "Review Referral #1 - Amend claim Response",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                   "execution_type": "Case Management Task",
