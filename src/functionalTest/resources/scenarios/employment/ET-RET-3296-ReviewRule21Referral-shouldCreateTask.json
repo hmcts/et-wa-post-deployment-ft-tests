@@ -1,0 +1,253 @@
+{
+  "description": "ET uploadDocumentForServing should create a ReviewRule21Referral task",
+  "enabled": true,
+  "jurisdiction": "EMPLOYMENT",
+  "caseType": "ET_EnglandWales",
+  "options": {
+    "taskRetrievalApi": "task-management-api"
+  },
+  "required": {
+    "credentials": {
+      "key": "WaSystemUser"
+    },
+    "ccd": [
+      {
+        "eventId": "INITIATE_CASE_DRAFT",
+        "state": "AWAITING_SUBMISSION_TO_HMCTS",
+        "caseData": {
+          "template": "minimal-draft-case.json"
+        }
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "WaSystemUser"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "ccd-event-message.json",
+              "replacements": {
+                "EventId": "uploadDocumentForServing",
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "bfActions": [
+                      {
+                        "value": {
+                          "bfDate": "{$TODAY}"
+                        }
+                      },
+                      {
+                        "value": {
+                          "bfDate": "{$TODAY+2_WORKING_DAYS}"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "WaSystemUser"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "numberOfRolesAvailable": 4,
+          "taskData": {
+            "template": "task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "id": "{$VERIFIER-UUID}",
+                  "name": "Review Rule 21 Referral",
+                  "type": "ReviewRule21Referral",
+                  "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Review Rule 21 Referral",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                  "location_name": "Leeds",
+                  "location": "36313",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "region": "3",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
+                  "work_type_id": "routine_work",
+                  "work_type_label": "Routine work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "Cancel",
+                      "Complete",
+                      "Claim",
+                      "Unclaim",
+                      "Assign",
+                      "Unassign"
+                    ]
+                  },
+                  "description": "[Create Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                  "role_category": "LEGAL_OPERATIONS",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+                }
+              ]
+            }
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "allocated-tribunal-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "CompleteOwn",
+                  "CancelOwn",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "senior-tribunal-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Cancel",
+                  "Complete",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Cancel",
+                  "Complete",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "LEGAL_OPERATIONS",
+                "role_name": "tribunal-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "CompleteOwn",
+                  "CancelOwn",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign"
+                ],
+                "authorisations": []
+              }
+            ]
+          },
+          "roleData": {
+            "roles": [
+              {
+                "role_category": "ADMIN",
+                "role_name": "allocated-admin-caseworker",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-admin",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "UnclaimAssign",
+                  "CompleteOwn",
+                  "CancelOwn"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "ADMIN",
+                "role_name": "hearing-centre-team-leader",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_name": "task-supervisor",
+                "permissions": [
+                  "Read",
+                  "Own",
+                  "Manage",
+                  "Claim",
+                  "Unclaim",
+                  "Assign",
+                  "Unassign",
+                  "Complete",
+                  "Cancel"
+                ],
+                "authorisations": []
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
