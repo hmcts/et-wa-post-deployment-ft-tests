@@ -32,7 +32,7 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "et3Response",
+                "EventId": "submitEt3",
                 "NewStateId": "Accepted"
               }
             }
@@ -45,30 +45,57 @@
             "key": "WaSystemUser"
           },
           "status": 200,
-          "numberOfTasksAvailable": 2,
+          "numberOfTasksAvailable": 1,
           "numberOfRolesAvailable": 4,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
               "tasks": [
                 {
+                  "id": "{$VERIFIER-UUID}",
                   "name": "ET3 Processing",
+                  "type": "ET3Processing",
                   "task_state": "unassigned",
-                  "warnings": false,
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "ET3 Processing",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+3_WORKING_DAYS}",
+                  "location_name": "Leeds",
+                  "location": "36313",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "region": "3",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
                   "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
                   "work_type_id": "routine_work",
+                  "work_type_label": "Routine work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "Cancel",
+                      "Complete",
+                      "Claim",
+                      "Unclaim",
+                      "Assign",
+                      "Unassign"
+                    ]
+                  },
                   "description": "[ET3 Processing](/cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
+                  "role_category": "ADMIN",
                   "minor_priority": 500,
-                  "major_priority": 5000
-                },
-                {
-                  "name": "Review Rule 21 Referral",
-                  "task_state": "unassigned",
-                  "warnings": false,
-                  "case_name": "George Jetson v Cosmo Spacely",
-                  "work_type_id": "routine_work",
-                  "minor_priority": 500,
-                  "major_priority": 5000
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+3_WORKING_DAYS}"
                 }
               ]
             }
