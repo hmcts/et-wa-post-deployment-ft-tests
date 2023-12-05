@@ -21,6 +21,22 @@
     </notes>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2023-4586</cve>
+    <cve>CVE-2023-36052</cve>
+    <cve>CVE-2023-36062</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: reactor-netty-core-1.0.36.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/io\.projectreactor\.netty/reactor\-netty\-core@.*$</packageUrl>
+    <vulnerabilityName>CVE-2023-34054</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: reactor-netty-http-1.0.36.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/io\.projectreactor\.netty/reactor\-netty\-http@.*$</packageUrl>
+    <vulnerabilityName>CVE-2023-34062</vulnerabilityName>
   </suppress>
   <suppress>
     <notes><![CDATA[
@@ -48,5 +64,33 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.springframework/spring\-web@.*$</packageUrl>
     <vulnerabilityName>CVE-2016-1000027</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: bcprov-jdk15on-1.69.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.bouncycastle/bcprov\-jdk15on@.*$</packageUrl>
+    <cve>CVE-2023-33202</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: logback-classic-1.2.12.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/ch\.qos\.logback/logback\-classic@.*$</packageUrl>
+    <vulnerabilityName>CVE-2023-6378</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+     file name: logback-core-1.2.12.jar
+     ]]></notes>
+    <packageUrl regex="true">^pkg:maven/ch\.qos\.logback/logback\-core@.*$</packageUrl>
+    <vulnerabilityName>CVE-2023-6378</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+     file name: spring-boot-2.7.16.jar
+     ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.springframework\.boot/spring\-boot@.*$</packageUrl>
+    <cve>CVE-2023-34055</cve>
   </suppress>
 </suppressions>
