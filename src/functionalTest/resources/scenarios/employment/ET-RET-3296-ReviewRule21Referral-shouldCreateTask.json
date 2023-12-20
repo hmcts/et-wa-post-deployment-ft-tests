@@ -39,12 +39,20 @@
                     "bfActions": [
                       {
                         "value": {
-                          "bfDate": "{$TODAY}"
+                          "bfDate": "{$TODAY}",
+                          "allActions": null
                         }
                       },
                       {
                         "value": {
-                          "bfDate": "{$TODAY+2_WORKING_DAYS}"
+                          "bfDate": "{$TODAY}",
+                          "allActions": "Claim served"
+                        }
+                      },
+                      {
+                        "value": {
+                          "bfDate": "{$TODAY+5_WORKING_DAYS}",
+                          "allActions": "Claim served"
                         }
                       }
                     ]
