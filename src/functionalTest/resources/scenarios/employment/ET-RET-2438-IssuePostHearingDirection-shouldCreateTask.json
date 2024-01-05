@@ -38,6 +38,7 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
                           "referCaseTo": "Admin",
                           "referralSubject": "Hearings"
                         }
@@ -107,12 +108,12 @@
                 },
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral - Hearings",
+                  "name": "Review Referral #1 - Hearings",
                   "type": "ReviewReferralAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Referral - Hearings",
+                  "task_title": "Review Referral #1 - Hearings",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "execution_type": "Case Management Task",
@@ -142,7 +143,7 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[Reply to Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/replyToReferral/replyToReferral1) or [Close Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/closeReferral/closeReferral1)",
+                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
                   "role_category": "ADMIN",
                   "minor_priority": 500,
                   "major_priority": 5000,
