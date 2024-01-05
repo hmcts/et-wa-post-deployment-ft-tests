@@ -39,6 +39,7 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
                           "referCaseTo": "Judge",
                           "referralSubject": "Rule 21"
                         }
@@ -107,12 +108,12 @@
                 },
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral - Rule 21",
+                  "name": "Review Referral #1 - Rule 21",
                   "type": "ReviewReferralJudiciary",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Referral - Rule 21",
+                  "task_title": "Review Referral #1 - Rule 21",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "execution_type": "Case Management Task",
@@ -141,7 +142,7 @@
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[Reply to Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/replyToReferral/replyToReferral1) or [Close Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/closeReferral/closeReferral1) or [Accept/Reject Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/preAcceptanceCase/preAcceptanceCase1)",
+                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
