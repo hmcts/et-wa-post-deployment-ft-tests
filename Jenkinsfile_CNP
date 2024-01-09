@@ -1,8 +1,8 @@
 #!groovy
 properties([
-        parameters([
-                string(name: 'DLQ_PROCESS_ENABLED', defaultValue: 'false', description: 'Run the tests on dlq process flow')
-        ])
+  parameters([
+    string(name: 'DLQ_PROCESS_ENABLED', defaultValue: 'false', description: 'Run the tests on dlq process flow')
+  ])
 ])
 
 @Library("Infrastructure")
@@ -12,53 +12,52 @@ def product = "et"
 def component = "post-deployment-ft-tests"
 
 def secrets = [
-        'et-${env}' : [
-                secret('idam-redirect-uri', 'IA_IDAM_REDIRECT_URI'),
+  'et-${env}' : [
+    secret('idam-redirect-uri', 'IA_IDAM_REDIRECT_URI'),
 
-                secret('wa-idam-client-secret', 'WA_IDAM_CLIENT_SECRET'),
+    secret('wa-idam-client-secret', 'WA_IDAM_CLIENT_SECRET'),
 
-                secret('ccd-shared-servicebus-connection-string', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
+    secret('ccd-shared-servicebus-connection-string', 'AZURE_SERVICE_BUS_CONNECTION_STRING'),
 
-                secret('et-wa-caseworker-username', 'ET_CASEOFFICER_USERNAME'),
-                secret('et-wa-caseworker-password', 'ET_CASEOFFICER_PASSWORD'),
+    secret('et-wa-caseworker-username', 'ET_CASEOFFICER_USERNAME'),
+    secret('et-wa-caseworker-password', 'ET_CASEOFFICER_PASSWORD'),
 
-                secret('wa-system-username', 'WA_SYSTEM_USERNAME'),
-                secret('wa-system-password', 'WA_SYSTEM_PASSWORD'),
-
-        ],
-        's2s-${env}': [
-                secret('microservicekey-wa-task-management-api', 'S2S_SECRET_TASK_MANAGEMENT_API'),
-        ]
+    secret('wa-system-username', 'WA_SYSTEM_USERNAME'),
+    secret('wa-system-password', 'WA_SYSTEM_PASSWORD')
+  ],
+  's2s-${env}': [
+    secret('microservicekey-wa-task-management-api', 'S2S_SECRET_TASK_MANAGEMENT_API'),
+  ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-    [$class     : 'AzureKeyVaultSecret',
-     secretType : 'Secret',
-     name       : secretName,
-     version    : '',
-     envVariable: envVar
-    ]
+  [
+    $class     : 'AzureKeyVaultSecret',
+    secretType : 'Secret',
+    name       : secretName,
+    version    : '',
+    envVariable: envVar
+  ]
 }
 
 //Run Jenkins_CNP with nightly pipeline
 withNightlyPipeline(type, product, component) {
-    env.IDAM_S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    env.AZURE_SERVICE_BUS_TOPIC_NAME = "et-case-event-handler-topic-sessions-ft"
+  env.AZURE_SERVICE_BUS_TOPIC_NAME = "et-case-event-handler-topic-sessions-ft"
 
-    env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
-    env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
-    env.IDAM_URL = "https://idam-api.aat.platform.hmcts.net"
-    env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    env.IDAM_S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    env.OPEN_ID_IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
-    env.DOCUMENT_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
-    env.WA_TASK_MANAGEMENT_URL = "http://wa-task-management-api-aat.service.core-compute-aat.internal"
-    env.WA_CASE_EVENT_HANDLER_URL = "http://wa-case-event-handler-aat.service.core-compute-aat.internal"
-    env.WA_TASK_MONITOR_URL = "http://wa-task-monitor-aat.service.core-compute-aat.internal"
-    env.CAMUNDA_URL = "http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
-    env.ROLE_ASSIGNMENT_URL = "http://am-role-assignment-service-aat.service.core-compute-aat.internal"
-    env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT="aat"
+  env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+  env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
+  env.IDAM_URL = "https://idam-api.aat.platform.hmcts.net"
+  env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+  env.OPEN_ID_IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
+  env.DOCUMENT_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
+  env.WA_TASK_MANAGEMENT_API_URL = "http://wa-task-management-api-aat.service.core-compute-aat.internal"
+  env.WA_CASE_EVENT_HANDLER_URL = "http://wa-case-event-handler-aat.service.core-compute-aat.internal"
+  env.WA_TASK_MONITOR_URL = "http://wa-task-monitor-aat.service.core-compute-aat.internal"
+  env.CAMUNDA_URL = "http://camunda-api-aat.service.core-compute-aat.internal/engine-rest"
+  env.ROLE_ASSIGNMENT_URL = "http://am-role-assignment-service-aat.service.core-compute-aat.internal"
+  env.WA_POST_DEPLOYMENT_TEST_ENVIRONMENT = "aat"
+  env.ENABLE_TEST_USER_DELETION = true
 
-    loadVaultSecrets(secrets)
-    enableFullFunctionalTest(60)
+  loadVaultSecrets(secrets)
+  enableFullFunctionalTest(60)
 }

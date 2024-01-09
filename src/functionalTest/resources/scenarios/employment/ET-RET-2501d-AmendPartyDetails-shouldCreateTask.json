@@ -39,11 +39,36 @@
                     "genericTseApplicationCollection": [
                       {
                         "value": {
+                          "number": "1",
                           "type": "Change my personal details",
                           "respondCollection": [
                             {
                               "value": {
-                                "from": "Respondent"
+                                "from": "Claimant",
+                                "applicationType": null,
+                                "dateTime": null
+                              }
+                            },
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Change my personal details",
+                                "dateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "number": "2",
+                          "type": "Claimant not complied",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": null,
+                                "dateTime": null
                               }
                             }
                           ]
@@ -72,7 +97,7 @@
                 {
                   "id": "{$VERIFIER-UUID}",
                   "name": "Amend Party Details",
-                  "type": "AmendPartyDetails",
+                  "type": "AmendClaimantDetails",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
@@ -93,7 +118,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Update Claimant Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendClaimantDetails/amendClaimantDetails1) [OR Respondent Details](cases/case-details/${[CASE_REFERENCE]}/trigger/amendRespondentDetails/amendRespondentDetails1)[,as instructed]",
+                  "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
                   "role_category": "ADMIN"
                 }
               ]

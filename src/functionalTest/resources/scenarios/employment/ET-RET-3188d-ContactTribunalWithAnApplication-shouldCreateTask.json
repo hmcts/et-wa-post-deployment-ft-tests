@@ -39,11 +39,36 @@
                     "genericTseApplicationCollection": [
                       {
                         "value": {
-                          "type": "Amend my claim",
+                          "number": "1",
+                          "type": "Claimant not complied",
                           "respondCollection": [
                             {
                               "value": {
-                                "from": "Respondent"
+                                "from": "Claimant",
+                                "applicationType": null,
+                                "dateTime": null
+                              }
+                            },
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Claimant not complied",
+                                "dateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "number": "2",
+                          "type": "Change my personal details",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Change my personal details",
+                                "dateTime": "2023-10-01T13:00:00.000"
                               }
                             }
                           ]
@@ -93,7 +118,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                  "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
                   "minor_priority": 500,
                   "major_priority": 5000
                 }

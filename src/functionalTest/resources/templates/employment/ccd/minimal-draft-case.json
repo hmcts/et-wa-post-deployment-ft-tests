@@ -42,6 +42,25 @@
       }
     }
   ],
+  "managingOffice": "Leeds",
+  "caseManagementCategory": {
+    "value": {
+      "code": "Employment Tribunals",
+      "label": "Employment"
+    },
+    "list_items": [
+      {
+        "code": "Employment Tribunals",
+        "label": "Employment"
+      }
+    ],
+    "selectedCode": "Employment Tribunals",
+    "selectedLabel": "Employment"
+  },
+  "caseManagementLocation": {
+    "region": "3",
+    "baseLocation": "36313"
+  },
   "receiptDate": "1989-01-01",
   "claimantHearingPreference": {
     "hearing_preferences": [

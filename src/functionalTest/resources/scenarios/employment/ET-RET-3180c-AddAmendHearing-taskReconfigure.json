@@ -88,8 +88,8 @@
                     "Unassign"
                   ]
                 },
-                "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
-                "role_category": "ADMIN,CTSC",
+                "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                "role_category": "ADMIN",
                 "minor_priority": 500,
                 "major_priority": 5000,
                 "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
@@ -402,8 +402,8 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[Review ET1 Submission](cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
-                  "role_category": "ADMIN,CTSC",
+                  "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                  "role_category": "ADMIN",
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"

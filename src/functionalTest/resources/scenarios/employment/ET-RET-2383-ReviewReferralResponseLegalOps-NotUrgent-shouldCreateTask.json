@@ -17,7 +17,7 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": []
+            "referralCollection": null
           }
         }
       }
@@ -42,13 +42,44 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
                           "referCaseTo": "Legal officer",
                           "referralSubject": "Amend claim",
                           "referralReplyCollection": [
                             {
                               "value": {
+                                "referralNumber": "1",
+                                "referralSubject": null,
+                                "directionTo": "Admin",
+                                "isUrgentReply": "Yes",
+                                "replyDateTime": null
+                              }
+                            },
+                            {
+                              "value": {
+                                "referralNumber": "1",
+                                "referralSubject": "Amend claim",
                                 "directionTo": "Legal officer",
-                                "isUrgentReply": "No"
+                                "isUrgentReply": "No",
+                                "replyDateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "referralNumber": "2",
+                          "referCaseTo": "Legal officer",
+                          "referralSubject": "ET3/ECC",
+                          "referralReplyCollection": [
+                            {
+                              "value": {
+                                "referralNumber": "2",
+                                "referralSubject": null,
+                                "directionTo": "Legal officer",
+                                "isUrgentReply": "Yes",
+                                "replyDateTime": null
                               }
                             }
                           ]
@@ -76,12 +107,12 @@
               "tasks": [
                 {
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral Response - Amend claim",
+                  "name": "Review Referral #1 - Amend claim Response",
                   "type": "ReviewReferralResponseLegalOps",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Referral Response - Amend claim",
+                  "task_title": "Review Referral #1 - Amend claim Response",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "execution_type": "Case Management Task",
@@ -111,7 +142,7 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}/trigger/replyToReferral/replyToReferral1)",
+                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"

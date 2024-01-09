@@ -1,5 +1,5 @@
 {
-  "description": "ET 'COMPLETE' request should trigger completion of ContactTribunalWithAnApplication task",
+  "description": "ET 'ASSIGN'",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -92,7 +92,7 @@
                 "case_management_category": "Employment",
                 "work_type_id": "applications",
                 "work_type_label": "Applications",
-                "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
+                "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
                 "minor_priority": 500,
                 "major_priority": 5000
               }
@@ -170,9 +170,18 @@
   "tests": [
     {
       "request": {
-        "type": "COMPLETE",
+        "type": "ASSIGN",
         "credentials": {
-          "key": "WaSystemUser"
+          "key": "WaSystemUser",
+          "granularPermission": true
+        },
+        "input": {
+          "assignee": {
+            "credentials": {
+              "key": "WaCaseOfficer",
+              "granularPermission": true
+            }
+          }
         }
       },
       "expectations": [
@@ -211,7 +220,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
+                  "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
                   "minor_priority": 500,
                   "major_priority": 5000
                 }

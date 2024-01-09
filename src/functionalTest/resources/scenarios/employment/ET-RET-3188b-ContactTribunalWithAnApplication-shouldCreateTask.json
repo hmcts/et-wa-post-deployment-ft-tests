@@ -39,11 +39,36 @@
                     "genericTseApplicationCollection": [
                       {
                         "value": {
-                          "type": "Amend response",
+                          "number": "1",
+                          "type": "Postpone a hearing",
                           "respondCollection": [
                             {
                               "value": {
-                                "from": "Claimant"
+                                "from": "Respondent",
+                                "applicationType": "Postpone a hearing",
+                                "dateTime": "2023-10-01T12:00:00.000"
+                              }
+                            },
+                            {
+                              "value": {
+                                "from": "Claimant",
+                                "applicationType": "Postpone a hearing",
+                                "dateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "value": {
+                          "number": "2",
+                          "type": "Change personal details",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Claimant",
+                                "applicationType": "Change personal details",
+                                "dateTime": "2023-10-01T13:00:00.000"
                               }
                             }
                           ]
@@ -93,7 +118,7 @@
                   "case_management_category": "Employment",
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
-                  "description": "[Review Application and refer to judge](cases/case-details/${[CASE_REFERENCE]}/trigger/createReferral/createReferral1)",
+                  "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
                   "minor_priority": 500,
                   "major_priority": 5000
                 }

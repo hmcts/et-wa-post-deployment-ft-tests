@@ -32,7 +32,9 @@ This way we can test user paths end to end.
 
 ## When merging to master:
 
-When performing a merge against master the withNightlyPipeline() will be used to run this tests and verify the build this is because this app is not a service that needs to be deployed but rather just a test framework.
+When performing a merge against master the withNightlyPipeline() will be used to run this tests
+and verify the build this is because this app is not a service
+that needs to be deployed but rather just a test framework.
 The withNightlyPipeline() will perform:
 
 - Dependency check

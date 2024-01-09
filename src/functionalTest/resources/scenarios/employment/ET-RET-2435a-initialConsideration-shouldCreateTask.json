@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral/updateHearing should create a DraftAndSignJudgment task",
+  "description": "et initialConsideration should create Issue Initial Consideration Directions task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -32,8 +32,23 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "updateHearing",
-                "NewStateId": "Accepted"
+                "EventId": "initialConsideration",
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "etICCanProceed": false,
+                    "etICHearingAlreadyListed": true,
+                    "etICHearingNotListedList": [
+                      "List for preliminary hearing",
+                      "Seek comments on the video hearing",
+                      "List for final hearing",
+                      "UDL hearing"
+                    ],
+                    "etInitialConsiderationRule27": {
+                      "etICRule27ClaimToBe": "Dismissed in full"
+                    }
+                  }
+                }
               }
             }
           ]
@@ -46,52 +61,18 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 5,
+          "numberOfRolesAvailable": 4,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
               "tasks": [
                 {
-                  "id": "{$VERIFIER-UUID}",
-                  "name": "Draft And Sign Judgment",
-                  "type": "DraftAndSignJudgment",
+                  "name": "Issue Initial Consideration Directions",
                   "task_state": "unassigned",
-                  "task_system": "SELF",
-                  "security_classification": "PUBLIC",
-                  "task_title": "Draft And Sign Judgment",
-                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}",
-                  "execution_type": "Case Management Task",
-                  "jurisdiction": "EMPLOYMENT",
-                  "case_type_id": "ET_EnglandWales",
-                  "case_id": "{$GENERATED_CASE_ID}",
-                  "case_category": "Employment",
-                  "case_name": "George Jetson v Cosmo Spacely",
-                  "auto_assigned": false,
                   "warnings": false,
-                  "warning_list": {
-                    "values": []
-                  },
-                  "case_management_category": "Employment",
-                  "work_type_id": "decision_making_work",
-                  "work_type_label": "Decision-making work",
-                  "permissions": {
-                    "values": [
-                      "Read",
-                      "Own",
-                      "Manage",
-                      "CompleteOwn",
-                      "CancelOwn",
-                      "Claim",
-                      "Unclaim",
-                      "UnclaimAssign"
-                    ]
-                  },
-                  "description": "[Add or Amend a Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
-                  "role_category": "JUDICIAL",
+                  "work_type_id": "routine_work",
                   "minor_priority": 500,
-                  "major_priority": 5000,
-                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}"
+                  "major_priority": 5000
                 }
               ]
             }
@@ -99,8 +80,8 @@
           "roleData": {
             "roles": [
               {
-                "role_category": "JUDICIAL",
-                "role_name": "fee-paid-judge",
+                "role_name": "allocated-admin-caseworker",
+                "role_category": "ADMIN",
                 "permissions": [
                   "Read",
                   "Own",
@@ -114,8 +95,8 @@
                 "authorisations": []
               },
               {
-                "role_category": "JUDICIAL",
-                "role_name": "hearing-judge",
+                "role_name": "hearing-centre-admin",
+                "role_category": "ADMIN",
                 "permissions": [
                   "Read",
                   "Own",
@@ -129,28 +110,14 @@
                 "authorisations": []
               },
               {
-                "role_category": "JUDICIAL",
-                "role_name": "judge",
+                "role_name": "hearing-centre-team-leader",
+                "role_category": "ADMIN",
                 "permissions": [
                   "Read",
                   "Own",
-                  "Manage",
                   "Claim",
                   "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "leadership-judge",
-                "permissions": [
-                  "Read",
-                  "Own",
                   "Manage",
-                  "Claim",
                   "Assign",
                   "Unassign",
                   "Complete",
