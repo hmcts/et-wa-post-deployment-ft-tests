@@ -174,6 +174,8 @@
                     ]
                   },
                   "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
+                  "role_category": "ADMIN",
+                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"

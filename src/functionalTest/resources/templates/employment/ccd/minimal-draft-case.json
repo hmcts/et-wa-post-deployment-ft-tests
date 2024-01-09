@@ -1,5 +1,6 @@
 {
   "caseSource": "Manually Created",
+  "nextListedDate": "{$TODAY+2_WORKING_DAYS}",
   "claimant_TypeOfClaimant": "Individual",
   "feeGroupReference": "111111111111",
   "claimantWorkAddressQRespondent": {
