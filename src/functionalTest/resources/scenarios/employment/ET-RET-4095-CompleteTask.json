@@ -93,6 +93,8 @@
                 "work_type_id": "applications",
                 "work_type_label": "Applications",
                 "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
+                "role_category": "ADMIN",
+                "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "minor_priority": 500,
                 "major_priority": 5000
               }
@@ -212,6 +214,8 @@
                   "work_type_id": "applications",
                   "work_type_label": "Applications",
                   "description": "[Review Application](/cases/case-details/${[CASE_REFERENCE]}#Applications)",
+                  "role_category": "ADMIN",
+                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
                   "major_priority": 5000
                 }

@@ -15,7 +15,10 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "nextListedDate": null
+          }
         }
       }
     ]
@@ -103,6 +106,7 @@
                   },
                   "description": "[List Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendHearing/addAmendHearing1) or [Generate Issue Initial Consideration Directions Task](/cases/case-details/${[CASE_REFERENCE]}/trigger/issueInitialConsiderationDirectionsWA/submit)",
                   "role_category": "ADMIN",
+                  "next_hearing_date": null,
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+10_WORKING_DAYS}"
