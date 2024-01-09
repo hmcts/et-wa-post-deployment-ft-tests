@@ -247,7 +247,6 @@
                   "role_name": "task-supervisor",
                   "permissions": [
                     "Read",
-                    "Own",
                     "Manage",
                     "Claim",
                     "Unclaim",
