@@ -97,12 +97,18 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 5,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "first_role_data",
+                      "description": "role assignment verification object"
+                    }
+                  ],
                   "id": "{$VERIFIER-UUID}",
                   "name": "Review Referral #1 - Amend claim Response",
                   "type": "ReviewReferralResponseJudiciary",
@@ -148,85 +154,88 @@
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "fee-paid-judge",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "hearing-judge",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "judge",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "JUDICIAL",
-                "role_name": "leadership-judge",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "task-supervisor",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "first_role_data",
+              "numberOfRolesAvailable": 5,
+              "roles": [
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "fee-paid-judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "hearing-judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [
+                    "Read",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }

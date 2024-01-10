@@ -59,12 +59,18 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 6,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "first_role_data",
+                      "description": "role assignment verification object"
+                    }
+                  ],
                   "id": "{$VERIFIER-UUID}",
                   "name": "List A Hearing",
                   "type": "ListAHearing",
@@ -114,71 +120,105 @@
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_name": "allocated-admin-caseworker",
-                "role_category": "ADMIN",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "hearing-centre-admin",
-                "role_category": "ADMIN",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "hearing-centre-team-leader",
-                "role_category": "ADMIN",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Claim",
-                  "Unclaim",
-                  "Manage",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "task-supervisor",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "first_role_data",
+              "numberOfRolesAvailable": 6,
+              "roles": [
+                {
+                  "role_name": "allocated-admin-caseworker",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "hearing-centre-admin",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "hearing-centre-team-leader",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Claim",
+                    "Unclaim",
+                    "Manage",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "regional-centre-admin",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "regional-centre-team-leader",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Claim",
+                    "Unclaim",
+                    "Manage",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [
+                    "Read",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }

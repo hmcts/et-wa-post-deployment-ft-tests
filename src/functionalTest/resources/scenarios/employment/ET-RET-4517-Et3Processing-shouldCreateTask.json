@@ -57,12 +57,18 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 4,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "first_role_data",
+                      "description": "role assignment verification object"
+                    }
+                  ],
                   "id": "{$VERIFIER-UUID}",
                   "name": "ET3 Processing",
                   "type": "ET3Processing",
@@ -112,136 +118,74 @@
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "LEGAL_OPERATIONS",
-                "role_name": "allocated-tribunal-caseworker",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "CompleteOwn",
-                  "CancelOwn",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "LEGAL_OPERATIONS",
-                "role_name": "senior-tribunal-caseworker",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Cancel",
-                  "Complete",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "task-supervisor",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Cancel",
-                  "Complete",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "LEGAL_OPERATIONS",
-                "role_name": "tribunal-caseworker",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "CompleteOwn",
-                  "CancelOwn",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign"
-                ],
-                "authorisations": []
-              }
-            ]
-          },
-          "roleData": {
-            "roles": [
-              {
-                "role_category": "ADMIN",
-                "role_name": "allocated-admin-caseworker",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "ADMIN",
-                "role_name": "hearing-centre-admin",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_category": "ADMIN",
-                "role_name": "hearing-centre-team-leader",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "task-supervisor",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "first_role_data",
+              "numberOfRolesAvailable": 4,
+              "roles": [
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-admin",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [
+                    "Read",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }
