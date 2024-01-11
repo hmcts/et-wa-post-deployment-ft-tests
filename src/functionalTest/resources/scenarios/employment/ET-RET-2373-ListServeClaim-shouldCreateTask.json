@@ -52,135 +52,342 @@
             "replacements": {
               "tasks": [
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "first_role_data",
+                      "description": "role assignment verification object"
+                    }
+                  ],
+                  "id": "{$VERIFIER-UUID}",
                   "name": "List/ Serve Claim",
+                  "type": "ListServeClaim",
                   "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "List/ Serve Claim",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                  "location_name": "Leeds",
+                  "location": "36313",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "region": "3",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
                   "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
                   "work_type_id": "routine_work",
+                  "work_type_label": "Routine work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "Cancel",
+                      "Complete",
+                      "Claim",
+                      "Unclaim",
+                      "Assign",
+                      "Unassign"
+                    ]
+                  },
+                  "description": "[Upload Document For Serving](/cases/case-details/${[CASE_REFERENCE]}/trigger/uploadDocumentForServing/uploadDocumentForServing1)",
+                  "role_category": "ADMIN",
+                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
-                  "major_priority": 5000
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
                 },
                 {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "second_role_data",
+                      "description": "role assignment verification object"
+                    }
+                  ],
+                  "id": "{$VERIFIER-UUID}",
                   "name": "Send ET1 Notification",
+                  "type": "SendEt1Notification",
                   "task_state": "unassigned",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Send ET1 Notification",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
+                  "location_name": "Leeds",
+                  "location": "36313",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "region": "3",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
                   "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
                   "work_type_id": "routine_work",
+                  "work_type_label": "Routine work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "Cancel",
+                      "Complete",
+                      "Claim",
+                      "Unclaim",
+                      "Assign",
+                      "Unassign"
+                    ]
+                  },
+                  "description": "[Issue Directions](/cases/case-details/${[CASE_REFERENCE]}/trigger/generateCorrespondence/generateCorrespondence1)",
+                  "role_category": "ADMIN",
+                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
-                  "major_priority": 5000
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
                 }
               ]
             }
           },
-          "roleData": {
-            "roles": [
-              {
-                "role_name": "allocated-admin-caseworker",
-                "role_category": "ADMIN",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "allocated-ctsc-caseworker",
-                "role_category": "CTSC",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "ctsc",
-                "role_category": "CTSC",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "ctsc-team-leader",
-                "role_category": "CTSC",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Assign",
-                  "Claim",
-                  "Unclaim",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "hearing-centre-admin",
-                "role_category": "ADMIN",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "UnclaimAssign",
-                  "CompleteOwn",
-                  "CancelOwn"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "hearing-centre-team-leader",
-                "role_category": "ADMIN",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Claim",
-                  "Unclaim",
-                  "Manage",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              },
-              {
-                "role_name": "task-supervisor",
-                "permissions": [
-                  "Read",
-                  "Own",
-                  "Manage",
-                  "Claim",
-                  "Unclaim",
-                  "Assign",
-                  "Unassign",
-                  "Complete",
-                  "Cancel"
-                ],
-                "authorisations": []
-              }
-            ]
-          }
+          "roleData": [
+            {
+              "key": "first_role_data",
+              "numberOfRolesAvailable": 7,
+              "roles": [
+                {
+                  "role_name": "allocated-admin-caseworker",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "allocated-ctsc-caseworker",
+                  "role_category": "CTSC",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "ctsc",
+                  "role_category": "CTSC",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "ctsc-team-leader",
+                  "role_category": "CTSC",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Assign",
+                    "Claim",
+                    "Unclaim",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "hearing-centre-admin",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "hearing-centre-team-leader",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Claim",
+                    "Unclaim",
+                    "Manage",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [
+                    "Read",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                }
+              ]
+            },
+            {
+              "key": "second_role_data",
+              "numberOfRolesAvailable": 7,
+              "roles": [
+                {
+                  "role_name": "allocated-admin-caseworker",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "allocated-ctsc-caseworker",
+                  "role_category": "CTSC",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "ctsc",
+                  "role_category": "CTSC",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "ctsc-team-leader",
+                  "role_category": "CTSC",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Assign",
+                    "Claim",
+                    "Unclaim",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "hearing-centre-admin",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "hearing-centre-team-leader",
+                  "role_category": "ADMIN",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Claim",
+                    "Unclaim",
+                    "Manage",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [
+                    "Read",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonList;
+import static java.util.Objects.requireNonNull;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static uk.gov.hmcts.reform.wapostdeploymentfttests.SpringBootFunctionalBaseTest.DEFAULT_POLL_INTERVAL_SECONDS;
@@ -256,9 +257,7 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
                                                     Map<String, String> taskTemplatesByFilename,
                                                     Map<String, String> additionalValues) throws IOException {
 
-        Map<String, Object> scenario = deserializeValuesUtil.expandMapValues(clauseValues, additionalValues);
-
-        Map<String, Object> taskData = MapValueExtractor.extract(scenario, "taskData");
+        Map<String, Object> taskData = MapValueExtractor.extract(clauseValues, "taskData");
 
         String templateFilename = MapValueExtractor.extract(taskData, "template");
 
@@ -268,12 +267,35 @@ public class TaskMgmApiRetrieverService implements TaskRetrieverService {
         );
 
         Map<String, Object> taskDataDataReplacements = MapValueExtractor.extract(taskData, "replacements");
+        Map<String, Object> taskDataDataReplacementsWithoutMetaData = removeMetaDataFromDataMap(
+            taskDataDataReplacements);
+        Map<String, Object> taskDataExpectationWithoutMetaData = removeMetaDataFromDataMap(taskDataExpectation);
+
         if (taskDataDataReplacements != null) {
-            MapMerger.merge(taskDataExpectation, taskDataDataReplacements);
+            MapMerger.merge(taskDataExpectationWithoutMetaData, taskDataDataReplacementsWithoutMetaData);
         }
 
-        return MapSerializer.serialize(taskDataExpectation);
+        return MapSerializer.serialize(taskDataExpectationWithoutMetaData);
+    }
 
+    private Map<String, Object> removeMetaDataFromDataMap(Map<String, Object> dataMap) {
+
+        List<Map<String, Object>> tasks = new ArrayList<>(
+            requireNonNull(MapValueExtractor.extract(dataMap, "tasks")));
+
+        Map<String, Object> tempDataMap = new HashMap<>(dataMap);
+        tempDataMap.remove("tasks");
+        List<Map<String, Object>> taskWithoutMetaDataList = new ArrayList<>();
+
+        tasks.forEach(task -> {
+            Map<String, Object> taskWithoutMetaData = new HashMap<>(task);
+            taskWithoutMetaData.entrySet().removeIf(entry -> entry.getKey().equals("test_meta_data"));
+            taskWithoutMetaDataList.add(taskWithoutMetaData);
+        });
+
+        tempDataMap.put("tasks", taskWithoutMetaDataList);
+
+        return tempDataMap;
     }
 
     private String buildRolesExpectationResponseBody(Map<String, Object> clauseValues,

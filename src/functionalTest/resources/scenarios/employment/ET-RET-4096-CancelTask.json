@@ -45,12 +45,18 @@
         },
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 7,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
             "tasks": [
               {
+                "test_meta_data": [
+                  {
+                    "key": "role_data_reference",
+                    "value": "first_role_data",
+                    "description": "role assignment verification object"
+                  }
+                ],
                 "id": "{$VERIFIER-UUID}",
                 "name": "Et1 Vetting",
                 "type": "Et1Vetting",
@@ -89,6 +95,7 @@
                 },
                 "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
                 "role_category": "ADMIN",
+                "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                 "minor_priority": 500,
                 "major_priority": 5000,
                 "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
@@ -96,214 +103,10 @@
             ]
           }
         },
-        "roleData": {
-          "roles": [
-            {
-              "role_category": "ADMIN",
-              "role_name": "allocated-admin-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "allocated-ctsc-caseworker",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "CTSC",
-              "role_name": "ctsc-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-admin",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "UnclaimAssign",
-                "CompleteOwn",
-                "CancelOwn"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_category": "ADMIN",
-              "role_name": "hearing-centre-team-leader",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            },
-            {
-              "role_name": "task-supervisor",
-              "permissions": [
-                "Read",
-                "Own",
-                "Manage",
-                "Claim",
-                "Unclaim",
-                "Assign",
-                "Unassign",
-                "Complete",
-                "Cancel"
-              ],
-              "authorisations": []
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "tests": [
-    {
-      "request": {
-        "credentials": {
-          "key": "WaSystemUser"
-        },
-        "input": {
-          "eventMessages": [
-            {
-              "destination": "RestEndpoint",
-              "template": "ccd-event-message.json",
-              "replacements": {
-                "EventId": "disposeCase",
-                "NewStateId": "Closed",
-                "AdditionalData": {
-                  "Data": {
-                    "clerkResponsible": {
-                      "value": {
-                        "code": "A Clerk",
-                        "label": "A Clerk"
-                      },
-                      "list_items": [
-                        {
-                          "code": "A Clerk",
-                          "label": "A Clerk"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "expectations": [
-        {
-          "credentials": {
-            "key": "WaSystemUser"
-          },
-          "status": 200,
-          "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 7,
-          "taskData": {
-            "template": "task-response.json",
-            "replacements": {
-              "tasks": [
-                {
-                  "id": "{$VERIFIER-UUID}",
-                  "name": "Et1 Vetting",
-                  "type": "Et1Vetting",
-                  "task_state": "terminated",
-                  "task_system": "SELF",
-                  "security_classification": "PUBLIC",
-                  "task_title": "Et1 Vetting",
-                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}",
-                  "execution_type": "Case Management Task",
-                  "jurisdiction": "EMPLOYMENT",
-                  "case_type_id": "ET_EnglandWales",
-                  "case_id": "{$GENERATED_CASE_ID}",
-                  "case_category": "Employment",
-                  "case_name": "George Jetson v Cosmo Spacely",
-                  "auto_assigned": false,
-                  "warnings": false,
-                  "warning_list": {
-                    "values": []
-                  },
-                  "case_management_category": "Employment",
-                  "work_type_id": "routine_work",
-                  "work_type_label": "Routine work",
-                  "permissions": {
-                    "values": [
-                      "Read",
-                      "Own",
-                      "Manage",
-                      "Cancel",
-                      "Complete",
-                      "Claim",
-                      "Unclaim",
-                      "Assign",
-                      "Unassign"
-                    ]
-                  },
-                  "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
-                  "role_category": "ADMIN",
-                  "minor_priority": 500,
-                  "major_priority": 5000,
-                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
-                }
-              ]
-            }
-          },
-          "roleData": {
+        "roleData": [
+          {
+            "key": "first_role_data",
+            "numberOfRolesAvailable": 7,
             "roles": [
               {
                 "role_category": "ADMIN",
@@ -401,7 +204,6 @@
                 "role_name": "task-supervisor",
                 "permissions": [
                   "Read",
-                  "Own",
                   "Manage",
                   "Claim",
                   "Unclaim",
@@ -414,6 +216,224 @@
               }
             ]
           }
+        ]
+      }
+    ]
+  },
+  "tests": [
+    {
+      "request": {
+        "credentials": {
+          "key": "WaSystemUser"
+        },
+        "input": {
+          "eventMessages": [
+            {
+              "destination": "RestEndpoint",
+              "template": "ccd-event-message.json",
+              "replacements": {
+                "EventId": "disposeCase",
+                "NewStateId": "Closed",
+                "AdditionalData": {
+                  "Data": {
+                    "clerkResponsible": {
+                      "value": {
+                        "code": "A Clerk",
+                        "label": "A Clerk"
+                      },
+                      "list_items": [
+                        {
+                          "code": "A Clerk",
+                          "label": "A Clerk"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "expectations": [
+        {
+          "credentials": {
+            "key": "WaSystemUser"
+          },
+          "status": 200,
+          "numberOfTasksAvailable": 1,
+          "taskData": {
+            "template": "task-response.json",
+            "replacements": {
+              "tasks": [
+                {
+                  "test_meta_data": [
+                    {
+                      "key": "role_data_reference",
+                      "value": "first_role_data",
+                      "description": "role assignment verification object"
+                    }
+                  ],
+                  "id": "{$VERIFIER-UUID}",
+                  "name": "Et1 Vetting",
+                  "type": "Et1Vetting",
+                  "task_state": "terminated",
+                  "task_system": "SELF",
+                  "security_classification": "PUBLIC",
+                  "task_title": "Et1 Vetting",
+                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
+                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}",
+                  "execution_type": "Case Management Task",
+                  "jurisdiction": "EMPLOYMENT",
+                  "case_type_id": "ET_EnglandWales",
+                  "case_id": "{$GENERATED_CASE_ID}",
+                  "case_category": "Employment",
+                  "case_name": "George Jetson v Cosmo Spacely",
+                  "auto_assigned": false,
+                  "warnings": false,
+                  "warning_list": {
+                    "values": []
+                  },
+                  "case_management_category": "Employment",
+                  "work_type_id": "routine_work",
+                  "work_type_label": "Routine work",
+                  "permissions": {
+                    "values": [
+                      "Read",
+                      "Own",
+                      "Manage",
+                      "Cancel",
+                      "Complete",
+                      "Claim",
+                      "Unclaim",
+                      "Assign",
+                      "Unassign"
+                    ]
+                  },
+                  "description": "[ET1 Vetting](/cases/case-details/${[CASE_REFERENCE]}/trigger/et1Vetting/et1Vetting1)",
+                  "role_category": "ADMIN",
+                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                  "minor_priority": 500,
+                  "major_priority": 5000,
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+5_WORKING_DAYS}"
+                }
+              ]
+            }
+          },
+          "roleData": [
+            {
+              "key": "first_role_data",
+              "numberOfRolesAvailable": 7,
+              "roles": [
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "allocated-ctsc-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "CTSC",
+                  "role_name": "ctsc-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-admin",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign",
+                    "CompleteOwn",
+                    "CancelOwn"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-team-leader",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_name": "task-supervisor",
+                  "permissions": [
+                    "Read",
+                    "Manage",
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign",
+                    "Complete",
+                    "Cancel"
+                  ],
+                  "authorisations": []
+                }
+              ]
+            }
+          ]
         }
       ]
     }
