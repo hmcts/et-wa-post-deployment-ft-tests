@@ -46,7 +46,6 @@
         },
         "status": 200,
         "numberOfTasksAvailable": 1,
-        "numberOfRolesAvailable": 7,
         "taskData": {
           "template": "task-response.json",
           "replacements": {
@@ -360,7 +359,6 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 7,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
