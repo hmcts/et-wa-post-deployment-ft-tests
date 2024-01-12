@@ -33,7 +33,7 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "tseRespond",
-                "NewStateId": "Accepted",
+                "NewStateId": "Closed",
                 "AdditionalData": {
                   "Data": {
                     "genericTseApplicationCollection": [
