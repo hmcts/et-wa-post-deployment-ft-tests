@@ -33,7 +33,7 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "tseRespond",
-                "NewStateId": "Accepted",
+                "NewStateId": "Closed",
                 "AdditionalData": {
                   "Data": {
                     "genericTseApplicationCollection": [
@@ -89,7 +89,6 @@
           },
           "status": 200,
           "numberOfTasksAvailable": 1,
-          "numberOfRolesAvailable": 4,
           "taskData": {
             "template": "task-response.json",
             "replacements": {

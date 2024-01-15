@@ -1,5 +1,5 @@
 {
-  "description": "ET createReferral/updateHearing should create a DraftAndSignJudgment and a ReviewReferralJudiciary task",
+  "description": "ET createReferral/updateHearing should create a DraftAndSignJudgment task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -58,8 +58,7 @@
             "key": "WaSystemUser"
           },
           "status": 200,
-          "numberOfTasksAvailable": 2,
-          "numberOfRolesAvailable": 5,
+          "numberOfTasksAvailable": 1,
           "taskData": {
             "template": "task-response.json",
             "replacements": {
@@ -116,59 +115,6 @@
                   "minor_priority": 500,
                   "major_priority": 5000,
                   "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}"
-                },
-                {
-                  "test_meta_data": [
-                    {
-                      "key": "role_data_reference",
-                      "value": "second_role_data",
-                      "description": "role assignment verification object"
-                    }
-                  ],
-                  "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - Rule 21",
-                  "type": "ReviewReferralJudiciary",
-                  "task_state": "unassigned",
-                  "task_system": "SELF",
-                  "security_classification": "PUBLIC",
-                  "task_title": "Review Referral #1 - Rule 21",
-                  "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
-                  "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
-                  "location_name": "Leeds",
-                  "location": "36313",
-                  "execution_type": "Case Management Task",
-                  "jurisdiction": "EMPLOYMENT",
-                  "region": "3",
-                  "case_type_id": "ET_EnglandWales",
-                  "case_id": "{$GENERATED_CASE_ID}",
-                  "case_category": "Employment",
-                  "case_name": "George Jetson v Cosmo Spacely",
-                  "auto_assigned": false,
-                  "warnings": false,
-                  "warning_list": {
-                    "values": []
-                  },
-                  "case_management_category": "Employment",
-                  "work_type_id": "decision_making_work",
-                  "work_type_label": "Decision-making work",
-                  "permissions": {
-                    "values": [
-                      "Read",
-                      "Own",
-                      "Manage",
-                      "CompleteOwn",
-                      "CancelOwn",
-                      "Claim",
-                      "Unclaim",
-                      "UnclaimAssign"
-                    ]
-                  },
-                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
-                  "role_category": "JUDICIAL",
-                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
-                  "minor_priority": 500,
-                  "major_priority": 5000,
-                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
                 }
               ]
             }
@@ -176,86 +122,6 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 5,
-              "roles": [
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "fee-paid-judge",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign",
-                    "CompleteOwn",
-                    "CancelOwn"
-                  ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "hearing-judge",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign",
-                    "CompleteOwn",
-                    "CancelOwn"
-                  ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "judge",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign",
-                    "CompleteOwn",
-                    "CancelOwn"
-                  ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "leadership-judge",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Claim",
-                    "Assign",
-                    "Unassign",
-                    "Complete",
-                    "Cancel"
-                  ],
-                  "authorisations": []
-                },
-                {
-                  "role_name": "task-supervisor",
-                  "permissions": [
-                    "Read",
-                    "Manage",
-                    "Claim",
-                    "Unclaim",
-                    "Assign",
-                    "Unassign",
-                    "Complete",
-                    "Cancel"
-                  ],
-                  "authorisations": []
-                }
-              ]
-            },
-            {
-              "key": "second_role_data",
               "numberOfRolesAvailable": 5,
               "roles": [
                 {
