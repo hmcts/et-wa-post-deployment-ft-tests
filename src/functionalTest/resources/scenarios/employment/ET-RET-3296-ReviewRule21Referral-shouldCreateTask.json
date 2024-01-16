@@ -32,24 +32,8 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "uploadDocumentForServing",
-                "NewStateId": "Accepted",
-                "AdditionalData": {
-                  "Data": {
-                    "bfActions": [
-                      {
-                        "value": {
-                          "bfDate": "{$TODAY}"
-                        }
-                      },
-                      {
-                        "value": {
-                          "bfDate": "{$TODAY+2_WORKING_DAYS}"
-                        }
-                      }
-                    ]
-                  }
-                }
+                "EventId": "WA_REVIEW_RULE21_REFERRAL",
+                "NewStateId": "Accepted"
               }
             }
           ]
@@ -126,7 +110,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 4,
+              "numberOfRolesAvailable": 5,
               "roles": [
                 {
                   "role_category": "LEGAL_OPERATIONS",
@@ -140,6 +124,21 @@
                     "Claim",
                     "Unclaim",
                     "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [
+                    "Read",
+                    "Execute",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
                   ],
                   "authorisations": []
                 },
