@@ -122,23 +122,8 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 5,
+              "numberOfRolesAvailable": 4,
               "roles": [
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "fee-paid-judge",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign",
-                    "CompleteOwn",
-                    "CancelOwn"
-                  ],
-                  "authorisations": []
-                },
                 {
                   "role_category": "JUDICIAL",
                   "role_name": "hearing-judge",
@@ -174,7 +159,7 @@
                   "role_name": "leadership-judge",
                   "permissions": [
                     "Read",
-                    "Own",
+                    "Execute",
                     "Manage",
                     "Claim",
                     "Assign",

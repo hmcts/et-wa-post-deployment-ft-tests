@@ -121,7 +121,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 4,
+              "numberOfRolesAvailable": 5,
               "roles": [
                 {
                   "role_category": "ADMIN",
@@ -164,6 +164,21 @@
                     "Complete",
                     "Claim",
                     "Unclaim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [
+                    "Read",
+                    "Execute",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
                     "Assign",
                     "Unassign"
                   ],

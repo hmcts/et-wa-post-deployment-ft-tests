@@ -123,7 +123,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 6,
+              "numberOfRolesAvailable": 7,
               "roles": [
                 {
                   "role_name": "allocated-admin-caseworker",
@@ -168,6 +168,21 @@
                     "Unassign",
                     "Complete",
                     "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [
+                    "Read",
+                    "Execute",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
                   ],
                   "authorisations": []
                 },

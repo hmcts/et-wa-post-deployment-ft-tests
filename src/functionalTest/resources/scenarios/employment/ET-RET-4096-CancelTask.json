@@ -106,7 +106,7 @@
         "roleData": [
           {
             "key": "first_role_data",
-            "numberOfRolesAvailable": 7,
+            "numberOfRolesAvailable": 8,
             "roles": [
               {
                 "role_category": "ADMIN",
@@ -197,6 +197,21 @@
                   "Unassign",
                   "Complete",
                   "Cancel"
+                ],
+                "authorisations": []
+              },
+              {
+                "role_category": "JUDICIAL",
+                "role_name": "leadership-judge",
+                "permissions": [
+                  "Read",
+                  "Execute",
+                  "Manage",
+                  "Cancel",
+                  "Complete",
+                  "Claim",
+                  "Assign",
+                  "Unassign"
                 ],
                 "authorisations": []
               },
@@ -323,7 +338,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 7,
+              "numberOfRolesAvailable": 8,
               "roles": [
                 {
                   "role_category": "ADMIN",
@@ -414,6 +429,21 @@
                     "Unassign",
                     "Complete",
                     "Cancel"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "leadership-judge",
+                  "permissions": [
+                    "Read",
+                    "Execute",
+                    "Manage",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
                   ],
                   "authorisations": []
                 },
