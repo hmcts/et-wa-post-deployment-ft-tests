@@ -109,7 +109,7 @@
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[Add or Amend a Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
+                  "description": "[Draft and Sign Judgement](/cases/case-details/${[CASE_REFERENCE]}/trigger/draftAndSignJudgement/draftAndSignJudgement1)",
                   "role_category": "JUDICIAL",
                   "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
