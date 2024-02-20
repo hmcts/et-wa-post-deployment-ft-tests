@@ -96,7 +96,7 @@
                       "Unassign"
                     ]
                   },
-                  "description": "[Close Case](/cases/case-details/${[CASE_REFERENCE]}/trigger/disposeCase/disposeCase1)",
+                  "description": "[Add or Amend a Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
                   "role_category": "ADMIN",
                   "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
