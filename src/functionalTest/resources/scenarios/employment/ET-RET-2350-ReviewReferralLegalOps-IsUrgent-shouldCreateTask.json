@@ -129,10 +129,13 @@
                       "Manage",
                       "Cancel",
                       "Complete",
+                      "CompleteOwn",
+                      "CancelOwn",
                       "Claim",
                       "Unclaim",
                       "Assign",
-                      "Unassign"
+                      "Unassign",
+                      "UnclaimAssign"
                     ]
                   },
                   "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
@@ -148,7 +151,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 5,
+              "numberOfRolesAvailable": 7,
               "roles": [
                 {
                   "role_category": "LEGAL_OPERATIONS",
@@ -167,11 +170,41 @@
                 },
                 {
                   "role_category": "JUDICIAL",
+                  "role_name": "hearing-judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
                   "role_name": "leadership-judge",
                   "permissions": [
                     "Read",
-                    "Execute",
                     "Manage",
+                    "Execute",
                     "Cancel",
                     "Complete",
                     "Claim",
