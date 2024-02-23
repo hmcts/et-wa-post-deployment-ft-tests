@@ -15,7 +15,10 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "nextListedDate": "{$TODAY+1_WORKING_DAYS}"
+          }
         }
       }
     ]
@@ -121,10 +124,10 @@
                   },
                   "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
                   "role_category": "ADMIN",
-                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
+                  "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}",
                   "minor_priority": 500,
                   "major_priority": 5000,
-                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}"
+                  "priority_date": "{$VERIFIER-ZONED_DATETIME_TODAY+1_WORKING_DAYS}"
                 }
               ]
             }

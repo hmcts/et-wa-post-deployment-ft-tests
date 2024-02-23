@@ -102,14 +102,18 @@
                       "Read",
                       "Own",
                       "Manage",
+                      "Cancel",
+                      "Complete",
                       "CompleteOwn",
                       "CancelOwn",
                       "Claim",
                       "Unclaim",
+                      "Assign",
+                      "Unassign",
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[Add or Amend a Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/addAmendJudgment/addAmendJudgment1)",
+                  "description": "[Draft and Sign Judgement](/cases/case-details/${[CASE_REFERENCE]}/trigger/draftAndSignJudgement/draftAndSignJudgement1)",
                   "role_category": "JUDICIAL",
                   "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
@@ -122,8 +126,23 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 4,
+              "numberOfRolesAvailable": 7,
               "roles": [
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "allocated-tribunal-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
                 {
                   "role_category": "JUDICIAL",
                   "role_name": "hearing-judge",
@@ -131,11 +150,11 @@
                     "Read",
                     "Own",
                     "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
                     "Claim",
                     "Unclaim",
-                    "UnclaimAssign",
-                    "CompleteOwn",
-                    "CancelOwn"
+                    "UnclaimAssign"
                   ],
                   "authorisations": []
                 },
@@ -146,11 +165,11 @@
                     "Read",
                     "Own",
                     "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
                     "Claim",
                     "Unclaim",
-                    "UnclaimAssign",
-                    "CompleteOwn",
-                    "CancelOwn"
+                    "UnclaimAssign"
                   ],
                   "authorisations": []
                 },
@@ -159,13 +178,29 @@
                   "role_name": "leadership-judge",
                   "permissions": [
                     "Read",
-                    "Execute",
                     "Manage",
+                    "Execute",
+                    "Cancel",
+                    "Complete",
                     "Claim",
                     "Assign",
-                    "Unassign",
+                    "Unassign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "senior-tribunal-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "Cancel",
                     "Complete",
-                    "Cancel"
+                    "Claim",
+                    "Unclaim",
+                    "Assign",
+                    "Unassign"
                   ],
                   "authorisations": []
                 },
@@ -174,12 +209,27 @@
                   "permissions": [
                     "Read",
                     "Manage",
+                    "Cancel",
+                    "Complete",
                     "Claim",
                     "Unclaim",
                     "Assign",
-                    "Unassign",
-                    "Complete",
-                    "Cancel"
+                    "Unassign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "tribunal-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
                   ],
                   "authorisations": []
                 }

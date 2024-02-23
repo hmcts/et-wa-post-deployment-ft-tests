@@ -33,20 +33,7 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "et3Vetting",
-                "NewStateId": "Accepted",
-                "AdditionalData": {
-                  "Data": {
-                    "respondentCollection": [
-                      {
-                        "value": {
-                          "et3Vetting": {
-                            "et3Rule26": true
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
+                "NewStateId": "Accepted"
               }
             }
           ]
@@ -102,10 +89,14 @@
                       "Read",
                       "Own",
                       "Manage",
+                      "Cancel",
+                      "Complete",
                       "CompleteOwn",
                       "CancelOwn",
                       "Claim",
                       "Unclaim",
+                      "Assign",
+                      "Unassign",
                       "UnclaimAssign"
                     ]
                   },
@@ -176,8 +167,23 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 4,
+              "numberOfRolesAvailable": 7,
               "roles": [
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "allocated-tribunal-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
                 {
                   "role_category": "JUDICIAL",
                   "role_name": "hearing-judge",
@@ -213,11 +219,27 @@
                   "role_name": "leadership-judge",
                   "permissions": [
                     "Read",
+                    "Manage",
                     "Execute",
+                    "Cancel",
+                    "Complete",
+                    "Claim",
+                    "Assign",
+                    "Unassign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "senior-tribunal-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
                     "Manage",
                     "Cancel",
                     "Complete",
                     "Claim",
+                    "Unclaim",
                     "Assign",
                     "Unassign"
                   ],
@@ -234,6 +256,21 @@
                     "Unclaim",
                     "Assign",
                     "Unassign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "LEGAL_OPERATIONS",
+                  "role_name": "tribunal-caseworker",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
                   ],
                   "authorisations": []
                 }
