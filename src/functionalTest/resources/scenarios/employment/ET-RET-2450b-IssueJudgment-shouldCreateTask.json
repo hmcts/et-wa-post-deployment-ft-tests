@@ -32,7 +32,14 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "draftAndSignJudgement"
+                "EventId": "draftAndSignJudgement",
+                "AdditionalData": {
+                  "Data": {
+                    "draftAndSignJudgement": {
+                      "isJudgement": true
+                    }
+                  }
+                }
               }
             }
           ]
