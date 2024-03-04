@@ -167,7 +167,7 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 7,
+              "numberOfRolesAvailable": 8,
               "roles": [
                 {
                   "role_category": "LEGAL_OPERATIONS",
@@ -202,6 +202,21 @@
                 {
                   "role_category": "JUDICIAL",
                   "role_name": "judge",
+                  "permissions": [
+                    "Read",
+                    "Own",
+                    "Manage",
+                    "CompleteOwn",
+                    "CancelOwn",
+                    "Claim",
+                    "Unclaim",
+                    "UnclaimAssign"
+                  ],
+                  "authorisations": []
+                },
+                {
+                  "role_category": "JUDICIAL",
+                  "role_name": "lead-judge",
                   "permissions": [
                     "Read",
                     "Own",
