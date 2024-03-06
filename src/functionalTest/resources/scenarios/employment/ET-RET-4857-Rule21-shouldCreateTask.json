@@ -1,5 +1,5 @@
 {
-  "description": "ET3 Processing should create a ReviewRule21Referral task",
+  "description": "WA_REVIEW_RULE21_REFERRAL should create a Rule21 task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -32,21 +32,8 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "et3Vetting",
-                "NewStateId": "Accepted",
-                "AdditionalData": {
-                  "Data": {
-                    "respondentCollection": [
-                      {
-                        "value": {
-                          "et3Vetting": {
-                            "et3IsThereAnEt3Response": false
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
+                "EventId": "WA_REVIEW_RULE21_REFERRAL",
+                "NewStateId": "Accepted"
               }
             }
           ]
@@ -72,12 +59,12 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Rule 21 Referral",
-                  "type": "ReviewRule21Referral",
+                  "name": "Rule 21",
+                  "type": "Rule21",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Review Rule 21 Referral",
+                  "task_title": "Rule 21",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "location_name": "Leeds",
@@ -104,17 +91,14 @@
                       "Manage",
                       "Cancel",
                       "Complete",
-                      "CompleteOwn",
-                      "CancelOwn",
                       "Claim",
                       "Unclaim",
                       "Assign",
-                      "Unassign",
-                      "UnclaimAssign"
+                      "Unassign"
                     ]
                   },
-                  "description": "[Review Rule 21 Referral](/cases/case-details/${[CASE_REFERENCE]}#Respondent)",
-                  "role_category": "LEGAL_OPERATIONS",
+                  "description": "[ET3 Processing](/cases/case-details/${[CASE_REFERENCE]}/trigger/et3Vetting/et3Vetting1)",
+                  "role_category": "ADMIN",
                   "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
                   "major_priority": 5000,
@@ -126,11 +110,11 @@
           "roleData": [
             {
               "key": "first_role_data",
-              "numberOfRolesAvailable": 8,
+              "numberOfRolesAvailable": 5,
               "roles": [
                 {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "allocated-tribunal-caseworker",
+                  "role_category": "ADMIN",
+                  "role_name": "allocated-admin-caseworker",
                   "permissions": [
                     "Read",
                     "Own",
@@ -144,8 +128,8 @@
                   "authorisations": []
                 },
                 {
-                  "role_category": "JUDICIAL",
-                  "role_name": "hearing-judge",
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-admin",
                   "permissions": [
                     "Read",
                     "Own",
@@ -159,32 +143,18 @@
                   "authorisations": []
                 },
                 {
-                  "role_category": "JUDICIAL",
-                  "role_name": "judge",
+                  "role_category": "ADMIN",
+                  "role_name": "hearing-centre-team-leader",
                   "permissions": [
                     "Read",
                     "Own",
                     "Manage",
-                    "CompleteOwn",
-                    "CancelOwn",
+                    "Cancel",
+                    "Complete",
                     "Claim",
                     "Unclaim",
-                    "UnclaimAssign"
-                  ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "JUDICIAL",
-                  "role_name": "lead-judge",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "CompleteOwn",
-                    "CancelOwn",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign"
+                    "Assign",
+                    "Unassign"
                   ],
                   "authorisations": []
                 },
@@ -204,22 +174,6 @@
                   "authorisations": []
                 },
                 {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "senior-tribunal-caseworker",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "Cancel",
-                    "Complete",
-                    "Claim",
-                    "Unclaim",
-                    "Assign",
-                    "Unassign"
-                  ],
-                  "authorisations": []
-                },
-                {
                   "role_name": "task-supervisor",
                   "permissions": [
                     "Read",
@@ -230,21 +184,6 @@
                     "Unclaim",
                     "Assign",
                     "Unassign"
-                  ],
-                  "authorisations": []
-                },
-                {
-                  "role_category": "LEGAL_OPERATIONS",
-                  "role_name": "tribunal-caseworker",
-                  "permissions": [
-                    "Read",
-                    "Own",
-                    "Manage",
-                    "CompleteOwn",
-                    "CancelOwn",
-                    "Claim",
-                    "Unclaim",
-                    "UnclaimAssign"
                   ],
                   "authorisations": []
                 }

@@ -1,5 +1,5 @@
 {
-  "description": "et SendEt3Notification should create Complete Initial Consideration & Send Et3 Notification tasks",
+  "description": "ET3 Processing should create Complete Initial Consideration & Send Et3 Notification tasks",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -33,7 +33,20 @@
               "template": "ccd-event-message.json",
               "replacements": {
                 "EventId": "et3Vetting",
-                "NewStateId": "Accepted"
+                "NewStateId": "Accepted",
+                "AdditionalData": {
+                  "Data": {
+                    "respondentCollection": [
+                      {
+                        "value": {
+                          "et3Vetting": {
+                            "et3IsThereAnEt3Response": true
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
               }
             }
           ]
