@@ -1,5 +1,5 @@
 {
-  "description": "ET respondentTSE event should create a ContactTribunalWithAnApplication task",
+  "description": "ET tseRespond event should create a ContactTribunalWithAnApplication task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -32,7 +32,7 @@
               "destination": "RestEndpoint",
               "template": "ccd-event-message.json",
               "replacements": {
-                "EventId": "respondentTSE",
+                "EventId": "tseRespond",
                 "NewStateId": "Accepted",
                 "AdditionalData": {
                   "Data": {
@@ -40,13 +40,38 @@
                       {
                         "value": {
                           "number": "1",
-                          "type": "Change personal details"
+                          "type": "Contact about something else",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Claimant",
+                                "applicationType": null,
+                                "dateTime": null
+                              }
+                            },
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Contact about something else",
+                                "dateTime": "2023-10-01T14:00:00.000"
+                              }
+                            }
+                          ]
                         }
                       },
                       {
                         "value": {
                           "number": "2",
-                          "type": "Amend response"
+                          "type": "Change my personal details",
+                          "respondCollection": [
+                            {
+                              "value": {
+                                "from": "Respondent",
+                                "applicationType": "Change my personal details",
+                                "dateTime": "2023-10-01T13:00:00.000"
+                              }
+                            }
+                          ]
                         }
                       }
                     ]
@@ -77,12 +102,12 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Contact Tribunal With An Application",
+                  "name": "Contact the tribunal",
                   "type": "ContactTribunalWithAnApplication",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Contact Tribunal With An Application",
+                  "task_title": "Contact the tribunal",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "location_name": "Leeds",
