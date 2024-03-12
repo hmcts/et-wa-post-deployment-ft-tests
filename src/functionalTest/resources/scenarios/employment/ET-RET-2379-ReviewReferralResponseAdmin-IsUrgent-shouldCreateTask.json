@@ -73,6 +73,7 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
                           "referCaseTo": "Admin",
                           "referralSubject": "ET1",
                           "referralReplyCollection": [
@@ -99,6 +100,7 @@
                       },
                       {
                         "value": {
+                          "referralNumber": "2",
                           "referCaseTo": "Admin",
                           "referralSubject": "ET3/ECC",
                           "referralReplyCollection": [
