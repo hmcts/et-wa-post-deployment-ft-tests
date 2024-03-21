@@ -3,6 +3,6 @@
   "CaseId": "{$GENERATED_CASE_ID}",
   "EventTimeStamp": "{$LOCAL_DATETIME_TODAY}",
   "JurisdictionId": "EMPLOYMENT",
-  "CaseTypeId": "ET_EnglandWales",
+  "CaseTypeId": "ET_Scotland",
   "UserId": "{$USER_ID}"
 }
