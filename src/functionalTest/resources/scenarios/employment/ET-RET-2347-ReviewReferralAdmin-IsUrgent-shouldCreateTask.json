@@ -21,12 +21,16 @@
               {
                 "value": {
                   "referralNumber": "1",
+                  "referCaseTo": "Admin",
+                  "referralSubject": "Amend claim",
                   "isUrgent": "No"
                 }
               },
               {
                 "value": {
                   "referralNumber": "2",
+                  "referCaseTo": "Admin",
+                  "referralSubject": "ET1",
                   "isUrgent": "Yes"
                 }
               }
@@ -57,16 +61,14 @@
                         "value": {
                           "referralNumber": "1",
                           "referCaseTo": "Admin",
-                          "referralSubject": "Amend claim",
-                          "isUrgent": "No"
+                          "referralSubject": "Amend claim"
                         }
                       },
                       {
                         "value": {
                           "referralNumber": "2",
                           "referCaseTo": "Admin",
-                          "referralSubject": "ET1",
-                          "isUrgent": "Yes"
+                          "referralSubject": "ET1"
                         }
                       }
                     ]
@@ -97,7 +99,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #2 - ET1",
+                  "name": "Review Referral - Admin",
                   "type": "ReviewReferralAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",
