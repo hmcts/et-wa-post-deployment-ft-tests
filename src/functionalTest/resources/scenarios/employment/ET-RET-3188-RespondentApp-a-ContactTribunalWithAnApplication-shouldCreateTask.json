@@ -15,7 +15,23 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "genericTseApplicationCollection": [
+              {
+                "value": {
+                  "number": "1",
+                  "type": "Change personal details"
+                }
+              },
+              {
+                "value": {
+                  "number": "2",
+                  "type": "Amend response"
+                }
+              }
+            ]
+          }
         }
       }
     ]
@@ -77,7 +93,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Application - Amend response",
+                  "name": "Contact Tribunal With An Application",
                   "type": "ContactTribunalWithAnApplication",
                   "task_state": "unassigned",
                   "task_system": "SELF",
