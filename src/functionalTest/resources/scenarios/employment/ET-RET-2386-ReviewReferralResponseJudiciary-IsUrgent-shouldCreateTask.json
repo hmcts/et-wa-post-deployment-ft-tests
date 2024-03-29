@@ -20,15 +20,24 @@
             "referralCollection": [
               {
                 "value": {
+                  "referralNumber": "1",
+                  "referCaseTo": "Judge",
+                  "referralSubject": "Amend claim",
                   "referralReplyCollection": [
                     {
                       "value": {
+                        "referralNumber": null,
+                        "referralSubject": null,
+                        "directionTo": "Admin",
                         "isUrgentReply": "No",
-                        "replyDateTime": "2023-10-01T12:00:00.000"
+                        "replyDateTime": null
                       }
                     },
                     {
                       "value": {
+                        "referralNumber": "1",
+                        "referralSubject": "Amend claim",
+                        "directionTo": "Judge",
                         "isUrgentReply": "Yes",
                         "replyDateTime": "2023-10-01T14:00:00.000"
                       }
@@ -38,11 +47,17 @@
               },
               {
                 "value": {
+                  "referralNumber": "2",
+                  "referCaseTo": "Judge",
+                  "referralSubject": "ET3/ECC",
                   "referralReplyCollection": [
                     {
                       "value": {
+                        "referralNumber": null,
+                        "referralSubject": null,
+                        "directionTo": "Judge",
                         "isUrgentReply": "No",
-                        "replyDateTime": "2023-10-01T13:00:00.000"
+                        "replyDateTime": null
                       }
                     }
                   ]
@@ -144,7 +159,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - Amend claim Response",
+                  "name": "Review Referral Response - Judicial",
                   "type": "ReviewReferralResponseJudiciary",
                   "task_state": "unassigned",
                   "task_system": "SELF",

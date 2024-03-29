@@ -17,7 +17,53 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": null
+            "referralCollection": [
+              {
+                "value": {
+                  "referralNumber": "1",
+                  "referCaseTo": "Legal officer",
+                  "referralSubject": "Amend claim",
+                  "referralReplyCollection": [
+                    {
+                      "value": {
+                        "referralNumber": "1",
+                        "referralSubject": null,
+                        "directionTo": "Admin",
+                        "isUrgentReply": "Yes",
+                        "replyDateTime": null
+                      }
+                    },
+                    {
+                      "value": {
+                        "referralNumber": "1",
+                        "referralSubject": "Amend claim",
+                        "directionTo": "Legal officer",
+                        "isUrgentReply": "No",
+                        "replyDateTime": "2023-10-01T14:00:00.000"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "value": {
+                  "referralNumber": "2",
+                  "referCaseTo": "Legal officer",
+                  "referralSubject": "ET3/ECC",
+                  "referralReplyCollection": [
+                    {
+                      "value": {
+                        "referralNumber": "2",
+                        "referralSubject": null,
+                        "directionTo": "Legal officer",
+                        "isUrgentReply": "Yes",
+                        "replyDateTime": null
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       }
@@ -113,7 +159,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - Amend claim Response",
+                  "name": "Review Referral Response - Legal Ops",
                   "type": "ReviewReferralResponseLegalOps",
                   "task_state": "unassigned",
                   "task_system": "SELF",

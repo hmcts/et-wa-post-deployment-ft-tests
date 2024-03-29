@@ -20,15 +20,24 @@
             "referralCollection": [
               {
                 "value": {
+                  "referralNumber": "1",
+                  "referCaseTo": "Admin",
+                  "referralSubject": "ET1",
                   "referralReplyCollection": [
                     {
                       "value": {
+                        "referralNumber": "1",
+                        "referralSubject": "ET1",
+                        "directionTo": "Legal officer",
                         "isUrgentReply": "No",
                         "replyDateTime": null
                       }
                     },
                     {
                       "value": {
+                        "referralNumber": "1",
+                        "referralSubject": "ET1",
+                        "directionTo": "Admin",
                         "isUrgentReply": "Yes",
                         "replyDateTime": "2023-10-01T14:00:00.000"
                       }
@@ -38,9 +47,15 @@
               },
               {
                 "value": {
+                  "referralNumber": "2",
+                  "referCaseTo": "Admin",
+                  "referralSubject": "ET3/ECC",
                   "referralReplyCollection": [
                     {
                       "value": {
+                        "referralNumber": "2",
+                        "referralSubject": "ET3/ECC",
+                        "directionTo": "Admin",
                         "isUrgentReply": "No",
                         "replyDateTime": null
                       }
@@ -73,6 +88,7 @@
                     "referralCollection": [
                       {
                         "value": {
+                          "referralNumber": "1",
                           "referCaseTo": "Admin",
                           "referralSubject": "ET1",
                           "referralReplyCollection": [
@@ -99,6 +115,7 @@
                       },
                       {
                         "value": {
+                          "referralNumber": "2",
                           "referCaseTo": "Admin",
                           "referralSubject": "ET3/ECC",
                           "referralReplyCollection": [
@@ -142,7 +159,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - ET1 Response",
+                  "name": "Review Referral Response - Admin",
                   "type": "ReviewReferralResponseAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",

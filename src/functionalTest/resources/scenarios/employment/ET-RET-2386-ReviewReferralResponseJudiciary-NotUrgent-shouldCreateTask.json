@@ -15,7 +15,56 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "referralCollection": [
+              {
+                "value": {
+                  "referralNumber": "1",
+                  "referCaseTo": "Judge",
+                  "referralSubject": "Amend claim",
+                  "referralReplyCollection": [
+                    {
+                      "value": {
+                        "referralNumber": "1",
+                        "referralSubject": "Amend claim",
+                        "directionTo": "Admin",
+                        "isUrgentReply": "Yes",
+                        "replyDateTime": "2023-10-01T12:00:00.000"
+                      }
+                    },
+                    {
+                      "value": {
+                        "referralNumber": "1",
+                        "referralSubject": "Amend claim",
+                        "directionTo": "Judge",
+                        "isUrgentReply": "No",
+                        "replyDateTime": "2023-10-01T14:00:00.000"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "value": {
+                  "referralNumber": "2",
+                  "referCaseTo": "Judge",
+                  "referralSubject": "ET1",
+                  "referralReplyCollection": [
+                    {
+                      "value": {
+                        "referralNumber": "2",
+                        "referralSubject": "ET1",
+                        "directionTo": "Judge",
+                        "isUrgentReply": "Yes",
+                        "replyDateTime": "2023-10-01T13:00:00.000"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         }
       }
     ]
@@ -110,7 +159,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - Amend claim Response",
+                  "name": "Review Referral Response - Judicial",
                   "type": "ReviewReferralResponseJudiciary",
                   "task_state": "unassigned",
                   "task_system": "SELF",
