@@ -21,12 +21,14 @@
               {
                 "value": {
                   "referralNumber": "1",
+                  "referralSubject": "ET1",
                   "isUrgent": "No"
                 }
               },
               {
                 "value": {
                   "referralNumber": "2",
+                  "referralSubject": "Amend claim",
                   "isUrgent": "Yes"
                 }
               }
@@ -57,16 +59,14 @@
                         "value": {
                           "referralNumber": "1",
                           "referCaseTo": "Admin",
-                          "referralSubject": "ET1",
-                          "isUrgent": "No"
+                          "referralSubject": "ET1"
                         }
                       },
                       {
                         "value": {
                           "referralNumber": "2",
                           "referCaseTo": "Legal officer",
-                          "referralSubject": "Amend claim",
-                          "isUrgent": "Yes"
+                          "referralSubject": "Amend claim"
                         }
                       }
                     ]
@@ -97,7 +97,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #2 - Amend claim",
+                  "name": "Review Referral - Legal Ops",
                   "type": "ReviewReferralLegalOps",
                   "task_state": "unassigned",
                   "task_system": "SELF",

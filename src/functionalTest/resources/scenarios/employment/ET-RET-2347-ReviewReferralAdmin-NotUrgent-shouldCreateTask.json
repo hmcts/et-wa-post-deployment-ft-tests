@@ -17,7 +17,23 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "nextListedDate": "{$TODAY+1_WORKING_DAYS}"
+            "nextListedDate": "{$TODAY+1_WORKING_DAYS}",
+            "referralCollection": [
+              {
+                "value": {
+                  "referralNumber": "1",
+                  "referralSubject": "Amend claim",
+                  "isUrgent": "No"
+                }
+              },
+              {
+                "value": {
+                  "referralNumber": "2",
+                  "referralSubject": "ET1",
+                  "isUrgent": "No"
+                }
+              }
+            ]
           }
         }
       }
@@ -44,16 +60,14 @@
                         "value": {
                           "referralNumber": "1",
                           "referCaseTo": "Admin",
-                          "referralSubject": "Amend claim",
-                          "isUrgent": "No"
+                          "referralSubject": "Amend claim"
                         }
                       },
                       {
                         "value": {
                           "referralNumber": "2",
                           "referCaseTo": "Admin",
-                          "referralSubject": "ET1",
-                          "isUrgent": "No"
+                          "referralSubject": "ET1"
                         }
                       }
                     ]
@@ -84,7 +98,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #2 - ET1",
+                  "name": "Review Referral - Admin",
                   "type": "ReviewReferralAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",

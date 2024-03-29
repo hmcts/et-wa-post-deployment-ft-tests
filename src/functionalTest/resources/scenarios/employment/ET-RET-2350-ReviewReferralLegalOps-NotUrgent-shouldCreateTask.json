@@ -17,7 +17,22 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "referralCollection": null
+            "referralCollection": [
+              {
+                "value": {
+                  "referralNumber": "1",
+                  "referralSubject": "ET1",
+                  "isUrgent": "No"
+                }
+              },
+              {
+                "value": {
+                  "referralNumber": "2",
+                  "referralSubject": "Amend claim",
+                  "isUrgent": "No"
+                }
+              }
+            ]
           }
         }
       }
@@ -44,16 +59,14 @@
                         "value": {
                           "referralNumber": "1",
                           "referCaseTo": "Legal officer",
-                          "referralSubject": "ET1",
-                          "isUrgent": "No"
+                          "referralSubject": "ET1"
                         }
                       },
                       {
                         "value": {
                           "referralNumber": "2",
                           "referCaseTo": "Legal officer",
-                          "referralSubject": "Amend claim",
-                          "isUrgent": "No"
+                          "referralSubject": "Amend claim"
                         }
                       }
                     ]
@@ -84,7 +97,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #2 - Amend claim",
+                  "name": "Review Referral - Legal Ops",
                   "type": "ReviewReferralLegalOps",
                   "task_state": "unassigned",
                   "task_system": "SELF",

@@ -21,12 +21,14 @@
               {
                 "value": {
                   "referralNumber": "1",
+                  "referralSubject": "ET1",
                   "isUrgent": "No"
                 }
               },
               {
                 "value": {
                   "referralNumber": "2",
+                  "referralSubject": "ET3/ECC",
                   "isUrgent": "Yes"
                 }
               }
@@ -57,16 +59,14 @@
                         "value": {
                           "referralNumber": "1",
                           "referCaseTo": "Legal officer",
-                          "referralSubject": "ET1",
-                          "isUrgent": "No"
+                          "referralSubject": "ET1"
                         }
                       },
                       {
                         "value": {
                           "referralNumber": "2",
                           "referCaseTo": "Judge",
-                          "referralSubject": "ET3/ECC",
-                          "isUrgent": "Yes"
+                          "referralSubject": "ET3/ECC"
                         }
                       }
                     ]
@@ -97,7 +97,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #2 - ET3/ECC",
+                  "name": "Review Referral - Judicial",
                   "type": "ReviewReferralJudiciary",
                   "task_state": "unassigned",
                   "task_system": "SELF",
