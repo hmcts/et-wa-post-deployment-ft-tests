@@ -17,7 +17,16 @@
         "caseData": {
           "template": "minimal-draft-case.json",
           "replacements": {
-            "isUrgent": "Yes"
+            "referralCollection": [
+              {
+                "value": {
+                  "referralNumber": "1",
+                  "referCaseTo": "Admin",
+                  "referralSubject": "Judgment",
+                  "isUrgent": "No"
+                }
+              }
+            ]
           }
         }
       }
@@ -130,7 +139,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - Judgment",
+                  "name": "Review Referral - Admin",
                   "type": "ReviewReferralAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",

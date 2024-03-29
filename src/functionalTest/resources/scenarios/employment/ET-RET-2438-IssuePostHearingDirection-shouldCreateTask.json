@@ -15,7 +15,18 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "referralCollection": [
+              {
+                "value": {
+                  "referralNumber": "1",
+                  "referCaseTo": "Admin",
+                  "referralSubject": "Hearings"
+                }
+              }
+            ]
+          }
         }
       }
     ]
@@ -125,7 +136,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Review Referral #1 - Hearings",
+                  "name": "Review Referral - Admin",
                   "type": "ReviewReferralAdmin",
                   "task_state": "unassigned",
                   "task_system": "SELF",
