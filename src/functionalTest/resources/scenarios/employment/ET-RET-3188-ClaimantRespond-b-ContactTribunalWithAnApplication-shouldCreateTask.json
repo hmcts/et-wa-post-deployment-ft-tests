@@ -1,5 +1,5 @@
 {
-  "description": "ET CLAIMANT_TSE_RESPOND event should create a ContactTribunalWithAnApplication task",
+  "description": "ET CLAIMANT_TSE_RESPOND event should create a ContactTribunalWithAnApplicationResponse task",
   "enabled": true,
   "jurisdiction": "EMPLOYMENT",
   "caseType": "ET_EnglandWales",
@@ -103,7 +103,7 @@
                   ],
                   "id": "{$VERIFIER-UUID}",
                   "name": "Application Response - Postpone a hearing",
-                  "type": "ContactTribunalWithAnApplication",
+                  "type": "ContactTribunalWithAnApplicationResponse",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
