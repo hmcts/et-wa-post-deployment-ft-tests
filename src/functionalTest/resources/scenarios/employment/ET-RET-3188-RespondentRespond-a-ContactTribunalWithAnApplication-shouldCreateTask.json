@@ -15,7 +15,48 @@
         "eventId": "INITIATE_CASE_DRAFT",
         "state": "AWAITING_SUBMISSION_TO_HMCTS",
         "caseData": {
-          "template": "minimal-draft-case.json"
+          "template": "minimal-draft-case.json",
+          "replacements": {
+            "genericTseApplicationCollection": [
+              {
+                "value": {
+                  "number": "1",
+                  "type": "Claimant not complied",
+                  "respondCollection": [
+                    {
+                      "value": {
+                        "from": "Claimant",
+                        "applicationType": null,
+                        "dateTime": null
+                      }
+                    },
+                    {
+                      "value": {
+                        "from": "Respondent",
+                        "applicationType": "Claimant not complied",
+                        "dateTime": "2023-10-01T14:00:00.000"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "value": {
+                  "number": "2",
+                  "type": "Change my personal details",
+                  "respondCollection": [
+                    {
+                      "value": {
+                        "from": "Respondent",
+                        "applicationType": "Change my personal details",
+                        "dateTime": "2023-10-01T13:00:00.000"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         }
       }
     ]
@@ -102,7 +143,7 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Application Response - Claimant not complied",
+                  "name": "Contact Tribunal With An Application",
                   "type": "ContactTribunalWithAnApplicationResponse",
                   "task_state": "unassigned",
                   "task_system": "SELF",
