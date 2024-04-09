@@ -40,7 +40,7 @@
                       {
                         "value": {
                           "responseReceived": true,
-                          "responseReceivedCount": 1
+                          "responseReceivedCount": "1"
                         }
                       }
                     ]
