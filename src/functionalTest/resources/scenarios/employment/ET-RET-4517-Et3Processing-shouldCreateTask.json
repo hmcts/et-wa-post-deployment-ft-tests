@@ -39,7 +39,8 @@
                     "respondentCollection": [
                       {
                         "value": {
-                          "responseReceived": true
+                          "responseReceived": true,
+                          "responseReceivedCount": "1"
                         }
                       }
                     ]
