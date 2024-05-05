@@ -217,7 +217,7 @@ dependencies {
   implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: versions.tomcat
   implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: versions.tomcat
 
-  implementation group: 'com.sun.xml.bind', name: 'jaxb-osgi', version: '4.0.2'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-osgi', version: '4.0.5'
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
