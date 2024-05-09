@@ -40,7 +40,8 @@
                       {
                         "value": {
                           "et3Vetting": {
-                            "et3IsThereAnEt3Response": true
+                            "et3IsThereAnEt3Response": true,
+                            "et3ContractClaimSection7": false
                           }
                         }
                       }
