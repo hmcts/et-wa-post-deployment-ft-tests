@@ -6,15 +6,6 @@
   "preAcceptDone": "Yes",
   "managingOffice": "Bristol",
   "multipleSource": "Manually Created",
-  "caseImporterFile": {
-    "uploadUser": "A User",
-    "uploadedDateTime": "06-06-2024 12:29:29",
-    "uploadedDocument": {
-      "document_url": "http://localhost:5005/documents/aed70da5-f7e8-4800-ba20-8fe7266d0438",
-      "document_filename": "Post Deploy Functional Test-6000006.xlsx",
-      "document_binary_url": "http://localhost:5005/documents/aed70da5-f7e8-4800-ba20-8fe7266d0438/binary"
-    }
-  },
   "leadEthosCaseRef": "6000001/2024",
   "multipleReference": "6000001"
 }
