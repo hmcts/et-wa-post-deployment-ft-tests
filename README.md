@@ -65,6 +65,11 @@ More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/
 ./gradlew clean functional --tests ScenarioRunnerTest --info -Dscenario=ET-RET-2501
 ```
 
+### or in a certain folder:
+```bash
+./gradlew clean functional --tests ScenarioRunnerTest --info -Dscenario=multiples/
+```
+
 ## Tips for onboarding teams
 if you are onboarding into Task Management, you may clone this repository and customize the following items to setup
 your own post deployment tests:
