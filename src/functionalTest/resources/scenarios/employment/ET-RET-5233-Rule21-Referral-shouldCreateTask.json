@@ -72,12 +72,12 @@
                     }
                   ],
                   "id": "{$VERIFIER-UUID}",
-                  "name": "Draft And Sign Judgment",
-                  "type": "DraftAndSignJudgment",
+                  "name": "Review Referral #1 - Rule 21",
+                  "type": "ReviewReferralResponseJudiciary",
                   "task_state": "unassigned",
                   "task_system": "SELF",
                   "security_classification": "PUBLIC",
-                  "task_title": "Draft And Sign Judgment",
+                  "task_title": "Review Referral #1 - Rule 21",
                   "created_date": "{$VERIFIER-ZONED_DATETIME_TODAY}",
                   "due_date": "{$VERIFIER-ZONED_DATETIME_TODAY+28_WORKING_DAYS}",
                   "location_name": "Leeds",
@@ -113,7 +113,7 @@
                       "UnclaimAssign"
                     ]
                   },
-                  "description": "[Draft and Sign Judgement](/cases/case-details/${[CASE_REFERENCE]}/trigger/draftAndSignJudgement/draftAndSignJudgement1)",
+                  "description": "[Review the Referral](/cases/case-details/${[CASE_REFERENCE]}#Referrals)",
                   "role_category": "JUDICIAL",
                   "next_hearing_date": "{$VERIFIER-ZONED_DATETIME_TODAY+2_WORKING_DAYS}",
                   "minor_priority": 500,
