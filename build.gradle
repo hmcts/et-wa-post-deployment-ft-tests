@@ -228,12 +228,12 @@ dependencies {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
 
-  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.8'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.1.2'
 
   implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '3.1.4'
   implementation group: 'com.github.hmcts', name: 'core-case-data-store-client', version: '4.9.2'
 
-  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.16.0'
+  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.2'
 
   testImplementation group: 'com.github.hmcts', name: 'document-management-client', version: '7.0.1'
 
