@@ -21,7 +21,6 @@ java {
 }
 
 sourceSets {
-
   testUtils {
     java {
       compileClasspath += main.output
