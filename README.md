@@ -24,6 +24,15 @@ This way we can test user paths end to end.
     * AZURE_SERVICE_BUS_CONNECTION_STRING
     * AZURE_SERVICE_BUS_TOPIC_NAME
     * AZURE_SERVICE_BUS_MESSAGE_AUTHOR (The author of the message this can be used if you have filters set up in your subscription)
+* Set these environment variables in your bash env - actual values can be found in the cftLib implementation
+  * WA_SYSTEM_USERNAME
+  * WA_SYSTEM_PASSWORD
+  * ET_CASEOFFICER_USERNAME
+  * ET_CASEOFFICER_PASSWORD
+  * WA_CASEOFFICER_USERNAME=et.caseadmin@hmcts.net
+  * WA_CASEOFFICER_PASSWORD=System01
+  * AZURE_SERVICE_BUS_CCD_CASE_EVENTS_SUBSCRIPTION_NAME
+  * AZURE_SERVICE_BUS_MESSAGE_AUTHOR
 
 * Source your bash so that the Case Event Handler can use those env vars too.
 * Finally, set the following env vars in the Case Event Handler:
