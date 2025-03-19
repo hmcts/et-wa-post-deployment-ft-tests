@@ -3,10 +3,10 @@ appVersion: "1.0"
 description: A Helm chart for et-wa-post-deployment-ft-tests App
 name: et-wa-post-deployment-ft-tests
 home: https://github.com/hmcts/et-wa-post-deployment-ft-tests
-version: 0.0.2
+version: 0.0.3
 maintainers:
   - name: HMCTS ET team
 dependencies:
   - name: java
-    version: 4.1.1
+    version: 4.2.0
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
